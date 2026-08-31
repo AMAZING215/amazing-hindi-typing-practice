@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#172554"><title>AMAZING HINDI TYPING PRACTICE</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f1f5f9;color:#172033;font-family:Arial,"Noto Sans Devanagari",sans-serif}
+header{background:linear-gradient(135deg,#172554,#4338ca);color:white;padding:24px 16px 34px;border-radius:0 0 28px 28px}
+main{max-width:850px;margin:-18px auto 30px;padding:0 12px}.brand{font-size:23px;font-weight:900}.sub{opacity:.85;margin-top:5px}
+.card{background:white;border-radius:18px;padding:16px;margin:14px 0;box-shadow:0 6px 22px #00000010}
+select,button,textarea,input{font:inherit}select,input{width:100%;padding:12px;border:1px solid #dbe2ea;border-radius:12px;background:white}
+button{padding:12px 17px;border:0;border-radius:12px;background:#4338ca;color:white;font-weight:800}button.alt{background:#eef2ff;color:#312e81}
+.controls{display:grid;grid-template-columns:1fr 1fr;gap:10px}.controls button{grid-column:1/-1}
+.timer{text-align:center;font-size:42px;font-weight:900;margin:12px}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.stat{text-align:center;background:#f8fafc;border-radius:13px;padding:10px}.n{font-size:23px;font-weight:900}.l{font-size:11px;color:#64748b}
+.passage{font-size:20px;line-height:2;background:#f8fafc;padding:14px;border-radius:14px;max-height:300px;overflow:auto}
+textarea{width:100%;min-height:210px;border:2px solid #dbe2ea;border-radius:14px;padding:14px;font-size:20px;line-height:1.8;outline:0}
+textarea:focus{border-color:#4338ca}.actions{display:flex;gap:8px;flex-wrap:wrap}.result{display:none}.score{font-size:34px;font-weight:900;color:#4338ca}
+@media(max-width:600px){.brand{font-size:19px}.grid{grid-template-columns:repeat(2,1fr)}.controls{grid-template-columns:1fr}.controls button{grid-column:auto}.passage{font-size:18px}textarea{font-size:18px}}
+</style></head>
+<body>
+<header><div class="brand">🚀 AMAZING HINDI TYPING PRACTICE</div><div class="sub">Hindi Typing • Kruti Dev • Speed • Accuracy</div></header>
+<main>
+<div class="card">
+<div class="controls">
+<select id="passage"><option value="0">Passage 01 — प्रशासनिक व्यवस्था</option><option value="1">Passage 02 — न्यायालय एवं कार्यालय</option><option value="2">Passage 03 — नियमित अभ्यास</option></select>
+<select id="time"><option value="1">1 मिनट Demo</option><option value="5" selected>5 मिनट Test</option><option value="10">10 मिनट Test</option><option value="15">15 मिनट Test</option></select>
+<button id="start">▶ START TEST</button></div>
+<div class="timer" id="timer">05:00</div>
+<div class="grid">
+<div class="stat"><div class="n" id="wpm">0</div><div class="l">WPM</div></div>
+<div class="stat"><div class="n" id="acc">100%</div><div class="l">ACCURACY</div></div>
+<div class="stat"><div class="n" id="err">0</div><div class="l">INCORRECT</div></div>
+<div class="stat"><div class="n" id="miss">0</div><div class="l">MISSED</div></div>
+</div></div>
+<div class="card"><h3>📖 Passage</h3><div class="passage" id="text"></div></div>
+<div class="card"><h3>⌨️ Type Here</h3><textarea id="input" disabled placeholder="START TEST दबाएँ और यहाँ typing करें..."></textarea><div class="actions" style="margin-top:10px"><button class="alt" id="clear">CLEAR</button><button class="alt" id="finish">FINISH TEST</button></div></div>
+<div class="card result" id="result"><h2>🏆 TEST RESULT</h2><div class="score" id="score"></div><p id="details"></p><div id="wrong"></div></div>
+</main>
+<script>
+const passages=[
+"राजस्थान की प्रशासनिक व्यवस्था में कार्यालयों की भूमिका अत्यंत महत्वपूर्ण है। किसी भी कार्यालय में कार्य को समयबद्ध और व्यवस्थित ढंग से पूरा करने के लिए कर्मचारियों के बीच उचित समन्वय आवश्यक होता है। प्रत्येक अधिकारी और कर्मचारी को अपने दायित्वों का निर्वहन पूरी ईमानदारी और सावधानी से करना चाहिए। सरकारी कार्यवाही में पत्राचार, अभिलेखों का रख-रखाव, आदेशों का पालन तथा निर्धारित समय में रिपोर्ट प्रस्तुत करना महत्वपूर्ण माना जाता है। टंकण करते समय शब्दों की सही वर्तनी, उचित विराम चिह्न और वाक्य की संरचना पर ध्यान देना चाहिए।",
+"न्यायालयीन और प्रशासनिक कार्यालयों में दस्तावेजों की शुद्धता का विशेष ध्यान रखा जाता है। किसी आदेश, पत्र या रिपोर्ट को तैयार करते समय तथ्य, भाषा और विराम चिह्नों की सावधानीपूर्वक जाँच आवश्यक है। कार्यालय में प्राप्त प्रत्येक पत्र को नियमानुसार दर्ज किया जाता है और संबंधित अधिकारी के समक्ष प्रस्तुत किया जाता है। समय पर कार्यवाही होने से प्रशासनिक कार्य सुचारु रूप से चलता है और आम नागरिकों को आवश्यक सुविधा प्राप्त होती है।",
+"नियमित अभ्यास से टंकण की गति, एकाग्रता और आत्मविश्वास में निरंतर सुधार किया जा सकता है। अभ्यास करते समय केवल गति बढ़ाने पर ध्यान नहीं देना चाहिए, बल्कि शुद्धता को भी प्राथमिकता देनी चाहिए। पहले धीरे और सही टाइप करें, फिर धीरे-धीरे अपनी गति बढ़ाएँ। प्रतिदिन निश्चित समय तक अभ्यास करने से उंगलियों की गति बेहतर होती है और सामान्य गलतियाँ कम होती जाती हैं।"
+];
+const $=x=>document.getElementById(x);let target="",running=false,left=300,total=300,startAt=0,clock;
+function ws(s){return s.trim()?s.trim().split(/\s+/):[]}function fmt(x){return String(Math.floor(x/60)).padStart(2,"0")+":"+String(x%60).padStart(2,"0")}
+function load(){target=passages[+$("passage").value];$("text").textContent=target;left=+$("time").value*60;total=left;$("timer").textContent=fmt(left)}load();
+$("passage").onchange=()=>{if(!running)load()};$("time").onchange=()=>{if(!running)load()};
+function analyze(){let a=ws($("input").value),b=ws(target),bad=0;a.forEach((x,i)=>{if(x!==b[i])bad++});let miss=Math.max(0,b.length-a.length),acc=a.length?Math.max(0,(a.length-bad)/a.length*100):100,mins=Math.max(.01,(Date.now()-startAt)/60000);$("wpm").textContent=Math.round(a.length/mins);$("acc").textContent=acc.toFixed(1)+"%";$("err").textContent=bad;$("miss").textContent=miss;return{a,b,bad,miss,acc,wpm:a.length/mins}}
+function start(){clearInterval(clock);running=true;left=total=+$("time").value*60;startAt=Date.now();$("timer").textContent=fmt(left);$("input").disabled=false;$("input").value="";$("result").style.display="none";$("input").focus();clock=setInterval(()=>{left--; $("timer").textContent=fmt(left);analyze();if(left<=0)finish()},1000)}
+function finish(){if(!running)return;running=false;clearInterval(clock);$("input").disabled=true;let r=analyze(),marks=Math.min(100,r.acc);$("score").textContent=marks.toFixed(1)+" / 100";$("details").innerHTML=`Total Words: <b>${r.b.length}</b><br>Typed Words: <b>${r.a.length}</b><br>Missed Words: <b>${r.miss}</b><br>Incorrect Words: <b>${r.bad}</b><br>Speed: <b>${r.wpm.toFixed(1)} WPM</b><br>Accuracy: <b>${r.acc.toFixed(1)}%</b>`;let e=[];r.a.forEach((x,i)=>{if(x!==r.b[i])e.push((i+1)+". "+x+" → "+(r.b[i]||"—"))});$("wrong").innerHTML=e.length?"<p><b>❌ गलतियाँ</b></p>"+e.slice(0,50).join("<br>"):"<p>✅ बहुत बढ़िया! कोई incorrect word नहीं।</p>";$("result").style.display="block";$("result").scrollIntoView({behavior:"smooth"})}
+$("start").onclick=start;$("finish").onclick=finish;$("clear").onclick=()=>{$("input").value="";if(running)analyze()};
+</script></body></html>
