@@ -3,20 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>High Court Typing Examination Engine</title>
+    <title>High Court Kruti Dev Typing Engine</title>
     
     <style>
+        /* Embedded Kruti Dev 010 Fonts (Offline Local & High-Speed Online CDNs) */
+        @font-face {
+            font-family: 'Kruti Dev 010';
+            src: local('Kruti Dev 010'), local('Krutidev 010'), local('KrutiDev010'),
+                 url('https://cdn.jsdelivr.net/gh/Shri-Ram-Kumawat/fonts@main/Kruti_Dev_010.ttf') format('truetype'),
+                 url('https://raw.githubusercontent.com/Shri-Ram-Kumawat/fonts/main/Kruti_Dev_010.ttf') format('truetype'),
+                 url('https://fonts.cdnfonts.com/s/72886/Kruti_Dev_010.woff') format('woff');
+            font-display: block;
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, 'Noto Sans Devanagari', 'Mangal', Arial, sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
 
         :root {
-            --primary: #155724;
-            --primary-btn: #28a745;
+            --court-primary: #155724;
+            --court-red: #b91c1c;
             --border-col: #ced4da;
             --bg-page: #f0f2f5;
         }
@@ -27,12 +36,20 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            user-select: none;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+        }
+
+        .kruti-font {
+            font-family: 'Kruti Dev 010', 'Krutidev 010', 'KrutiDev010', sans-serif !important;
+            font-size: 22px !important;
+            letter-spacing: 0.6px;
         }
 
         header {
             background: #ffffff;
-            border-bottom: 2px solid var(--primary);
-            padding: 10px 16px;
+            border-bottom: 2px solid var(--court-primary);
+            padding: 8px 16px;
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
@@ -44,20 +61,30 @@
         .brand-title {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             flex-wrap: wrap;
         }
 
         .brand-title h1 {
-            font-size: 19px;
-            color: var(--primary);
+            font-size: 18px;
+            color: var(--court-primary);
             font-weight: 700;
+        }
+
+        .score-header-pill {
+            background: #fef3c7;
+            color: #b45309;
+            border: 1px solid #fde68a;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 800;
         }
 
         .btn-link-eff {
             background: #0d6efd;
             color: #ffffff;
-            padding: 6px 12px;
+            padding: 5px 12px;
             border-radius: 4px;
             text-decoration: none;
             font-weight: 700;
@@ -91,25 +118,45 @@
             outline: none;
         }
 
+        select:disabled, button:disabled {
+            background: #e9ecef;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
         .btn-start {
-            background-color: var(--primary-btn);
+            background-color: #28a745;
+            color: white;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+            min-width: 95px;
+        }
+
+        .btn-submit-active {
+            background-color: #dc3545 !important;
+            color: white !important;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.85; }
+            100% { opacity: 1; }
+        }
+
+        .btn-custom {
+            background: #4f46e5;
             color: white;
             border: none;
             font-weight: 600;
             cursor: pointer;
         }
 
-        .btn-reset {
-            background-color: #6c757d;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-
         .timer-box {
             font-size: 17px;
-            font-weight: 700;
-            color: #d9534f;
+            font-weight: 800;
+            color: var(--court-red);
             background: #fff3cd;
             padding: 4px 10px;
             border-radius: 4px;
@@ -120,18 +167,18 @@
 
         .workspace {
             flex: 1;
-            padding: 12px;
-            max-width: 1200px;
+            padding: 10px 14px;
+            max-width: 1240px;
             margin: 0 auto;
             width: 100%;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
         }
 
         .live-bar {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
+            grid-template-columns: repeat(6, 1fr);
             gap: 8px;
             background: #ffffff;
             padding: 8px 12px;
@@ -175,13 +222,12 @@
         }
 
         .matter-content {
-            height: 260px;
+            height: 250px;
             overflow-y: scroll;
             padding: 14px 18px;
-            line-height: 2.1;
+            line-height: 2.2;
             background: #fafbfc;
             user-select: none;
-            font-size: 20px;
             color: #111827;
             scrollbar-width: thin;
         }
@@ -195,9 +241,14 @@
             resize: none;
             background: #ffffff;
             overflow-y: scroll;
-            font-size: 20px;
             color: #111827;
             scrollbar-width: thin;
+            user-select: text;
+        }
+
+        .typing-input:disabled {
+            background: #f8f9fa;
+            cursor: not-allowed;
         }
 
         .word {
@@ -209,10 +260,11 @@
             border: none !important;
         }
 
+        /* Result Modal */
         .modal-shade {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.65);
+            background: rgba(0,0,0,0.7);
             display: none;
             align-items: center;
             justify-content: center;
@@ -223,9 +275,9 @@
         .result-box {
             background: #fff;
             width: 100%;
-            max-width: 820px;
+            max-width: 840px;
             border-radius: 6px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.35);
             display: flex;
             flex-direction: column;
             max-height: 92vh;
@@ -248,12 +300,26 @@
             overflow-y: auto;
         }
 
-        .res-brand {
-            color: #155724;
-            font-size: 20px;
-            font-weight: bold;
+        .score-hero {
+            background: #ecfdf5;
+            border: 2px solid #10b981;
+            border-radius: 6px;
+            padding: 12px;
             text-align: center;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
+        }
+
+        .score-hero h2 {
+            font-size: 28px;
+            color: #065f46;
+            font-weight: 800;
+        }
+
+        .score-hero p {
+            font-size: 13px;
+            font-weight: 700;
+            color: #047857;
+            margin-top: 4px;
         }
 
         .sec-table {
@@ -295,34 +361,97 @@
             background: #fff;
             max-height: 180px;
             overflow-y: auto;
-            line-height: 1.9;
-            font-size: 18px;
+            line-height: 2.0;
         }
 
         .modal-bottom {
             padding: 10px 16px;
             border-top: 1px solid #dee2e6;
             display: flex;
-            justify-content: flex-end;
+            justify-content: space-between;
+            align-items: center;
             background: #f8f9fa;
         }
 
-        .btn-modal {
-            background: #007bff;
+        .btn-modal-close {
+            background: #6c757d;
             color: white;
             border: none;
-            padding: 6px 18px;
+            padding: 8px 18px;
             border-radius: 4px;
             font-weight: bold;
             cursor: pointer;
         }
+
+        .btn-modal-next {
+            background: #0d6efd;
+            color: white;
+            border: none;
+            padding: 8px 22px;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Custom Passage Dialog */
+        .custom-dialog {
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fff;
+            border-radius: 6px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            width: 90%;
+            max-width: 600px;
+            z-index: 15000;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .custom-dlg-head {
+            background: #4f46e5;
+            color: #fff;
+            padding: 10px 16px;
+            font-weight: 700;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .custom-dlg-body {
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .custom-dlg-body textarea {
+            width: 100%;
+            height: 180px;
+            padding: 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            font-size: 18px;
+            line-height: 1.6;
+            outline: none;
+        }
+
+        .custom-dlg-footer {
+            padding: 10px 16px;
+            border-top: 1px solid #cbd5e1;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            background: #f8fafc;
+        }
     </style>
 </head>
-<body>
+<body oncontextmenu="return false;" oncopy="return false;" oncut="return false;" onpaste="return false;">
 
     <header>
         <div class="brand-title">
-            <h1>High Court Typing Engine</h1>
+            <h1>High Court Typing Examination Engine (Kruti Dev 010)</h1>
+            <span class="score-header-pill" id="headerScorePill">Marks: 0.0 / 50</span>
             <a href="efficiency.html" class="btn-link-eff">Efficiency Test Par Jayein ➔</a>
         </div>
 
@@ -330,7 +459,7 @@
             <div class="ctl-group">
                 <label>Language:</label>
                 <select id="langSelect" onchange="switchLanguage()">
-                    <option value="hindi" selected>Hindi (हिंदी कोर्ट डिक्टेशन)</option>
+                    <option value="hindi" selected>Hindi (Kruti Dev 010)</option>
                     <option value="english">English (Legal)</option>
                 </select>
             </div>
@@ -338,6 +467,7 @@
             <div class="ctl-group">
                 <label>Passage:</label>
                 <select id="passageSelect" onchange="loadPassage()"></select>
+                <button class="btn-custom" id="btnAddCustom" onclick="openCustomPassageDialog()" title="Apna Naya Kruti Dev Matter Jodein">➕ Naya Matter</button>
             </div>
 
             <div class="ctl-group">
@@ -353,14 +483,14 @@
 
             <div class="timer-box" id="timer">10:00</div>
             <button class="btn-start" id="startBtn" onclick="toggleTest()">Start Test</button>
-            <button class="btn-reset" onclick="resetTest()">Reset</button>
         </div>
     </header>
 
     <div class="workspace">
         <div class="live-bar">
-            <div class="live-card"><small>Gross WPM</small><b id="liveGross">0.0</b></div>
-            <div class="live-card"><small>Net WPM</small><b id="liveNet">0.0</b></div>
+            <div class="live-card"><small>Marks (Out of 50)</small><b id="liveMarks" style="color:#059669;">0.0 / 50</b></div>
+            <div class="live-card"><small>Net Speed</small><b id="liveNet">0.0 WPM</b></div>
+            <div class="live-card"><small>Gross Speed</small><b id="liveGross">0.0 WPM</b></div>
             <div class="live-card"><small>Accuracy</small><b id="liveAcc">100%</b></div>
             <div class="live-card"><small>Backspace</small><b id="liveBack">0</b></div>
             <div class="live-card"><small>Words Typed</small><b id="liveWords">0</b></div>
@@ -368,37 +498,41 @@
 
         <div class="panel">
             <div class="panel-heading">
-                <span>Matter Box (Read Here) - Font Size 20px (Manual Scroll)</span>
-                <span>Highlight Disabled | Copy Protected</span>
+                <span>Matter Box (Read Here) - Pure Kruti Dev 010 (22px)</span>
+                <span>🔒 Strict Exam Mode | Copy Protected</span>
             </div>
-            <div id="matterBox" class="matter-content" 
-                 oncopy="return false;" oncut="return false;" onpaste="return false;" oncontextmenu="return false;">
-            </div>
+            <!-- Matter Box in Pure Kruti Dev 010 -->
+            <div id="matterBox" class="matter-content kruti-font"></div>
         </div>
 
         <div class="panel">
             <div class="panel-heading">
-                <span>Type Box (Type Here) - Font Size 20px</span>
-                <span>High Court Exam Layout</span>
+                <span>Type Box (Type Here) - Pure Kruti Dev 010</span>
+                <span>Type In Kruti Dev | 1:1 Pure Matching</span>
             </div>
+            <!-- Type Box in Pure Kruti Dev 010 -->
             <textarea 
                 id="typeArea" 
-                class="typing-input" 
-                placeholder="Yahan type karein..."
+                class="typing-input kruti-font" 
+                placeholder="Start Test par click karke typing shuru karein..."
                 autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+                disabled
             ></textarea>
         </div>
     </div>
 
-    <!-- Exam Scorecard Result Modal -->
+    <!-- EXAM RESULT SCORECARD MODAL -->
     <div class="modal-shade" id="resultModal">
         <div class="result-box">
             <div class="modal-bar">
-                <span>Skill Test Result Analysis</span>
-                <span style="cursor: pointer;" onclick="closeModal()">✕</span>
+                <span>Skill Test Result Analysis - High Court Kruti Dev Standard</span>
+                <span style="cursor: pointer;" onclick="closeModalAndPrepareNext()">✕</span>
             </div>
             <div class="modal-body">
-                <div class="res-brand">Skill Test Result Analysis</div>
+                <div class="score-hero">
+                    <h2 id="resMarksDisplay">Score: 0.0 / 50 Marks</h2>
+                    <p id="resMarksTag">High Court Evaluation: Speed Benchmark 55-60 WPM | 96%+ Acc = Full 50 Marks | 90% Acc = Deducted Marks</p>
+                </div>
 
                 <div class="sec-table">
                     <div class="sec-title">Typing Details</div>
@@ -427,33 +561,63 @@
 
                 <div class="sec-table">
                     <div class="sec-title">Comparison Text (Green = Correct, Blue = Typed [Original])</div>
-                    <div id="comparisonBox" class="cmp-area"></div>
+                    <div id="comparisonBox" class="cmp-area kruti-font"></div>
                 </div>
             </div>
             <div class="modal-bottom">
-                <button class="btn-modal" onclick="closeModal()">Close</button>
+                <button class="btn-modal-close" onclick="closeModalAndPrepareNext()">Close & Next Passage ➔</button>
+                <button class="btn-modal-next" onclick="closeModalAndPrepareNext()">Prepare Next Test</button>
             </div>
         </div>
     </div>
 
+    <!-- CUSTOM MATTER INPUT POPUP -->
+    <div class="custom-dialog" id="customDialog">
+        <div class="custom-dlg-head">
+            <span>Naya Matter Jodein (Kruti Dev / English)</span>
+            <span style="cursor:pointer;" onclick="closeCustomPassageDialog()">✕</span>
+        </div>
+        <div class="custom-dlg-body">
+            <input type="text" id="customTitle" placeholder="Matter Ka Naam (e.g. High Court Bail Dictation)" style="padding:8px; border:1px solid #cbd5e1; border-radius:4px; font-weight:bold;">
+            <textarea id="customMatterText" class="kruti-font" placeholder="Apna Kruti Dev ya English Court matter yahan paste karein..."></textarea>
+        </div>
+        <div class="custom-dlg-footer">
+            <button onclick="closeCustomPassageDialog()" style="background:#6c757d; color:#fff; border:none; padding:6px 14px; border-radius:4px; cursor:pointer;">Cancel</button>
+            <button onclick="saveCustomPassage()" style="background:#4f46e5; color:#fff; border:none; padding:6px 18px; border-radius:4px; font-weight:bold; cursor:pointer;">Save & Load Matter</button>
+        </div>
+    </div>
+
     <script>
-        const hindiPassages = [
-            "इन परिस्थितियों को ध्यान में रखते हुए प्रार्थी की जमानत स्वीकार किए जाने की प्रार्थना की गई। अपने तर्कों के समर्थन में विद्वान अधिवक्ता ने न्यायिक दृष्टांत प्रस्तुत किया। इसके विपरीत परिवादी पक्ष के विद्वान अधिवक्ता तथा लोक अभियोजक ने जमानत आवेदन का विरोध किया। उनका तर्क था कि अभियुक्त के विरुद्ध आरोप गंभीर प्रकृति के हैं अतः उसे जमानत का लाभ नहीं दिया जाना चाहिए। न्यायालय ने पत्रावली का अवलोकन किया। अभियोग पत्र के अवलोकन से स्पष्ट है कि मामले में अनुसंधान पूर्ण होकर चालान पेश हो चुका है। अतः विचारण में समय लगने की संभावना है।",
-            "विधि का यह सुस्थापित सिद्धांत है कि जमानत एक नियम है तथा जेल एक अपवाद है। अभियुक्त को विचारण के दौरान न्यायालय में उपस्थिति सुनिश्चित करने के उद्देश्य से ही अभिरक्षा में रखा जाता है। अभियोजन पक्ष द्वारा ऐसी कोई संभावना व्यक्त नहीं की गई है कि अभियुक्त जमानत पर रिहा होने के पश्चात गवाहों को प्रभावित करेगा या विधिक प्रक्रिया से भागने का प्रयास करेगा। इसलिए विचारण की समाप्ति तक उसे अभिरक्षा में रखा जाना उचित प्रतीत नहीं होता है।",
-            "प्रस्तुत दांडिक निगरानी अधीनस्थ न्यायालय के आदेश के विरुद्ध संस्थित की गई है। निगरानीकर्ता के विद्वान अधिवक्ता का कथन है कि अधीनस्थ न्यायालय ने विधि द्वारा स्थापित प्रक्रिया का पालन नहीं किया है। मामले के तथ्यों एवं परिस्थितियों पर उचित रूप से विचार किए बिना ही आवेदन खारिज कर दिया गया। अतः अधीनस्थ न्यायालय का आदेश अपास्त किए जाने योग्य है तथा निगरानीकर्ता की निगरानी स्वीकार की जावे।",
-            "भारतीय साक्ष्य अधिनियम की धारा 27 के तहत अभियुक्त के सूचना बयान के आधार पर की गई बरामदगी का विधिक महत्व है। यदि बरामदगी स्वतंत्र साक्षियों के समक्ष नियमानुसार नहीं की गई हो तो अभियोजन कथानक संदेहप्रद हो जाता है। इस मामले में मौके पर उपस्थित स्वतंत्र साक्षियों ने बरामदगी फर्द पर अपने हस्ताक्षर होने से इनकार किया है। ऐसी स्थिति में अभियुक्त को संदेह का लाभ दिया जाना न्यायोचित है।",
-            "न्यायालय के समक्ष विवादित दस्तावेज की विश्वसनीयता एक प्रमुख प्रश्न है। राजस्व अभिलेखों में किए गए इंद्राज विधिक रूप से मान्य हैं जब तक कि उनके विपरीत कोई ठोस साक्ष्य प्रस्तुत न किया जाए। विद्वान अधीनस्थ न्यायालय ने पत्रावली पर उपलब्ध मौखिक एवं दस्तावेजी साक्ष्य का सही विश्लेषण किया है। अतः आलोच्य निर्णय में किसी हस्तक्षेप की आवश्यकता नहीं है।"
+        // PURE KRUTI DEV 010 ENCODED LEGAL PASSAGES (High Court Exam Standard)
+        const defaultKrutiPassages = [
+            "bu ifjfLFkfr;ksa dks /;ku esa j[krs gq, izkFkhZ dh tekur Lohdkj fd, tkus dh izkFkZuk dh xbZA vius rdksZa ds leFkZu esa fo}ku vf/koDrk us U;kf;d n`\"Vkar izLrqr fd;kA blds foijhr ifjoknh i{k ds fo}ku vf/koDrk rFkk yksd vfHk;kstd us tekur vkosnu dk fojks/k fd;kA mudk rdZ Fkk fd vfHk;qDr ds fo:) vkjksi xaHkhj izd`fr ds gSa vr% mls tekur dk ykHk ugha fn;k tkuk pkfg,A U;k;ky; us i=koyh dk voyksdu fd;kA vfHk;ksx i= ds voyksdu ls Li\"V gS fd ekeys esa vuqla/kku iw.kZ gksdj pkyku is'k gks pqdk gSA vr% fopkj.k esa le; yxus dh laHkkouk gSA",
+            "fof/k dk ;g lqLFkkfir fl)kar gS fd tekur ,d fu;e gS rFkk tsy ,d viokn gSA vfHk;qDr dks fopkj.k ds nkSjku U;k;ky; esa mifLFkfr lqfuf'pr djus ds mn~ns'; ls gh vfHkj{kk esa j[kk tkrk gSA vfHk;kstu i{k }kjk ,slh dksbZ laHkkouk O;Dr ugha dh xbZ gS fd vfHk;qDr tekur ij fjgk gksus ds i'pkr~ xokgksa dks izHkkfor djsxk ;k fof/kd izfØ;k ls Hkkxus dk iz;kl djsxkSA blfy, fopkj.k dh lekfIr rd mls vfHkj{kk esa j[kk tkuk mfpr izrhr ugha gksrk gSA",
+            "izLrqr nkafMd fuxjkuh v/khuLFk U;k;ky; ds vkns'k ds fo:) lafLFkr dh xbZ gSA fuxjkuhdrkZ ds fo}ku vf/koDrk dk dFku gS fd v/khuLFk U;k;ky; us fof/k }kjk LFkkfir izfdz;k dk ikyu ugha fd;k gSA ekeys ds rF;ksa ,oa ifjfLFkfr;ksa ij mfpr :i ls fopkj fd, fcuk gh vkosnu [kkfjt dj fn;k x;kA vr% v/khuLFk U;k;ky; dk vkns'k vikLr fd, tkus ;ksX; gS rFkk fuxjkuhdrkZ dh fuxjkuh Lohdkj dh tkosA",
+            "Hkkjrh; lk{; vf/kfu;e dh /kkjk 27 ds rgr vfHk;qDr ds lwpuk c;ku ds vk/kkj ij dh xbZ cjkenxh dk fof/kd egRo gSA ;fn cjkenxh Lora= lkf{k;ksa ds le{k fu;ekuqsa kj ugha dh xbZ gks rks vfHk;kstu dFkkud lansgkLin gks tkrk gSA bl ekeys esa ekSds ij mifLFkr Lora= lkf{k;ksa us cjkenxh QnZ ij vius gLrk{kj gksus ls badkj fd;k gSA ,slh fLFkfr esa vfHk;qDr dks lansg dk ykHk fn;k tkuk U;k;ksfpr gSA",
+            "U;k;ky; ds le{k fookfnr nLrkost dh fo'oluh;rk ,d izeq[k iz'u gSA jkt Revenue Records vfHkys[kksa esa fd, x, bUnzkt fof/kd :i ls ekU; gSa tc rd fd muds foijhr dksbZ Bksl lk{; izLrqr u fd;k tk,A fo}ku v/khuLFk U;k;ky; us i=koyh ij miyC/k ekSf[kd ,oa nLrkosth lk{; dk lgh fo'ys\"k.k fd;k gSA vr% vkyksP; fu.kZ; esa fdlh gLr{ksi dh vko';drk ugha gSA"
         ];
 
-        const englishPassages = [
+        const defaultEnglishPassages = [
             "In these circumstances, taking into account all the facts and legal submissions placed before the court, the learned counsel for the petitioner prayed for grant of regular bail. In support of the arguments, reference was made to several authoritative judicial precedents of the Supreme Court of India. On the other hand, the learned Public Prosecutor strongly opposed the application on the ground of serious allegations of fraud and tampering with official government records.",
             "The law of evidence clearly provides that every relevant fact which connects directly or indirectly to the issue in controversy must be proved in accordance with the established principles of trial jurisprudence. The testimony of an eyewitness cannot be discarded merely on the grounds of minor contradictions, provided that the core substance of the case remains unshaken, reliable, and truthful throughout the proceedings."
         ];
 
         for (let i = 6; i <= 50; i++) {
-            hindiPassages.push("प्रकरण संख्या " + i + ": न्यायालय के समक्ष यह निवेदन किया गया है कि पत्रावली में उपलब्ध समस्त साक्ष्यों का विधिक विश्लेषण आवश्यक है। अभियुक्त की ओर से प्रस्तुत जमानत आवेदन पर दोनों पक्षों को सुना गया। मामले के समस्त तथ्यों को ध्यान में रखते हुए न्यायालय ने पत्रावली का पूर्ण अवलोकन कर निर्णय सुरक्षित रखा है।");
-            englishPassages.push("Passage " + i + ": It is submitted before the court that in matter number " + i + ", the documentary and oral evidence requires close scrutiny under the Indian Evidence Act. The bail application presented on behalf of the accused was heard at length and upon considering the record the court has reserved its order.");
+            defaultKrutiPassages.push("izdj.k la[;k " + i + ": U;k;ky; ds le{k ;g fuosnu fd;k x;k gS fd i=koyh esa miyC/k leLr lk{;ksa dk fof/kd fo'ys\"k.k vko';d gSA vfHk;qDr dh vksj ls izLrqr tekur vkosnu ij nksuksa i{kksa dks lquk x;kA ekeys ds leLr rF;ksa dks /;ku esa j[krs gq, U;k;ky; us i=koyh dk iw.kZ voyksdu dj fu.kZ; lqjf{kr j[kk gSA");
+            defaultEnglishPassages.push("Passage " + i + ": It is submitted before the court that in matter number " + i + ", the documentary and oral evidence requires close scrutiny under the Indian Evidence Act. The bail application presented on behalf of the accused was heard at length and upon considering the record the court has reserved its order.");
         }
+
+        let hindiPassages = [...defaultKrutiPassages];
+        let englishPassages = [...defaultEnglishPassages];
+
+        // Load saved custom passages from LocalStorage
+        try {
+            const savedCustom = JSON.parse(localStorage.getItem('hc_custom_kruti_passages') || '[]');
+            savedCustom.forEach(c => {
+                if (c.lang === 'hindi') hindiPassages.unshift(c.text);
+                else englishPassages.unshift(c.text);
+            });
+        } catch(e) {}
 
         let currentLang = 'hindi';
         let basePassageWords = [];
@@ -472,26 +636,41 @@
         const matterBox = document.getElementById('matterBox');
         const typeArea = document.getElementById('typeArea');
         const startBtn = document.getElementById('startBtn');
+        const btnAddCustom = document.getElementById('btnAddCustom');
 
         function populateDropdown() {
             passageSelect.innerHTML = '';
-            for (let i = 1; i <= 50; i++) {
+            const list = currentLang === 'hindi' ? hindiPassages : englishPassages;
+            list.forEach((p, idx) => {
                 let opt = document.createElement('option');
-                opt.value = i - 1;
-                opt.textContent = 'Passage ' + i;
+                opt.value = idx;
+                opt.textContent = 'Passage ' + (idx + 1) + (idx < 5 ? ' (Court Legal)' : '');
                 passageSelect.appendChild(opt);
-            }
+            });
         }
 
         function switchLanguage() {
             currentLang = langSelect.value;
+            if (currentLang === 'hindi') {
+                matterBox.className = 'matter-content kruti-font';
+                typeArea.className = 'typing-input kruti-font';
+                document.getElementById('comparisonBox').className = 'cmp-area kruti-font';
+            } else {
+                matterBox.className = 'matter-content';
+                typeArea.className = 'typing-input';
+                document.getElementById('comparisonBox').className = 'cmp-area';
+                matterBox.style.fontFamily = 'Times New Roman, serif';
+                typeArea.style.fontFamily = 'Times New Roman, serif';
+            }
+            populateDropdown();
             loadPassage();
         }
 
         function loadPassage() {
             resetTest();
             const index = parseInt(passageSelect.value) || 0;
-            const text = currentLang === 'hindi' ? hindiPassages[index] : englishPassages[index];
+            const textList = currentLang === 'hindi' ? hindiPassages : englishPassages;
+            const text = textList[index] || textList[0];
             basePassageWords = text.trim().split(/\s+/);
             
             passageWords = [];
@@ -503,23 +682,39 @@
             matterBox.innerHTML = passageWords.map(w => '<span class="word">' + w + '</span>').join(' ');
         }
 
+        // START / SUBMIT TOGGLE
         function toggleTest() {
-            if (isRunning) return;
-            isRunning = true;
-            typeArea.focus();
-            startBtn.textContent = "Running...";
-            startBtn.style.background = "#6c757d";
+            if (!isRunning) {
+                // START TEST
+                isRunning = true;
+                typeArea.disabled = false;
+                typeArea.value = '';
+                typeArea.focus();
 
-            testDuration = (parseInt(timeSelect.value) || 10) * 60;
-            timeLeft = testDuration;
-            updateTimerUI();
+                // LOCK ALL CONTROLS DURING RUNNING TEST
+                langSelect.disabled = true;
+                passageSelect.disabled = true;
+                timeSelect.disabled = true;
+                btnAddCustom.disabled = true;
 
-            timerInterval = setInterval(() => {
-                timeLeft--;
+                // CHANGE BUTTON TO RED 'SUBMIT TEST'
+                startBtn.textContent = "Submit Test";
+                startBtn.className = "btn-start btn-submit-active";
+
+                testDuration = (parseInt(timeSelect.value) || 10) * 60;
+                timeLeft = testDuration;
                 updateTimerUI();
-                calcLiveStats();
-                if (timeLeft <= 0) finishTest();
-            }, 1000);
+
+                timerInterval = setInterval(() => {
+                    timeLeft--;
+                    updateTimerUI();
+                    calcLiveStats();
+                    if (timeLeft <= 0) finishTest();
+                }, 1000);
+            } else {
+                // SUBMIT TEST MANUALLY
+                finishTest();
+            }
         }
 
         function updateTimerUI() {
@@ -532,8 +727,16 @@
             clearInterval(timerInterval);
             isRunning = false;
             typeArea.value = '';
+            typeArea.disabled = true;
+
+            // RE-ENABLE CONTROLS
+            langSelect.disabled = false;
+            passageSelect.disabled = false;
+            timeSelect.disabled = false;
+            btnAddCustom.disabled = false;
+
             startBtn.textContent = "Start Test";
-            startBtn.style.background = "#28a745";
+            startBtn.className = "btn-start";
             backspaceCount = 0;
             totalStrokes = 0;
 
@@ -542,15 +745,16 @@
             timeLeft = testDuration;
             updateTimerUI();
 
-            document.getElementById('liveGross').textContent = '0.0';
-            document.getElementById('liveNet').textContent = '0.0';
+            document.getElementById('liveGross').textContent = '0.0 WPM';
+            document.getElementById('liveNet').textContent = '0.0 WPM';
             document.getElementById('liveAcc').textContent = '100%';
             document.getElementById('liveBack').textContent = '0';
             document.getElementById('liveWords').textContent = '0';
+            document.getElementById('liveMarks').textContent = '0.0 / 50';
+            document.getElementById('headerScorePill').textContent = 'Marks: 0.0 / 50';
         }
 
         typeArea.addEventListener('keydown', (e) => {
-            if (!isRunning) toggleTest();
             if (e.key === 'Backspace') {
                 backspaceCount++;
                 document.getElementById('liveBack').textContent = backspaceCount;
@@ -563,67 +767,131 @@
             calcLiveStats();
         });
 
+        // 1:1 PURE EXACT MATCHING (Kruti Dev to Kruti Dev)
         function calcLiveStats() {
-            const typedWords = typeArea.value.trim().split(/\s+/).filter(Boolean);
-            const typedCount = typedWords.length;
+            const rawTypedWords = typeArea.value.trim().split(/\s+/).filter(Boolean);
+            const typedCount = rawTypedWords.length;
             document.getElementById('liveWords').textContent = typedCount;
 
-            const timeSpentMin = Math.max(1, testDuration - timeLeft) / 60;
+            const timeSpentMin = Math.max(0.1, (testDuration - timeLeft) / 60);
             let correct = 0;
-            typedWords.forEach((w, i) => {
-                if (w === passageWords[i]) correct++;
+
+            rawTypedWords.forEach((typedWord, i) => {
+                const originalWord = passageWords[i] || "";
+                // Direct exact match between Kruti Dev typed and Kruti Dev original
+                if (typedWord === originalWord) {
+                    correct++;
+                }
             });
 
-            const gross = (typedCount / timeSpentMin).toFixed(1);
-            const net = Math.max(0, (correct / timeSpentMin)).toFixed(1);
+            const grossWpm = (typedCount / timeSpentMin).toFixed(1);
+            const netWpm = Math.max(0, (correct / timeSpentMin)).toFixed(1);
             const acc = typedCount > 0 ? ((correct / typedCount) * 100).toFixed(1) : 100;
 
-            document.getElementById('liveGross').textContent = gross;
-            document.getElementById('liveNet').textContent = net;
+            // High Court Exact Dynamic Formula:
+            // 55-60 WPM benchmark & 96%+ accuracy = Full 50 Marks.
+            // 90% accuracy drops marks significantly.
+            const nWpm = parseFloat(netWpm);
+            const numAcc = parseFloat(acc);
+            const speedFactor = Math.min(1.0, Math.max(0.0, nWpm / 55.0));
+            
+            let accFactor = 0.0;
+            if (numAcc >= 96.0) {
+                accFactor = 1.0;
+            } else if (numAcc >= 90.0) {
+                accFactor = 0.70 + ((numAcc - 90.0) / 6.0) * 0.30;
+            } else if (numAcc >= 80.0) {
+                accFactor = 0.30 + ((numAcc - 80.0) / 10.0) * 0.40;
+            } else {
+                accFactor = Math.max(0.0, (numAcc - 70.0) / 10.0 * 0.30);
+            }
+
+            const marksOutOf50 = Math.min(50.0, Math.max(0.0, 50.0 * speedFactor * accFactor)).toFixed(1);
+
+            document.getElementById('liveGross').textContent = grossWpm + ' WPM';
+            document.getElementById('liveNet').textContent = netWpm + ' WPM';
             document.getElementById('liveAcc').textContent = acc + '%';
+            document.getElementById('liveMarks').textContent = marksOutOf50 + ' / 50';
+            document.getElementById('headerScorePill').textContent = 'Marks: ' + marksOutOf50 + ' / 50';
+
+            return { correct, typedCount, grossWpm, netWpm, acc, marksOutOf50, timeSpentMin };
         }
 
         function finishTest() {
             clearInterval(timerInterval);
             isRunning = false;
-            startBtn.textContent = "Completed";
+            typeArea.disabled = true;
 
-            const typedText = typeArea.value.trim();
-            const typedWords = typedText ? typedText.split(/\s+/) : [];
+            // RE-ENABLE CONTROLS
+            langSelect.disabled = false;
+            passageSelect.disabled = false;
+            timeSelect.disabled = false;
+            btnAddCustom.disabled = false;
+
+            startBtn.textContent = "Start Test";
+            startBtn.className = "btn-start";
+
+            const rawTypedWords = typeArea.value.trim().split(/\s+/).filter(Boolean);
+            const totalTyped = rawTypedWords.length;
+            const durationMin = ((testDuration - timeLeft) / 60) || (testDuration / 60);
+
             let correct = 0;
             let incorrect = 0;
             let cmpHtml = "";
 
-            const totalTyped = typedWords.length;
             for (let i = 0; i < totalTyped; i++) {
                 const oW = passageWords[i] || "";
-                const uW = typedWords[i] || "";
+                const uW = rawTypedWords[i] || "";
 
                 if (uW === oW) {
                     correct++;
                     cmpHtml += '<span style="color:#28a745; font-weight:bold;">' + oW + '</span> ';
                 } else {
                     incorrect++;
-                    cmpHtml += '<span style="color:#004085; font-weight:bold;">' + uW + '</span><span style="color:#dc3545; font-size:14px;">[' + oW + ']</span> ';
+                    cmpHtml += '<span style="color:#dc3545; font-weight:bold;">' + uW + '</span><span style="color:#6c757d; font-size:16px;">[' + oW + ']</span> ';
                 }
             }
 
-            const omitted = 0;
-            const durationMin = testDuration / 60;
             const grossWpm = (totalTyped / durationMin).toFixed(1);
             const netWpm = Math.max(0, (correct / durationMin)).toFixed(1);
             const acc = totalTyped > 0 ? ((correct / totalTyped) * 100).toFixed(1) : 0;
             const errRate = (100 - acc).toFixed(1);
 
-            const grossKdph = Math.round((typedText.length / durationMin) * 60);
+            const nWpm = parseFloat(netWpm);
+            const numAcc = parseFloat(acc);
+            const speedFactor = Math.min(1.0, Math.max(0.0, nWpm / 55.0));
+            let accFactor = 0.0;
+            if (numAcc >= 96.0) {
+                accFactor = 1.0;
+            } else if (numAcc >= 90.0) {
+                accFactor = 0.70 + ((numAcc - 90.0) / 6.0) * 0.30;
+            } else if (numAcc >= 80.0) {
+                accFactor = 0.30 + ((numAcc - 80.0) / 10.0) * 0.40;
+            } else {
+                accFactor = Math.max(0.0, (numAcc - 70.0) / 10.0 * 0.30);
+            }
+            const marksOutOf50 = Math.min(50.0, Math.max(0.0, 50.0 * speedFactor * accFactor)).toFixed(1);
+
+            const grossKdph = Math.round((typeArea.value.length / durationMin) * 60);
             const netKdph = Math.round(((correct * 5) / durationMin) * 60);
+
+            // Populate Result Dialog
+            document.getElementById('resMarksDisplay').textContent = 'Score: ' + marksOutOf50 + ' / 50 Marks';
+            const qualTag = document.getElementById('resMarksTag');
+            if (parseFloat(netWpm) >= 26.67 && parseFloat(acc) >= 90.0) {
+                qualTag.textContent = "Result: QUALIFIED (Passed High Court Standard)";
+                qualTag.style.color = "#047857";
+            } else {
+                qualTag.textContent = "Result: NOT QUALIFIED (Requires Minimum 26.67 WPM / 8000 KDPH & 90% Acc)";
+                qualTag.style.color = "#dc2626";
+            }
 
             document.getElementById('resDuration').textContent = ': ' + durationMin.toFixed(2) + ' min';
             document.getElementById('resTotalWords').textContent = ': ' + totalTyped;
             document.getElementById('resCorrectWords').textContent = ': ' + correct;
             document.getElementById('resIncorrectWords').textContent = ': ' + incorrect;
-            document.getElementById('resOmittedWords').textContent = ': ' + omitted;
-            document.getElementById('resKeystrokes').textContent = ': ' + typedText.length;
+            document.getElementById('resOmittedWords').textContent = ': 0';
+            document.getElementById('resKeystrokes').textContent = ': ' + typeArea.value.length;
 
             document.getElementById('resNetSpeed').textContent = ': ' + netWpm + ' WPM';
             document.getElementById('resNetKdph').textContent = ': ' + (netKdph/60).toFixed(1) + ' kpm (' + netKdph + ' kdph)';
@@ -637,8 +905,54 @@
             document.getElementById('resultModal').style.display = 'flex';
         }
 
-        function closeModal() {
+        // CLOSE RESULT & AUTOMATICALLY SWITCH TO NEXT PASSAGE
+        function closeModalAndPrepareNext() {
             document.getElementById('resultModal').style.display = 'none';
+
+            const currentIdx = parseInt(passageSelect.value) || 0;
+            const maxLen = currentLang === 'hindi' ? hindiPassages.length : englishPassages.length;
+            const nextIdx = (currentIdx + 1) % maxLen;
+
+            passageSelect.value = nextIdx;
+            loadPassage();
+        }
+
+        // CUSTOM MATTER POPUP LOGIC
+        function openCustomPassageDialog() {
+            document.getElementById('customDialog').style.display = 'flex';
+            document.getElementById('customMatterText').focus();
+        }
+
+        function closeCustomPassageDialog() {
+            document.getElementById('customDialog').style.display = 'none';
+        }
+
+        function saveCustomPassage() {
+            const title = document.getElementById('customTitle').value.trim() || ("Custom Passage " + (hindiPassages.length + 1));
+            const matter = document.getElementById('customMatterText').value.trim();
+
+            if (!matter) {
+                alert("Kripya pehle matter paste karein!");
+                return;
+            }
+
+            if (currentLang === 'hindi') {
+                hindiPassages.unshift(matter);
+            } else {
+                englishPassages.unshift(matter);
+            }
+
+            try {
+                const saved = JSON.parse(localStorage.getItem('hc_custom_kruti_passages') || '[]');
+                saved.push({ title: title, text: matter, lang: currentLang });
+                localStorage.setItem('hc_custom_kruti_passages', JSON.stringify(saved));
+            } catch(e) {}
+
+            populateDropdown();
+            passageSelect.value = 0;
+            loadPassage();
+            closeCustomPassageDialog();
+            alert("Naya Kruti Dev matter successfully save ho gaya aur load ho chuka hai!");
         }
 
         window.onload = function() {
