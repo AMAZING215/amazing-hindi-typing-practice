@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>High Court Kruti Dev Typing Examination Engine</title>
+    <title>High Court Kruti Dev Typing Engine</title>
     
     <style>
-        /* High-speed Offline & Online Embedded Kruti Dev 010 Fonts */
         @font-face {
             font-family: 'Kruti Dev 010';
             src: local('Kruti Dev 010'), local('Krutidev 010'), local('KrutiDev010'),
@@ -186,7 +185,6 @@
             border-bottom: 1px solid var(--border-col);
         }
 
-        /* Matter box: Tighter line-height (1.45), 8-10 lines comfortably visible, no large gap */
         .matter-content {
             height: 230px;
             overflow-y: scroll;
@@ -452,7 +450,6 @@
     </header>
 
     <div class="workspace">
-        <!-- Matter Box (Tighter line gap, 8-10 lines comfortably visible) -->
         <div class="panel">
             <div class="panel-heading">
                 <span>Matter Box (Read Here) - Pure Kruti Dev 010 | Strict Examination View</span>
@@ -461,7 +458,6 @@
             <div id="matterBox" class="matter-content kruti-font"></div>
         </div>
 
-        <!-- Type Box (Pure Kruti Dev 010, Live Stats hidden during test) -->
         <div class="panel">
             <div class="panel-heading">
                 <span>Type Box (Type Here) - Pure Kruti Dev 010 (Remington Layout)</span>
@@ -544,7 +540,6 @@
     </div>
 
     <script>
-        // 50 COMPLETELY DISTINCT HIGH COURT LEGAL PASSAGES IN PURE KRUTI DEV 010
         const defaultKrutiPassages = ["bu ifjfLFkfr;ksa dks /;ku esa j[krs gq, izkFkhZ dh tekur Lohdkj fd, tkus dh izkFkZuk dh xbZA vius rdksZa ds leFkZu esa fo}ku vf/koDrk us U;kf;d n`\"Vkar izLrqr fd;kA blds foijhr ifjoknh i{k ds fo}ku vf/koDrk rFkk yksd vfHk;kstd us tekur vkosnu dk fojks/k fd;kA mudk rdZ Fkk fd vfHk;qDr ds fo:) vkjksi xaHkhj izd`fr ds gSa vr% mls tekur dk ykHk ugha fn;k tkuk pkfg,A U;k;ky; us i=koyh dk voyksdu fd;kA vfHk;ksx i= ds voyksdu ls Li\"V gS fd ekeys esa vuqla/kku iw.kZ gksdj pkyku is'k gks pqdk gSA vr% fopkj.k esa le; yxus dh laHkkouk gSA", "fof/k dk ;g lqLFkkfir fl)kar gS fd tekur ,d fu;e gS rFkk tsy ,d viokn gSA vfHk;qDr dks fopkj.k ds nkSjku U;k;ky; esa mifLFkfr lqfuf'pr djus ds mn~ns'; ls gh vfHkj{kk esa j[kk tkrk gSA vfHk;kstu i{k }kjk ,slh dksbZ laHkkouk O;Dr ugha dh xbZ gS fd vfHk;qDr tekur ij fjgk gksus ds i'pkr~ xokgksa dks izHkkfor djsxk ;k fof/kd izfdz;k ls Hkkxus dk iz;kl djsxkA blfy, fopkj.k dh lekfIr rd mls vfHkj{kk esa j[kk tkuk mfpr izrhr ugha gksrk gSA", "izLrqr nkafMd fuxjkuh v/khuLFk U;k;ky; ds vkns'k ds fo:) lafLFkr dh xbZ gSA fuxjkuhdrkZ ds fo}ku vf/koDrk dk dFku gS fd v/khuLFk U;k;ky; us fof/k }kjk LFkkfir izfdz;k dk ikyu ugha fd;k gSA ekeys ds rF;ksa ,oa ifjfLFkfr;ksa ij mfpr :i ls fopkj fd, fcuk gh vkosnu [kkfjt dj fn;k x;kA vr% v/khuLFk U;k;ky; dk vkns'k vikLr fd, tkus ;ksX; gS rFkk fuxjkuhdrkZ dh fuxjkuh Lohdkj dh tkosA", "Hkkjrh; lk{; vf/kfu;e dh /kkjk 27 ds rgr vfHk;qDr ds lwpuk c;ku ds vk/kkj ij dh xbZ cjkenxh dk fof/kd egRo gSA ;fn cjkenxh Lora= lkf{k;ksa ds le{k fu;ekuqlkj ugha dh xbZ gks rks vfHk;kstu dFkkud lansgkLin gks tkrk gSA bl ekeys esa ekSds ij mifLFkr Lora= lkf{k;ksa us cjkenxh QnZ ij vius gLrk{kj gksus ls badkj fd;k gSA ,slh fLFkfr esa vfHk;qDr dks lansg dk ykHk fn;k tkuk U;k;ksfpr gSA", "U;k;ky; ds le{k fookfnr nLrkost dh fo'oluh;rk ,d izeq[k iz'u gSA jktLo vfHkys[kksa esa fd, x, bUnzkt fof/kd :i ls ekU; gSa tc rd fd muds foijhr dksbZ Bksl lk{; izLrqr u fd;k tk,A fo}ku v/khuLFk U;k;ky; us i=koyh ij miyC/k ekSf[kd ,oa nLrkosth lk{; dk lgh fo'ys\"k.k fd;k gSA vr% vkyksP; fu.kZ; esa fdlh gLr{ksi dh vko';drk ugha gSA", "izdze fof[kr vf/kfu;e dh /kkjk 138 ds vUrxZr ifjoknh us ;g ifjokn vfHk;qDr ds fo:) is'k fd;kA ifjoknh dk dFku gS fd vfHk;qDr us ?kjsyw vko';drk gsrq m/kkj jkf'k yh Fkh ftlds Hkqxrku isVs pSd tkjh fd;k x;k FkkA cSad }kjk [kkrs esa vi;kZIr jkf'k ds vk/kkj ij pSd vuknfjr dj fn;k x;kA fof/kd uksfVl fnykus ds ckotwn Hkh jkf'k vnk ugha dh xbZA", "eksVj okgu nq?kZVuk nkok vf/kdj.k ds le{k Dyse ;kfpdk izLrqr dh xbZA nq?kZVuk ds le; okgu pkyd }kjk okgu dks rst xfr o xQyr ls pykdj nq?kZVuk dkfjr dh xbZ ftlls e`rd dh ekSds ij gh e`R;q gks xbZA chek daiuh dh vksj ls ;g vkifRr yh xbZ fd okgu pkyd ds ikl oS/k ,oa izHkkoh Mªkbfoax ykblsal ugha FkkA", "gR;k ds bl izdj.k esa vfHk;kstu dk ekeyk iw.kZr% ifjfLFkfrtU; lk{; ij vk/kkfjr gSA ifjfLFkfr;ksa dh J`a[kyk bruh iw.kZ gksuh pkfg, fd vfHk;qDr dh funksZ\"krk dh dksbZ laHkkouk 'ks\"k u jgsA ek= vkf[kjh ckj lkFk ns[ks tkus ds vk/kkj ij gh fdlh O;fDr dks gR;k dk nks\"kh ugha Bgjk;k tk ldrk gSA", "izFke lwpuk fjiksVZ ntZ djokus esa gq, foyEc dk dksbZ larks\"ktud Li\"Vhdj.k vfHk;kstu i{k }kjk vfHkys[k ij ugha yk;k x;k gSA ?kVuk ds 24 ?kaVs ckn izFke lwpuk fjiksVZ ntZ djkuk ;g n'kkZrk gS fd ekeys esa lksp&fopkj djds jafj'ku >wBk eqdnek ntZ djok;k x;k gSA", "p'enhn xokg ds c;kuksa esa vkbZ fojks/kkHkklh ckrksa ls mldh fo'oluh;rk ij xgjk lansg mRiUu gksrk gSA ?kVuk ds le; ekSds ij ?kksj va/ksjk gksuk Lohdkj fd;k x;k gS rFkk jks'kuh dk dksbZ lk/ku miyC/k ugha FkkA ,slh fLFkfr esa vfHk;qDrx.k dh lgh igpku fd;k tkuk lafnX/k izrhr gksrk gSA", "izdj.k la[;k 11 (nkok izFke vihy)% nhokuh vihy esa vihykaV us v/khuLFk U;k;ky; ds fMdzh o QSlys dks pqukSrh nh gSA jftLVªh'kqnk cSukek dks jn~n djokus ckcr~ ;g okn lafLFkr fd;k x;k FkkA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 12 (nkafMd fopkj.k /kkjk 313)% vfHk;qDr us /kkjk 313 n.M izfdz;k lafgrk ds c;ku esa Lo;a dks funksZ\"k crk;k rFkk jafj'ku >wBk Qalk, tkus dk dFku fd;kA cpkodkjh lk{; esa nks xokgku ijhf{kr djok, x,A U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 13 (Hkk-na-la- /kkjk 420 o 406)% vfHk;qDr us ifjoknh dks fons'k Hkstus ds uke ij yk[kksa :i, dh /kks[kk/kM+h dhA jkf'k izkIr djus ds ckn u rks fons'k Hkstk x;k vkSj u gh jde okil ykSVkbZ xbZA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 14 (LFkk;h fu\"ks/kkKk okn)% oknh us vius dCts o LokfeRo dh Hkwfe ij izfroknhx.k }kjk voS/k :i ls gLr{ksi djus ls jksdus gsrq LFkk;h fu\"ks/kkKk dk nkok is'k fd;k gSA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 15 (eksVj okgu vf/kfu;e /kkjk 166)% Dyse ;kfpdk esa nq?kZVuk esa vkbZ LFkk;h fodykaxrk ds vk/kkj ij {kfriwfrZ jkf'k fnykus dk fuosnu fd;k x;kA fpfdRld us 40 izfr'kr fodykaxrk izek.ki= tkjh fd;kA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 16 (iksdls vf/kfu;e)% ihfM+rk ds c;ku /kkjk 164 n.M izfdz;k lafgrk ds rgr fyfic) fd, x,A fpfdRlh; tkap esa fdlh ckgjh pksV dh iqf\"V ugha gqbZ gS rFkk vk;q izek.ki= fookfnr gSA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 17 (vkcdkjh vf/kfu;e)% vfHk;qDr ds dCts ls voS/k ns'kh 'kjkc ds 50 ioZs cjken fd, tkuk crk;k x;k gSA tIrh ds le; dksbZ Lora= xokg ekSds ij 'kkfey ugha fd;k x;kA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 18 (vkElZ ,DV /kkjk 3@25)% vfHk;qDr ds dCts ls ,d voS/k ns'kh dV~Vk o ftank dkjrwl cjken gksuk vfHk;kstu i{k dk dFku gSA Qksjsafld tkap gsrq gfFk;kj Hkstus esa vR;f/kd foyEc gqvk gSA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 19 (Hkwfe vokIr vf/kfu;e)% jkT; ljdkj }kjk tu fgr esa lM+d fuekZ.k gsrq Hkwfe vokIr dh xbZ FkhA vokIr vf/kdkjh }kjk r; fd;k x;k eqvkotk cktkj nj ls cgqr de gksus ds dkj.k lanHkZ U;k;ky; esa Hkstk x;kA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 20 (nEifr fookn /kkjk 125)% iRuh us vius rFkk ukckfyx cPps ds Hkj.k&iks\"k.k gsrq vkosnu izLrqr fd;kA ifr dk dFku gS fd iRuh fcuk fdlh mfpr dkj.k ds vyx jg jgh gS rFkk Lo;a vftZr djus esa l{ke gSA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 21 (nkok izFke vihy)% nhokuh vihy esa vihykaV us v/khuLFk U;k;ky; ds fMdzh o QSlys dks pqukSrh nh gSA jftLVªh'kqnk cSukek dks jn~n djokus ckcr~ ;g okn lafLFkr fd;k x;k FkkA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 22 (nkafMd fopkj.k /kkjk 313)% vfHk;qDr us /kkjk 313 n.M izfdz;k lafgrk ds c;ku esa Lo;a dks funksZ\"k crk;k rFkk jafj'ku >wBk Qalk, tkus dk dFku fd;kA cpkodkjh lk{; esa nks xokgku ijhf{kr djok, x,A U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 23 (Hkk-na-la- /kkjk 420 o 406)% vfHk;qDr us ifjoknh dks fons'k Hkstus ds uke ij yk[kksa :i, dh /kks[kk/kM+h dhA jkf'k izkIr djus ds ckn u rks fons'k Hkstk x;k vkSj u gh jde okil ykSVkbZ xbZA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 24 (LFkk;h fu\"ks/kkKk okn)% oknh us vius dCts o LokfeRo dh Hkwfe ij izfroknhx.k }kjk voS/k :i ls gLr{ksi djus ls jksdus gsrq LFkk;h fu\"ks/kkKk dk nkok is'k fd;k gSA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 25 (eksVj okgu vf/kfu;e /kkjk 166)% Dyse ;kfpdk esa nq?kZVuk esa vkbZ LFkk;h fodykaxrk ds vk/kkj ij {kfriwfrZ jkf'k fnykus dk fuosnu fd;k x;kA fpfdRld us 40 izfr'kr fodykaxrk izek.ki= tkjh fd;kA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 26 (iksdls vf/kfu;e)% ihfM+rk ds c;ku /kkjk 164 n.M izfdz;k lafgrk ds rgr fyfic) fd, x,A fpfdRlh; tkap esa fdlh ckgjh pksV dh iqf\"V ugha gqbZ gS rFkk vk;q izek.ki= fookfnr gSA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 27 (vkcdkjh vf/kfu;e)% vfHk;qDr ds dCts ls voS/k ns'kh 'kjkc ds 50 ioZs cjken fd, tkuk crk;k x;k gSA tIrh ds le; dksbZ Lora= xokg ekSds ij 'kkfey ugha fd;k x;kA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 28 (vkElZ ,DV /kkjk 3@25)% vfHk;qDr ds dCts ls ,d voS/k ns'kh dV~Vk o ftank dkjrwl cjken gksuk vfHk;kstu i{k dk dFku gSA Qksjsafld tkap gsrq gfFk;kj Hkstus esa vR;f/kd foyEc gqvk gSA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 29 (Hkwfe vokIr vf/kfu;e)% jkT; ljdkj }kjk tu fgr esa lM+d fuekZ.k gsrq Hkwfe vokIr dh xbZ FkhA vokIr vf/kdkjh }kjk r; fd;k x;k eqvkotk cktkj nj ls cgqr de gksus ds dkj.k lanHkZ U;k;ky; esa Hkstk x;kA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 30 (nEifr fookn /kkjk 125)% iRuh us vius rFkk ukckfyx cPps ds Hkj.k&iks\"k.k gsrq vkosnu izLrqr fd;kA ifr dk dFku gS fd iRuh fcuk fdlh mfpr dkj.k ds vyx jg jgh gS rFkk Lo;a vftZr djus esa l{ke gSA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 31 (nkok izFke vihy)% nhokuh vihy esa vihykaV us v/khuLFk U;k;ky; ds fMdzh o QSlys dks pqukSrh nh gSA jftLVªh'kqnk cSukek dks jn~n djokus ckcr~ ;g okn lafLFkr fd;k x;k FkkA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 32 (nkafMd fopkj.k /kkjk 313)% vfHk;qDr us /kkjk 313 n.M izfdz;k lafgrk ds c;ku esa Lo;a dks funksZ\"k crk;k rFkk jafj'ku >wBk Qalk, tkus dk dFku fd;kA cpkodkjh lk{; esa nks xokgku ijhf{kr djok, x,A U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 33 (Hkk-na-la- /kkjk 420 o 406)% vfHk;qDr us ifjoknh dks fons'k Hkstus ds uke ij yk[kksa :i, dh /kks[kk/kM+h dhA jkf'k izkIr djus ds ckn u rks fons'k Hkstk x;k vkSj u gh jde okil ykSVkbZ xbZA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 34 (LFkk;h fu\"ks/kkKk okn)% oknh us vius dCts o LokfeRo dh Hkwfe ij izfroknhx.k }kjk voS/k :i ls gLr{ksi djus ls jksdus gsrq LFkk;h fu\"ks/kkKk dk nkok is'k fd;k gSA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 35 (eksVj okgu vf/kfu;e /kkjk 166)% Dyse ;kfpdk esa nq?kZVuk esa vkbZ LFkk;h fodykaxrk ds vk/kkj ij {kfriwfrZ jkf'k fnykus dk fuosnu fd;k x;kA fpfdRld us 40 izfr'kr fodykaxrk izek.ki= tkjh fd;kA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 36 (iksdls vf/kfu;e)% ihfM+rk ds c;ku /kkjk 164 n.M izfdz;k lafgrk ds rgr fyfic) fd, x,A fpfdRlh; tkap esa fdlh ckgjh pksV dh iqf\"V ugha gqbZ gS rFkk vk;q izek.ki= fookfnr gSA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 37 (vkcdkjh vf/kfu;e)% vfHk;qDr ds dCts ls voS/k ns'kh 'kjkc ds 50 ioZs cjken fd, tkuk crk;k x;k gSA tIrh ds le; dksbZ Lora= xokg ekSds ij 'kkfey ugha fd;k x;kA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 38 (vkElZ ,DV /kkjk 3@25)% vfHk;qDr ds dCts ls ,d voS/k ns'kh dV~Vk o ftank dkjrwl cjken gksuk vfHk;kstu i{k dk dFku gSA Qksjsafld tkap gsrq gfFk;kj Hkstus esa vR;f/kd foyEc gqvk gSA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 39 (Hkwfe vokIr vf/kfu;e)% jkT; ljdkj }kjk tu fgr esa lM+d fuekZ.k gsrq Hkwfe vokIr dh xbZ FkhA vokIr vf/kdkjh }kjk r; fd;k x;k eqvkotk cktkj nj ls cgqr de gksus ds dkj.k lanHkZ U;k;ky; esa Hkstk x;kA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 40 (nEifr fookn /kkjk 125)% iRuh us vius rFkk ukckfyx cPps ds Hkj.k&iks\"k.k gsrq vkosnu izLrqr fd;kA ifr dk dFku gS fd iRuh fcuk fdlh mfpr dkj.k ds vyx jg jgh gS rFkk Lo;a vftZr djus esa l{ke gSA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 41 (nkok izFke vihy)% nhokuh vihy esa vihykaV us v/khuLFk U;k;ky; ds fMdzh o QSlys dks pqukSrh nh gSA jftLVªh'kqnk cSukek dks jn~n djokus ckcr~ ;g okn lafLFkr fd;k x;k FkkA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 42 (nkafMd fopkj.k /kkjk 313)% vfHk;qDr us /kkjk 313 n.M izfdz;k lafgrk ds c;ku esa Lo;a dks funksZ\"k crk;k rFkk jafj'ku >wBk Qalk, tkus dk dFku fd;kA cpkodkjh lk{; esa nks xokgku ijhf{kr djok, x,A U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 43 (Hkk-na-la- /kkjk 420 o 406)% vfHk;qDr us ifjoknh dks fons'k Hkstus ds uke ij yk[kksa :i, dh /kks[kk/kM+h dhA jkf'k izkIr djus ds ckn u rks fons'k Hkstk x;k vkSj u gh jde okil ykSVkbZ xbZA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 44 (LFkk;h fu\"ks/kkKk okn)% oknh us vius dCts o LokfeRo dh Hkwfe ij izfroknhx.k }kjk voS/k :i ls gLr{ksi djus ls jksdus gsrq LFkk;h fu\"ks/kkKk dk nkok is'k fd;k gSA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 45 (eksVj okgu vf/kfu;e /kkjk 166)% Dyse ;kfpdk esa nq?kZVuk esa vkbZ LFkk;h fodykaxrk ds vk/kkj ij {kfriwfrZ jkf'k fnykus dk fuosnu fd;k x;kA fpfdRld us 40 izfr'kr fodykaxrk izek.ki= tkjh fd;kA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 46 (iksdls vf/kfu;e)% ihfM+rk ds c;ku /kkjk 164 n.M izfdz;k lafgrk ds rgr fyfic) fd, x,A fpfdRlh; tkap esa fdlh ckgjh pksV dh iqf\"V ugha gqbZ gS rFkk vk;q izek.ki= fookfnr gSA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 47 (vkcdkjh vf/kfu;e)% vfHk;qDr ds dCts ls voS/k ns'kh 'kjkc ds 50 ioZs cjken fd, tkuk crk;k x;k gSA tIrh ds le; dksbZ Lora= xokg ekSds ij 'kkfey ugha fd;k x;kA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 48 (vkElZ ,DV /kkjk 3@25)% vfHk;qDr ds dCts ls ,d voS/k ns'kh dV~Vk o ftank dkjrwl cjken gksuk vfHk;kstu i{k dk dFku gSA Qksjsafld tkap gsrq gfFk;kj Hkstus esa vR;f/kd foyEc gqvk gSA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 49 (Hkwfe vokIr vf/kfu;e)% jkT; ljdkj }kjk tu fgr esa lM+d fuekZ.k gsrq Hkwfe vokIr dh xbZ FkhA vokIr vf/kdkjh }kjk r; fd;k x;k eqvkotk cktkj nj ls cgqr de gksus ds dkj.k lanHkZ U;k;ky; esa Hkstk x;kA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 50 (nEifr fookn /kkjk 125)% iRuh us vius rFkk ukckfyx cPps ds Hkj.k&iks\"k.k gsrq vkosnu izLrqr fd;kA ifr dk dFku gS fd iRuh fcuk fdlh mfpr dkj.k ds vyx jg jgh gS rFkk Lo;a vftZr djus esa l{ke gSA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA"];
 
         const defaultEnglishPassages = [
@@ -621,7 +616,7 @@
             const text = textList[index] || textList[0];
             basePassageWords = text.trim().split(/\s+/);
             
-            // Unlimited typing buffer: repeats 40 times (over 3500+ words) so candidate never runs out
+            // Unlimited typing buffer
             passageWords = [];
             for (let r = 0; r < 40; r++) {
                 passageWords = passageWords.concat(basePassageWords);
@@ -638,13 +633,12 @@
                 typeArea.value = '';
                 typeArea.focus();
 
-                // LOCK ALL CONTROLS (No changing passage, time, or language during test)
+                // LOCK ALL CONTROLS
                 langSelect.disabled = true;
                 passageSelect.disabled = true;
                 timeSelect.disabled = true;
                 btnAddCustom.disabled = true;
 
-                // Red Submit button
                 startBtn.textContent = "Submit Test";
                 startBtn.className = "btn-start btn-submit-active";
 
@@ -698,17 +692,13 @@
                 const text = typeArea.value;
                 const pos = typeArea.selectionStart;
 
-                // Check if last character before cursor is a space (i.e. trying to erase previous word)
+                // Check if character before cursor is a space
                 if (pos > 0 && text.charAt(pos - 1) === ' ') {
                     e.preventDefault();
                     return false;
                 }
 
-                // Or if cursor is placed behind completed words, block editing
-                const textBeforeCursor = text.substring(0, pos);
-                const lastSpaceIndex = textBeforeCursor.lastIndexOf(' ');
-                
-                // If cursor is at the boundary of a space or selection spans into previous word
+                // If selection spans into previous word, block
                 if (typeArea.selectionStart !== typeArea.selectionEnd) {
                     const selectedText = text.substring(typeArea.selectionStart, typeArea.selectionEnd);
                     if (selectedText.includes(' ')) {
@@ -719,7 +709,6 @@
 
                 backspaceCount++;
             } else if (e.key === ' ') {
-                // Prevent multiple consecutive spaces if needed
                 const text = typeArea.value;
                 const pos = typeArea.selectionStart;
                 if (pos > 0 && text.charAt(pos - 1) === ' ') {
@@ -732,12 +721,6 @@
             }
         });
 
-        // Exact Marks Formula:
-        // Speed Benchmark: 60 WPM.
-        // 60+ WPM & 95%+ Acc -> 50 / 50 Marks
-        // 60 WPM & 90% Acc -> ~45 Marks (small realistic deduction)
-        // 60 WPM & 85% Acc -> ~42-43 Marks
-        // 59 WPM & 95%+ Acc -> ~49.1 Marks
         function calculateHighCourtMarks(netSpeed, accuracy) {
             let speedScore = 0;
             if (netSpeed >= 60) {
@@ -750,10 +733,8 @@
             if (accuracy >= 95.0) {
                 accFactor = 1.0;
             } else if (accuracy >= 90.0) {
-                // 90% to 95% -> accFactor from 0.90 to 1.0 (at 90% drops to 45 marks)
                 accFactor = 0.90 + ((accuracy - 90.0) / 5.0) * 0.10;
             } else if (accuracy >= 80.0) {
-                // 80% to 90% -> accFactor from 0.82 to 0.90 (at 85% drops to ~43 marks)
                 accFactor = 0.82 + ((accuracy - 80.0) / 10.0) * 0.08;
             } else {
                 accFactor = Math.max(0.0, accuracy / 100.0);
@@ -766,45 +747,65 @@
             return finalMarks.toFixed(1);
         }
 
+        // Multi-Word Phrase Anchor Alignment Engine (Prevents line-shift mismatch)
+        function alignWordsWithPhraseAnchor(original, typed) {
+            let origIdx = 0;
+            let typedIdx = 0;
+            const alignments = [];
+            const PHRASE_LEN = 4; // Resync anchor threshold: 4-5 continuous words
 
-        function alignWords(original, typed) {
-            const n = original.length;
-            const m = typed.length;
-            // DP table
-            const dp = [];
-            for (let i = 0; i <= n; i++) {
-                dp[i] = new Uint16Array(m + 1);
-            }
+            while (typedIdx < typed.length) {
+                // 1. Direct Word Match
+                if (origIdx < original.length && typed[typedIdx] === original[origIdx]) {
+                    alignments.push({ type: 'MATCH', orig: original[origIdx], user: typed[typedIdx] });
+                    origIdx++;
+                    typedIdx++;
+                    continue;
+                }
 
-            for (let i = 0; i < n; i++) {
-                for (let j = 0; j < m; j++) {
-                    if (original[i] === typed[j]) {
-                        dp[i + 1][j + 1] = dp[i][j] + 1;
-                    } else {
-                        dp[i + 1][j + 1] = Math.max(dp[i][j + 1], dp[i + 1][j]);
+                // 2. Check if candidate skipped words/lines by searching a 4-word sequence ahead
+                let jumpFound = false;
+                let bestOrigJump = -1;
+
+                for (let lookAhead = origIdx + 1; lookAhead < Math.min(original.length, origIdx + 70); lookAhead++) {
+                    let matches = 0;
+                    for (let k = 0; k < PHRASE_LEN; k++) {
+                        if (lookAhead + k < original.length && typedIdx + k < typed.length) {
+                            if (original[lookAhead + k] === typed[typedIdx + k]) {
+                                matches++;
+                            }
+                        }
+                    }
+
+                    if (matches >= PHRASE_LEN) {
+                        bestOrigJump = lookAhead;
+                        jumpFound = true;
+                        break;
                     }
                 }
-            }
 
-            // Backtrack
-            let i = n, j = m;
-            const alignment = [];
-            while (i > 0 || j > 0) {
-                if (i > 0 && j > 0 && original[i - 1] === typed[j - 1]) {
-                    alignment.push({ type: 'MATCH', orig: original[i - 1], user: typed[j - 1] });
-                    i--;
-                    j--;
-                } else if (j > 0 && (i === 0 || dp[i][j - 1] >= dp[i - 1][j])) {
-                    alignment.push({ type: 'WRONG', orig: (i > 0 ? original[i - 1] : ''), user: typed[j - 1] });
-                    j--;
+                if (jumpFound) {
+                    // Mark skipped words in between as SKIPPED
+                    while (origIdx < bestOrigJump) {
+                        alignments.push({ type: 'SKIPPED', orig: original[origIdx], user: null });
+                        origIdx++;
+                    }
+                    alignments.push({ type: 'MATCH', orig: original[origIdx], user: typed[typedIdx] });
+                    origIdx++;
+                    typedIdx++;
                 } else {
-                    alignment.push({ type: 'SKIPPED', orig: original[i - 1], user: null });
-                    i--;
+                    // Single spelling error
+                    alignments.push({ 
+                        type: 'WRONG', 
+                        orig: (origIdx < original.length ? original[origIdx] : ''), 
+                        user: typed[typedIdx] 
+                    });
+                    origIdx++;
+                    typedIdx++;
                 }
             }
 
-            alignment.reverse();
-            return alignment;
+            return alignments;
         }
 
         function finishTest() {
@@ -824,11 +825,9 @@
             const totalTyped = rawTypedWords.length;
             const durationMin = ((testDuration - timeLeft) / 60) || (testDuration / 60);
 
-            // Dynamic Word Alignment Algorithm (Handles skipped words without index shift error)
-            // Limit original comparison window to relevant typed length + buffer
-            const compareSliceLen = Math.min(passageWords.length, Math.max(totalTyped + 20, Math.floor(totalTyped * 1.5)));
+            const compareSliceLen = Math.min(passageWords.length, Math.max(totalTyped + 30, Math.floor(totalTyped * 1.6)));
             const origSlice = passageWords.slice(0, compareSliceLen);
-            const alignments = alignWords(origSlice, rawTypedWords);
+            const alignments = alignWordsWithPhraseAnchor(origSlice, rawTypedWords);
 
             let correct = 0;
             let incorrect = 0;
@@ -841,11 +840,8 @@
                     correct++;
                     cmpHtml += '<span style="color:#2e7d32; font-weight:500;">' + item.orig + '</span> ';
                 } else if (item.type === 'SKIPPED') {
-                    // Only count as omitted if candidate has typed beyond this point
-                    if (k < alignments.length - 5) {
-                        omitted++;
-                        cmpHtml += '<span style="text-decoration:line-through; color:#94a3b8; margin:0 2px;">' + item.orig + '</span> ';
-                    }
+                    omitted++;
+                    cmpHtml += '<span style="text-decoration:line-through; color:#94a3b8; margin:0 3px;">' + item.orig + '</span> ';
                 } else if (item.type === 'WRONG') {
                     incorrect++;
                     if (item.orig) {
