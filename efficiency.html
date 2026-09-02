@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>High Court Efficiency Test Engine (Kruti Dev 010)</title>
+    
+    <style>
+        /* Web font fallback for Kruti Dev 010 */
+        @font-face {
+            font-family: 'Kruti Dev 010';
+            src: local('Kruti Dev 010'), local('Krutidev 010'),
+                 url('https://cdn.jsdelivr.net/gh/Shri-Ram-Kumawat/fonts@main/Kruti_Dev_010.ttf') format('truetype'),
+                 url('https://fonts.cdnfonts.com/s/72886/Kruti_Dev_010.woff') format('woff');
+            font-display: swap;
+        }
+
+        :root {
+            --primary: #0056b3;
+            --primary-dark: #003d82;
+            --border-col: #ced4da;
+            --ribbon-bg: #f3f4f6;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: #eaeff5;
+            color: #212529;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Top Bar */
+        header {
+            background: #ffffff;
+            border-bottom: 2px solid var(--primary);
+            padding: 8px 16px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.06);
+        }
+
+        .brand-title h1 {
+            font-size: 18px;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .brand-title span {
+            font-size: 11px;
+            color: #666;
+            display: block;
+        }
+
+        .test-controls {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .ctl-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .ctl-item label {
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        select, button {
+            padding: 5px 10px;
+            font-size: 13px;
+            border-radius: 4px;
+            border: 1px solid var(--border-col);
+            background: #fff;
+            outline: none;
+        }
+
+        .btn-submit {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-reset {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .timer-box {
+            font-size: 16px;
+            font-weight: 700;
+            color: #d9534f;
+            background: #fff3cd;
+            padding: 4px 10px;
+            border-radius: 4px;
+            border: 1px solid #ffeeba;
+            min-width: 65px;
+            text-align: center;
+        }
+
+        /* Main Screen Layout */
+        .workspace {
+            flex: 1;
+            padding: 10px;
+            max-width: 1300px;
+            margin: 0 auto;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 340px 1fr;
+            gap: 12px;
+        }
+
+        /* Left Side: Question Paper */
+        .questions-sidebar {
+            background: #ffffff;
+            border: 1px solid var(--border-col);
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .sidebar-header {
+            background: #e9ecef;
+            padding: 8px 12px;
+            font-size: 13px;
+            font-weight: 700;
+            color: #333;
+            border-bottom: 1px solid var(--border-col);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .questions-list {
+            padding: 12px;
+            overflow-y: auto;
+            flex: 1;
+            max-height: calc(100vh - 160px);
+        }
+
+        .q-item {
+            background: #fdfdfd;
+            border: 1px solid #e0e6ed;
+            border-left: 4px solid var(--primary);
+            padding: 8px 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .q-item b {
+            color: var(--primary);
+        }
+
+        /* Right Side: MS Word style Document Editor */
+        .editor-container {
+            background: #ffffff;
+            border: 1px solid var(--border-col);
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        /* MS Word Ribbon Toolbar */
+        .word-ribbon {
+            background: var(--ribbon-bg);
+            border-bottom: 1px solid #d0d7de;
+            padding: 6px 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            align-items: center;
+        }
+
+        .ribbon-group {
+            display: flex;
+            gap: 2px;
+            border-right: 1px solid #ccc;
+            padding-right: 6px;
+        }
+        .ribbon-group:last-child { border-right: none; }
+
+        .tool-btn {
+            background: #fff;
+            border: 1px solid #bbb;
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            min-width: 28px;
+            text-align: center;
+        }
+        .tool-btn:hover { background: #e2e6ea; }
+
+        /* Actual Document Area */
+        .doc-page-wrapper {
+            flex: 1;
+            background: #8e959c;
+            padding: 15px;
+            overflow-y: auto;
+            max-height: calc(100vh - 205px);
+            display: flex;
+            justify-content: center;
+        }
+
+        .word-page {
+            background: #ffffff;
+            width: 100%;
+            max-width: 820px;
+            min-height: 520px;
+            padding: 30px 40px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+            outline: none;
+            line-height: 1.8;
+            font-size: 18px;
+        }
+
+        .font-kruti {
+            font-family: 'Kruti Dev 010', 'KrutiDev010', sans-serif !important;
+            letter-spacing: 0.4px;
+        }
+
+        /* Table Styling inside doc */
+        .word-page table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+        }
+        .word-page th, .word-page td {
+            border: 1px solid #000;
+            padding: 6px 10px;
+            text-align: left;
+        }
+
+        /* Scorecard Modal */
+        .modal-shade {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.65);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 10px;
+        }
+
+        .scorecard {
+            background: #fff;
+            width: 100%;
+            max-width: 650px;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        }
+
+        .scorecard-header {
+            background: #f8f9fa;
+            padding: 10px 16px;
+            border-bottom: 1px solid #dee2e6;
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+        }
+
+        .scorecard-body {
+            padding: 16px;
+            max-height: 75vh;
+            overflow-y: auto;
+        }
+
+        .result-summary {
+            text-align: center;
+            padding: 10px;
+            background: #eafaf1;
+            border: 1px solid #28a745;
+            border-radius: 6px;
+            margin-bottom: 14px;
+        }
+        .result-summary h2 { color: #28a745; font-size: 24px; }
+
+        .eval-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+        .eval-table th, .eval-table td {
+            border: 1px solid #dee2e6;
+            padding: 8px;
+            text-align: left;
+        }
+        .eval-table th { background: #f8f9fa; }
+
+        .pass-badge { color: #28a745; font-weight: bold; }
+        .fail-badge { color: #dc3545; font-weight: bold; }
+
+        @media (max-width: 850px) {
+            .workspace {
+                grid-template-columns: 1fr;
+            }
+            .questions-list {
+                max-height: 180px;
+            }
+            .doc-page-wrapper {
+                max-height: 450px;
+                padding: 8px;
+            }
+            .word-page {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header & Test Settings -->
+    <header>
+        <div class="brand-title">
+            <h1>High Court Efficiency Test Engine</h1>
+            <span>50 Word Practice Files & Automated Evaluation</span>
+        </div>
+
+        <div class="test-controls">
+            <div class="ctl-item">
+                <label>Select Test File (1 to 50):</label>
+                <select id="fileSelect" onchange="loadTestFile()"></select>
+            </div>
+
+            <div class="ctl-item">
+                <label>Timer:</label>
+                <select id="timerSelect" onchange="resetTimer()">
+                    <option value="5">5 Min</option>
+                    <option value="10" selected>10 Min</option>
+                    <option value="15">15 Min</option>
+                </select>
+            </div>
+
+            <div class="timer-box" id="timeDisplay">10:00</div>
+            <button class="btn-submit" onclick="evaluateTest()">Submit Test</button>
+            <button class="btn-reset" onclick="resetCurrentTest()">Reset</button>
+        </div>
+    </header>
+
+    <!-- Workspace -->
+    <div class="workspace">
+        
+        <!-- Left: Questions Panel -->
+        <div class="questions-sidebar">
+            <div class="sidebar-header">
+                <span>Task Question Paper</span>
+                <span id="testNumberBadge">File: 1 / 50</span>
+            </div>
+            <div class="questions-list" id="questionsContainer">
+                <!-- 5 Specific Questions Generated Per File -->
+            </div>
+        </div>
+
+        <!-- Right: MS Word Editor Area -->
+        <div class="editor-container">
+            
+            <!-- MS Word Ribbon Toolbar -->
+            <div class="word-ribbon">
+                <!-- Font & Styles -->
+                <div class="ribbon-group">
+                    <button class="tool-btn" title="Bold" onclick="applyFormat('bold')"><b>B</b></button>
+                    <button class="tool-btn" title="Italic" onclick="applyFormat('italic')"><i>I</i></button>
+                    <button class="tool-btn" title="Underline" onclick="applyFormat('underline')"><u>U</u></button>
+                    <button class="tool-btn" title="Strikethrough" onclick="applyFormat('strikeThrough')"><s>S</s></button>
+                </div>
+
+                <!-- Font Size -->
+                <div class="ribbon-group">
+                    <select onchange="applyFontSize(this.value)" title="Font Size">
+                        <option value="3">14 pt</option>
+                        <option value="4" selected>16 pt</option>
+                        <option value="5">18 pt</option>
+                        <option value="6">24 pt</option>
+                        <option value="7">32 pt</option>
+                    </select>
+                </div>
+
+                <!-- Alignment -->
+                <div class="ribbon-group">
+                    <button class="tool-btn" title="Align Left" onclick="applyFormat('justifyLeft')">⇤</button>
+                    <button class="tool-btn" title="Center" onclick="applyFormat('justifyCenter')">≡</button>
+                    <button class="tool-btn" title="Align Right" onclick="applyFormat('justifyRight')">⇥</button>
+                    <button class="tool-btn" title="Justify" onclick="applyFormat('justifyFull')">≣</button>
+                </div>
+
+                <!-- Colors & Highlight -->
+                <div class="ribbon-group">
+                    <label title="Font Color" style="font-size:12px; display:flex; align-items:center; cursor:pointer;">
+                        A🎨 <input type="color" onchange="applyTextColor(this.value)" style="opacity:0; width:1px; height:1px;">
+                    </label>
+                    <label title="Highlight Color" style="font-size:12px; display:flex; align-items:center; cursor:pointer; margin-left:6px;">
+                        🖍 <input type="color" value="#ffff00" onchange="applyHighlight(this.value)" style="opacity:0; width:1px; height:1px;">
+                    </label>
+                </div>
+
+                <!-- Indentation / Lists -->
+                <div class="ribbon-group">
+                    <button class="tool-btn" title="Insert Numbered List" onclick="applyFormat('insertOrderedList')">1. 2.</button>
+                    <button class="tool-btn" title="Insert Bullet List" onclick="applyFormat('insertUnorderedList')">• •</button>
+                    <button class="tool-btn" title="Indent" onclick="applyFormat('indent')">➔|</button>
+                    <button class="tool-btn" title="Outdent" onclick="applyFormat('outdent')">|⬅</button>
+                </div>
+            </div>
+
+            <!-- Printable Word Document Canvas -->
+            <div class="doc-page-wrapper">
+                <div class="word-page font-kruti" id="docCanvas" contenteditable="true" spellcheck="false">
+                    <!-- Dynamic Passage / Table Content Loads Here -->
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Score & Evaluation Modal -->
+    <div class="modal-shade" id="scoreModal">
+        <div class="scorecard">
+            <div class="scorecard-header">
+                <span>Efficiency Test Result Card</span>
+                <span style="cursor: pointer;" onclick="closeModal()">✕</span>
+            </div>
+            <div class="scorecard-body">
+                <div class="result-summary">
+                    <h2 id="finalMarks">Score: 0 / 50</h2>
+                    <p id="finalStatus" style="font-weight: bold; margin-top: 4px;"></p>
+                </div>
+
+                <table class="eval-table">
+                    <thead>
+                        <tr>
+                            <th>Q.No.</th>
+                            <th>Question Task</th>
+                            <th>Marks</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="evalRows"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Data Engine: 50 Word Files with Separate Question Sets -->
+    <script>
+        // Shuddh Legal & Court Standard Passages for 50 Files (Kruti Dev 010)
+        const baseDocCorpus = [
+            {
+                p1: "bu ifjfLFkfr;ksa dks /;ku esa j[krs gq, izkFkhZ dh tekur Lohdkj fd, tkus dh izkFkZuk dh xbZA vius rdksZa ds leFkZu esa fo}ku vf/koDrk us U;kf;d n`Vkar izLrqr fd;kA",
+                p2: "blds foijhr ifjoknh i{k ds fo}ku vf/koDrk rFkk yksd vfHk;kstd us tekur vkosnu dk fojks/k fd;kA mudk rdZ Fkk fd vfHk;qDr ds fo:) vkjksi xaHkhj izd`fr ds gSa vr% mls tekur dk ykHk ugha fn;k tkuk pkfg,A",
+                p3: "U;k;ky; us i=koyh dk voyksdu fd;kA vfHk;ksx i= ds voyksdu ls Li" + "V gS fd ekeys esa vuqla/kku iw.kZ gksdj pkyku is'k gks pqdk gSA vr% fopkj.k esa le; yxus dh laHkkouk gSA",
+                table: [
+                    ["Øekad", "i{kdkj dk uke", "fookfnr jkf'k", "fu.kZ;"],
+                    ["1", "jkes'oj izlkn", "50,000", "Lohd`r"],
+                    ["2", "lqjs'k dqekj", "75,000", "[kkfjt"],
+                    ["3", "egs'k pUnz", "1,20,000", "fopkjk/khu"]
+                ]
+            },
+            {
+                p1: "fof/k dk ;g lqLFkkfir fl)kar gS fd tekur ,d fu;e gS rFkk tsy ,d viokn gSA vfHk;qDr dks fopkj.k ds nkSjku U;k;ky; esa mifLFkfr lqfuf'pr djus ds mn~ns'; ls gh vfHkj{kk esa j[kk tkrk gSA",
+                p2: "vfHk;kstu i{k }kjk ,slh dksbZ laHkkouk O;Dr ugha dh xbZ gS fd vfHk;qDr tekur ij fjgk gksus ds i'pkr~ xokgksa dks izHkkfor djsxk ;k fof/kd izfØ;k ls Hkkxus dk iz;kl djsxkSA",
+                p3: "blfy, fopkj.k dh lekfIr rd mls vfHkj{kk esa j[kk tkuk mfpr izrhr ugha gksrk gSA leLr rF;ksa dks ns[krs gq, tekur izkFkZuk i= Lohdkj fd;k tkrk gSA",
+                table: [
+                    ["la[;k", "vfHk;qDr dk uke", "/kkjk", "LFkku"],
+                    ["1", "jksfgr oekZ", "420 Hkk-na-la-", "t;iqj"],
+                    ["2", "fodkl eh.kk", "379 Hkk-na-la-", "dksVk"],
+                    ["3", "vfuy 'kekZ", "406 Hkk-na-la-", "tks/kiqj"]
+                ]
+            },
+            {
+                p1: "izLrqr nkafMd fuxjkuh v/khuLFk U;k;ky; ds vkns'k ds fo:) lafLFkr dh xbZ gSA fuxjkuhdrkZ ds fo}ku vf/koDrk dk dFku gS fd v/khuLFk U;k;ky; us fof/k }kjk LFkkfir izfdz;k dk ikyu ugha fd;k gSA",
+                p2: "ekeys ds rF;ksa ,oa ifjfLFkfr;ksa ij mfpr :i ls fopkj fd, fcuk gh vkosnu [kkfjt dj fn;k x;kA vr% v/khuLFk U;k;ky; dk vkns'k vikLr fd, tkus ;ksX; gS rFkk fuxjkuhdrkZ dh fuxjkuh Lohdkj dh tkosA",
+                p3: "U;k;ky; }kjk vfHkys[k dk voyksdu fd;k x;k rFkk nksuksa i{kksa dh cgl lquh xbZA fuxjkuhdrkZ }kjk izLrqr rdZ fof/k vuqlkj Lohdk;Z gSaA",
+                table: [
+                    ["Ø-la-", "U;k;ky; dk uke", "izdj.k la[;k", "o" + "kZ"],
+                    ["1", "vij ftyk U;k;k/kh'k", "102/2023", "2023"],
+                    ["2", "eq[; U;kf;d eftLVªsV", "45/2024", "2024"],
+                    ["3", "flfoy U;k;k/kh'k", "78/2022", "2022"]
+                ]
+            }
+        ];
+
+        // Question Rules Template Pool for High Court Efficiency
+        const questionBlueprints = [
+            [
+                { q: "izFke iSjkxzkQ (First Paragraph) dks Bold ,oa Italic dhft,A", target: "p1", rule: (el) => checkStyle(el, 'fontWeight', 'bold') || checkStyle(el, 'fontStyle', 'italic') },
+                { q: "f}rh; iSjkxzkQ (Second Paragraph) dk Alignment Right dhft,A", target: "p2", rule: (el) => checkAlign(el, 'right') },
+                { q: "r`rh; iSjkxzkQ dks Underline dhft,A", target: "p3", rule: (el) => checkStyle(el, 'textDecoration', 'underline') },
+                { q: "Table dh izFke iafDr (First Row) dk Background Color Yellow dhft,A", target: "tr1", rule: (el) => checkBg(el, ['yellow', 'rgb(255, 255, 0)']) },
+                { q: "nwljs iSjkxzkQ (Second Paragraph) dk Font Size 20pt (Size 5) dhft,A", target: "p2", rule: (el) => checkFontSize(el) }
+            ],
+            [
+                { q: "r`rh; iSjkxzkQ (Third Paragraph) dk Alignment Justify dhft,A", target: "p3", rule: (el) => checkAlign(el, 'justify') },
+                { q: "izFke iSjkxzkQ (First Paragraph) dk Text Color Red dhft,A", target: "p1", rule: (el) => checkColor(el, ['red', 'rgb(255, 0, 0)']) },
+                { q: "Table dh lHkh Rows dk Alignment Center dhft,A", target: "table", rule: (el) => checkAlign(el, 'center') },
+                { q: "f}rh; iSjkxzkQ (Second Paragraph) dks Strikethrough dhft,A", target: "p2", rule: (el) => checkStyle(el, 'textDecoration', 'line-through') },
+                { q: "Table ds f}rhy dkWye (Second Column) dks Bold dhft,A", target: "col2", rule: (el) => checkColBold(el) }
+            ],
+            [
+                { q: "izFke iSjkxzkQ (First Paragraph) dk Alignment Center dhft,A", target: "p1", rule: (el) => checkAlign(el, 'center') },
+                { q: "f}rh; iSjkxzkQ (Second Paragraph) dks Highlight (Yellow) dhft,A", target: "
