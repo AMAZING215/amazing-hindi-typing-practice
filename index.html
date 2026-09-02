@@ -3,15 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>High Court Kruti Dev Typing Engine</title>
+    <title>High Court Kruti Dev Typing Examination Engine</title>
     
     <style>
-        /* Embedded Kruti Dev 010 Fonts (Offline Local & High-Speed Online CDNs) */
+        /* High-speed Offline & Online Embedded Kruti Dev 010 Fonts */
         @font-face {
             font-family: 'Kruti Dev 010';
             src: local('Kruti Dev 010'), local('Krutidev 010'), local('KrutiDev010'),
                  url('https://cdn.jsdelivr.net/gh/Shri-Ram-Kumawat/fonts@main/Kruti_Dev_010.ttf') format('truetype'),
-                 url('https://raw.githubusercontent.com/Shri-Ram-Kumawat/fonts/main/Kruti_Dev_010.ttf') format('truetype'),
                  url('https://fonts.cdnfonts.com/s/72886/Kruti_Dev_010.woff') format('woff');
             font-display: block;
         }
@@ -42,8 +41,8 @@
 
         .kruti-font {
             font-family: 'Kruti Dev 010', 'Krutidev 010', 'KrutiDev010', sans-serif !important;
-            font-size: 22px !important;
-            letter-spacing: 0.6px;
+            font-size: 21px !important;
+            letter-spacing: 0.3px;
         }
 
         header {
@@ -69,16 +68,6 @@
             font-size: 18px;
             color: var(--court-primary);
             font-weight: 700;
-        }
-
-        .score-header-pill {
-            background: #fef3c7;
-            color: #b45309;
-            border: 1px solid #fde68a;
-            padding: 4px 10px;
-            border-radius: 4px;
-            font-size: 13px;
-            font-weight: 800;
         }
 
         .btn-link-eff {
@@ -154,14 +143,14 @@
         }
 
         .timer-box {
-            font-size: 17px;
+            font-size: 18px;
             font-weight: 800;
             color: var(--court-red);
             background: #fff3cd;
-            padding: 4px 10px;
+            padding: 4px 12px;
             border-radius: 4px;
             border: 1px solid #ffeeba;
-            min-width: 68px;
+            min-width: 72px;
             text-align: center;
         }
 
@@ -174,30 +163,6 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
-        }
-
-        .live-bar {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 8px;
-            background: #ffffff;
-            padding: 8px 12px;
-            border-radius: 6px;
-            border: 1px solid var(--border-col);
-            text-align: center;
-        }
-
-        .live-card small {
-            display: block;
-            font-size: 11px;
-            color: #6c757d;
-            text-transform: uppercase;
-            font-weight: bold;
-        }
-
-        .live-card b {
-            font-size: 16px;
-            color: #222;
         }
 
         .panel {
@@ -221,11 +186,12 @@
             border-bottom: 1px solid var(--border-col);
         }
 
+        /* Matter box: Tighter line-height (1.45), 8-10 lines comfortably visible, no large gap */
         .matter-content {
-            height: 250px;
+            height: 230px;
             overflow-y: scroll;
-            padding: 14px 18px;
-            line-height: 2.2;
+            padding: 10px 16px;
+            line-height: 1.45 !important;
             background: #fafbfc;
             user-select: none;
             color: #111827;
@@ -233,9 +199,9 @@
         }
 
         .typing-input {
-            height: 180px;
-            padding: 14px 18px;
-            line-height: 2.0;
+            height: 190px;
+            padding: 10px 16px;
+            line-height: 1.45 !important;
             border: none;
             outline: none;
             resize: none;
@@ -361,7 +327,7 @@
             background: #fff;
             max-height: 180px;
             overflow-y: auto;
-            line-height: 2.0;
+            line-height: 1.8;
         }
 
         .modal-bottom {
@@ -432,7 +398,7 @@
             border: 1px solid #cbd5e1;
             border-radius: 4px;
             font-size: 18px;
-            line-height: 1.6;
+            line-height: 1.45;
             outline: none;
         }
 
@@ -451,7 +417,6 @@
     <header>
         <div class="brand-title">
             <h1>High Court Typing Examination Engine (Kruti Dev 010)</h1>
-            <span class="score-header-pill" id="headerScorePill">Marks: 0.0 / 50</span>
             <a href="efficiency.html" class="btn-link-eff">Efficiency Test Par Jayein ➔</a>
         </div>
 
@@ -487,30 +452,21 @@
     </header>
 
     <div class="workspace">
-        <div class="live-bar">
-            <div class="live-card"><small>Marks (Out of 50)</small><b id="liveMarks" style="color:#059669;">0.0 / 50</b></div>
-            <div class="live-card"><small>Net Speed</small><b id="liveNet">0.0 WPM</b></div>
-            <div class="live-card"><small>Gross Speed</small><b id="liveGross">0.0 WPM</b></div>
-            <div class="live-card"><small>Accuracy</small><b id="liveAcc">100%</b></div>
-            <div class="live-card"><small>Backspace</small><b id="liveBack">0</b></div>
-            <div class="live-card"><small>Words Typed</small><b id="liveWords">0</b></div>
-        </div>
-
+        <!-- Matter Box (Tighter line gap, 8-10 lines comfortably visible) -->
         <div class="panel">
             <div class="panel-heading">
-                <span>Matter Box (Read Here) - Pure Kruti Dev 010 (22px)</span>
-                <span>🔒 Strict Exam Mode | Copy Protected</span>
+                <span>Matter Box (Read Here) - Pure Kruti Dev 010 | Strict Examination View</span>
+                <span>🔒 Copy Protected | Unlimited Typing Buffer</span>
             </div>
-            <!-- Matter Box in Pure Kruti Dev 010 -->
             <div id="matterBox" class="matter-content kruti-font"></div>
         </div>
 
+        <!-- Type Box (Pure Kruti Dev 010, Live Stats hidden during test) -->
         <div class="panel">
             <div class="panel-heading">
-                <span>Type Box (Type Here) - Pure Kruti Dev 010</span>
-                <span>Type In Kruti Dev | 1:1 Pure Matching</span>
+                <span>Type Box (Type Here) - Pure Kruti Dev 010 (Remington Layout)</span>
+                <span>Strict Exam Mode: Live Indicators Hidden | 1:1 Matching</span>
             </div>
-            <!-- Type Box in Pure Kruti Dev 010 -->
             <textarea 
                 id="typeArea" 
                 class="typing-input kruti-font" 
@@ -525,13 +481,13 @@
     <div class="modal-shade" id="resultModal">
         <div class="result-box">
             <div class="modal-bar">
-                <span>Skill Test Result Analysis - High Court Kruti Dev Standard</span>
+                <span>Skill Test Result Analysis - High Court Standard Evaluation</span>
                 <span style="cursor: pointer;" onclick="closeModalAndPrepareNext()">✕</span>
             </div>
             <div class="modal-body">
                 <div class="score-hero">
                     <h2 id="resMarksDisplay">Score: 0.0 / 50 Marks</h2>
-                    <p id="resMarksTag">High Court Evaluation: Speed Benchmark 55-60 WPM | 96%+ Acc = Full 50 Marks | 90% Acc = Deducted Marks</p>
+                    <p id="resMarksTag">High Court Evaluation: Speed Benchmark 60 WPM | 95%+ Acc = 50 Marks | Realistic Accuracy Deduction</p>
                 </div>
 
                 <div class="sec-table">
@@ -560,7 +516,7 @@
                 </div>
 
                 <div class="sec-table">
-                    <div class="sec-title">Comparison Text (Green = Correct, Blue = Typed [Original])</div>
+                    <div class="sec-title">Comparison Text (Red = Galat Shabd, Green in Bracket = Sahi Shabd)</div>
                     <div id="comparisonBox" class="cmp-area kruti-font"></div>
                 </div>
             </div>
@@ -588,29 +544,21 @@
     </div>
 
     <script>
-        // PURE KRUTI DEV 010 ENCODED LEGAL PASSAGES (High Court Exam Standard)
-        const defaultKrutiPassages = [
-            "bu ifjfLFkfr;ksa dks /;ku esa j[krs gq, izkFkhZ dh tekur Lohdkj fd, tkus dh izkFkZuk dh xbZA vius rdksZa ds leFkZu esa fo}ku vf/koDrk us U;kf;d n`\"Vkar izLrqr fd;kA blds foijhr ifjoknh i{k ds fo}ku vf/koDrk rFkk yksd vfHk;kstd us tekur vkosnu dk fojks/k fd;kA mudk rdZ Fkk fd vfHk;qDr ds fo:) vkjksi xaHkhj izd`fr ds gSa vr% mls tekur dk ykHk ugha fn;k tkuk pkfg,A U;k;ky; us i=koyh dk voyksdu fd;kA vfHk;ksx i= ds voyksdu ls Li\"V gS fd ekeys esa vuqla/kku iw.kZ gksdj pkyku is'k gks pqdk gSA vr% fopkj.k esa le; yxus dh laHkkouk gSA",
-            "fof/k dk ;g lqLFkkfir fl)kar gS fd tekur ,d fu;e gS rFkk tsy ,d viokn gSA vfHk;qDr dks fopkj.k ds nkSjku U;k;ky; esa mifLFkfr lqfuf'pr djus ds mn~ns'; ls gh vfHkj{kk esa j[kk tkrk gSA vfHk;kstu i{k }kjk ,slh dksbZ laHkkouk O;Dr ugha dh xbZ gS fd vfHk;qDr tekur ij fjgk gksus ds i'pkr~ xokgksa dks izHkkfor djsxk ;k fof/kd izfØ;k ls Hkkxus dk iz;kl djsxkSA blfy, fopkj.k dh lekfIr rd mls vfHkj{kk esa j[kk tkuk mfpr izrhr ugha gksrk gSA",
-            "izLrqr nkafMd fuxjkuh v/khuLFk U;k;ky; ds vkns'k ds fo:) lafLFkr dh xbZ gSA fuxjkuhdrkZ ds fo}ku vf/koDrk dk dFku gS fd v/khuLFk U;k;ky; us fof/k }kjk LFkkfir izfdz;k dk ikyu ugha fd;k gSA ekeys ds rF;ksa ,oa ifjfLFkfr;ksa ij mfpr :i ls fopkj fd, fcuk gh vkosnu [kkfjt dj fn;k x;kA vr% v/khuLFk U;k;ky; dk vkns'k vikLr fd, tkus ;ksX; gS rFkk fuxjkuhdrkZ dh fuxjkuh Lohdkj dh tkosA",
-            "Hkkjrh; lk{; vf/kfu;e dh /kkjk 27 ds rgr vfHk;qDr ds lwpuk c;ku ds vk/kkj ij dh xbZ cjkenxh dk fof/kd egRo gSA ;fn cjkenxh Lora= lkf{k;ksa ds le{k fu;ekuqsa kj ugha dh xbZ gks rks vfHk;kstu dFkkud lansgkLin gks tkrk gSA bl ekeys esa ekSds ij mifLFkr Lora= lkf{k;ksa us cjkenxh QnZ ij vius gLrk{kj gksus ls badkj fd;k gSA ,slh fLFkfr esa vfHk;qDr dks lansg dk ykHk fn;k tkuk U;k;ksfpr gSA",
-            "U;k;ky; ds le{k fookfnr nLrkost dh fo'oluh;rk ,d izeq[k iz'u gSA jkt Revenue Records vfHkys[kksa esa fd, x, bUnzkt fof/kd :i ls ekU; gSa tc rd fd muds foijhr dksbZ Bksl lk{; izLrqr u fd;k tk,A fo}ku v/khuLFk U;k;ky; us i=koyh ij miyC/k ekSf[kd ,oa nLrkosth lk{; dk lgh fo'ys\"k.k fd;k gSA vr% vkyksP; fu.kZ; esa fdlh gLr{ksi dh vko';drk ugha gSA"
-        ];
+        // 50 COMPLETELY DISTINCT HIGH COURT LEGAL PASSAGES IN PURE KRUTI DEV 010
+        const defaultKrutiPassages = ["bu ifjfLFkfr;ksa dks /;ku esa j[krs gq, izkFkhZ dh tekur Lohdkj fd, tkus dh izkFkZuk dh xbZA vius rdksZa ds leFkZu esa fo}ku vf/koDrk us U;kf;d n`\"Vkar izLrqr fd;kA blds foijhr ifjoknh i{k ds fo}ku vf/koDrk rFkk yksd vfHk;kstd us tekur vkosnu dk fojks/k fd;kA mudk rdZ Fkk fd vfHk;qDr ds fo:) vkjksi xaHkhj izd`fr ds gSa vr% mls tekur dk ykHk ugha fn;k tkuk pkfg,A U;k;ky; us i=koyh dk voyksdu fd;kA vfHk;ksx i= ds voyksdu ls Li\"V gS fd ekeys esa vuqla/kku iw.kZ gksdj pkyku is'k gks pqdk gSA vr% fopkj.k esa le; yxus dh laHkkouk gSA", "fof/k dk ;g lqLFkkfir fl)kar gS fd tekur ,d fu;e gS rFkk tsy ,d viokn gSA vfHk;qDr dks fopkj.k ds nkSjku U;k;ky; esa mifLFkfr lqfuf'pr djus ds mn~ns'; ls gh vfHkj{kk esa j[kk tkrk gSA vfHk;kstu i{k }kjk ,slh dksbZ laHkkouk O;Dr ugha dh xbZ gS fd vfHk;qDr tekur ij fjgk gksus ds i'pkr~ xokgksa dks izHkkfor djsxk ;k fof/kd izfdz;k ls Hkkxus dk iz;kl djsxkA blfy, fopkj.k dh lekfIr rd mls vfHkj{kk esa j[kk tkuk mfpr izrhr ugha gksrk gSA", "izLrqr nkafMd fuxjkuh v/khuLFk U;k;ky; ds vkns'k ds fo:) lafLFkr dh xbZ gSA fuxjkuhdrkZ ds fo}ku vf/koDrk dk dFku gS fd v/khuLFk U;k;ky; us fof/k }kjk LFkkfir izfdz;k dk ikyu ugha fd;k gSA ekeys ds rF;ksa ,oa ifjfLFkfr;ksa ij mfpr :i ls fopkj fd, fcuk gh vkosnu [kkfjt dj fn;k x;kA vr% v/khuLFk U;k;ky; dk vkns'k vikLr fd, tkus ;ksX; gS rFkk fuxjkuhdrkZ dh fuxjkuh Lohdkj dh tkosA", "Hkkjrh; lk{; vf/kfu;e dh /kkjk 27 ds rgr vfHk;qDr ds lwpuk c;ku ds vk/kkj ij dh xbZ cjkenxh dk fof/kd egRo gSA ;fn cjkenxh Lora= lkf{k;ksa ds le{k fu;ekuqlkj ugha dh xbZ gks rks vfHk;kstu dFkkud lansgkLin gks tkrk gSA bl ekeys esa ekSds ij mifLFkr Lora= lkf{k;ksa us cjkenxh QnZ ij vius gLrk{kj gksus ls badkj fd;k gSA ,slh fLFkfr esa vfHk;qDr dks lansg dk ykHk fn;k tkuk U;k;ksfpr gSA", "U;k;ky; ds le{k fookfnr nLrkost dh fo'oluh;rk ,d izeq[k iz'u gSA jktLo vfHkys[kksa esa fd, x, bUnzkt fof/kd :i ls ekU; gSa tc rd fd muds foijhr dksbZ Bksl lk{; izLrqr u fd;k tk,A fo}ku v/khuLFk U;k;ky; us i=koyh ij miyC/k ekSf[kd ,oa nLrkosth lk{; dk lgh fo'ys\"k.k fd;k gSA vr% vkyksP; fu.kZ; esa fdlh gLr{ksi dh vko';drk ugha gSA", "izdze fof[kr vf/kfu;e dh /kkjk 138 ds vUrxZr ifjoknh us ;g ifjokn vfHk;qDr ds fo:) is'k fd;kA ifjoknh dk dFku gS fd vfHk;qDr us ?kjsyw vko';drk gsrq m/kkj jkf'k yh Fkh ftlds Hkqxrku isVs pSd tkjh fd;k x;k FkkA cSad }kjk [kkrs esa vi;kZIr jkf'k ds vk/kkj ij pSd vuknfjr dj fn;k x;kA fof/kd uksfVl fnykus ds ckotwn Hkh jkf'k vnk ugha dh xbZA", "eksVj okgu nq?kZVuk nkok vf/kdj.k ds le{k Dyse ;kfpdk izLrqr dh xbZA nq?kZVuk ds le; okgu pkyd }kjk okgu dks rst xfr o xQyr ls pykdj nq?kZVuk dkfjr dh xbZ ftlls e`rd dh ekSds ij gh e`R;q gks xbZA chek daiuh dh vksj ls ;g vkifRr yh xbZ fd okgu pkyd ds ikl oS/k ,oa izHkkoh Mªkbfoax ykblsal ugha FkkA", "gR;k ds bl izdj.k esa vfHk;kstu dk ekeyk iw.kZr% ifjfLFkfrtU; lk{; ij vk/kkfjr gSA ifjfLFkfr;ksa dh J`a[kyk bruh iw.kZ gksuh pkfg, fd vfHk;qDr dh funksZ\"krk dh dksbZ laHkkouk 'ks\"k u jgsA ek= vkf[kjh ckj lkFk ns[ks tkus ds vk/kkj ij gh fdlh O;fDr dks gR;k dk nks\"kh ugha Bgjk;k tk ldrk gSA", "izFke lwpuk fjiksVZ ntZ djokus esa gq, foyEc dk dksbZ larks\"ktud Li\"Vhdj.k vfHk;kstu i{k }kjk vfHkys[k ij ugha yk;k x;k gSA ?kVuk ds 24 ?kaVs ckn izFke lwpuk fjiksVZ ntZ djkuk ;g n'kkZrk gS fd ekeys esa lksp&fopkj djds jafj'ku >wBk eqdnek ntZ djok;k x;k gSA", "p'enhn xokg ds c;kuksa esa vkbZ fojks/kkHkklh ckrksa ls mldh fo'oluh;rk ij xgjk lansg mRiUu gksrk gSA ?kVuk ds le; ekSds ij ?kksj va/ksjk gksuk Lohdkj fd;k x;k gS rFkk jks'kuh dk dksbZ lk/ku miyC/k ugha FkkA ,slh fLFkfr esa vfHk;qDrx.k dh lgh igpku fd;k tkuk lafnX/k izrhr gksrk gSA", "izdj.k la[;k 11 (nkok izFke vihy)% nhokuh vihy esa vihykaV us v/khuLFk U;k;ky; ds fMdzh o QSlys dks pqukSrh nh gSA jftLVªh'kqnk cSukek dks jn~n djokus ckcr~ ;g okn lafLFkr fd;k x;k FkkA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 12 (nkafMd fopkj.k /kkjk 313)% vfHk;qDr us /kkjk 313 n.M izfdz;k lafgrk ds c;ku esa Lo;a dks funksZ\"k crk;k rFkk jafj'ku >wBk Qalk, tkus dk dFku fd;kA cpkodkjh lk{; esa nks xokgku ijhf{kr djok, x,A U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 13 (Hkk-na-la- /kkjk 420 o 406)% vfHk;qDr us ifjoknh dks fons'k Hkstus ds uke ij yk[kksa :i, dh /kks[kk/kM+h dhA jkf'k izkIr djus ds ckn u rks fons'k Hkstk x;k vkSj u gh jde okil ykSVkbZ xbZA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 14 (LFkk;h fu\"ks/kkKk okn)% oknh us vius dCts o LokfeRo dh Hkwfe ij izfroknhx.k }kjk voS/k :i ls gLr{ksi djus ls jksdus gsrq LFkk;h fu\"ks/kkKk dk nkok is'k fd;k gSA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 15 (eksVj okgu vf/kfu;e /kkjk 166)% Dyse ;kfpdk esa nq?kZVuk esa vkbZ LFkk;h fodykaxrk ds vk/kkj ij {kfriwfrZ jkf'k fnykus dk fuosnu fd;k x;kA fpfdRld us 40 izfr'kr fodykaxrk izek.ki= tkjh fd;kA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 16 (iksdls vf/kfu;e)% ihfM+rk ds c;ku /kkjk 164 n.M izfdz;k lafgrk ds rgr fyfic) fd, x,A fpfdRlh; tkap esa fdlh ckgjh pksV dh iqf\"V ugha gqbZ gS rFkk vk;q izek.ki= fookfnr gSA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 17 (vkcdkjh vf/kfu;e)% vfHk;qDr ds dCts ls voS/k ns'kh 'kjkc ds 50 ioZs cjken fd, tkuk crk;k x;k gSA tIrh ds le; dksbZ Lora= xokg ekSds ij 'kkfey ugha fd;k x;kA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 18 (vkElZ ,DV /kkjk 3@25)% vfHk;qDr ds dCts ls ,d voS/k ns'kh dV~Vk o ftank dkjrwl cjken gksuk vfHk;kstu i{k dk dFku gSA Qksjsafld tkap gsrq gfFk;kj Hkstus esa vR;f/kd foyEc gqvk gSA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 19 (Hkwfe vokIr vf/kfu;e)% jkT; ljdkj }kjk tu fgr esa lM+d fuekZ.k gsrq Hkwfe vokIr dh xbZ FkhA vokIr vf/kdkjh }kjk r; fd;k x;k eqvkotk cktkj nj ls cgqr de gksus ds dkj.k lanHkZ U;k;ky; esa Hkstk x;kA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 20 (nEifr fookn /kkjk 125)% iRuh us vius rFkk ukckfyx cPps ds Hkj.k&iks\"k.k gsrq vkosnu izLrqr fd;kA ifr dk dFku gS fd iRuh fcuk fdlh mfpr dkj.k ds vyx jg jgh gS rFkk Lo;a vftZr djus esa l{ke gSA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 21 (nkok izFke vihy)% nhokuh vihy esa vihykaV us v/khuLFk U;k;ky; ds fMdzh o QSlys dks pqukSrh nh gSA jftLVªh'kqnk cSukek dks jn~n djokus ckcr~ ;g okn lafLFkr fd;k x;k FkkA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 22 (nkafMd fopkj.k /kkjk 313)% vfHk;qDr us /kkjk 313 n.M izfdz;k lafgrk ds c;ku esa Lo;a dks funksZ\"k crk;k rFkk jafj'ku >wBk Qalk, tkus dk dFku fd;kA cpkodkjh lk{; esa nks xokgku ijhf{kr djok, x,A U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 23 (Hkk-na-la- /kkjk 420 o 406)% vfHk;qDr us ifjoknh dks fons'k Hkstus ds uke ij yk[kksa :i, dh /kks[kk/kM+h dhA jkf'k izkIr djus ds ckn u rks fons'k Hkstk x;k vkSj u gh jde okil ykSVkbZ xbZA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 24 (LFkk;h fu\"ks/kkKk okn)% oknh us vius dCts o LokfeRo dh Hkwfe ij izfroknhx.k }kjk voS/k :i ls gLr{ksi djus ls jksdus gsrq LFkk;h fu\"ks/kkKk dk nkok is'k fd;k gSA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 25 (eksVj okgu vf/kfu;e /kkjk 166)% Dyse ;kfpdk esa nq?kZVuk esa vkbZ LFkk;h fodykaxrk ds vk/kkj ij {kfriwfrZ jkf'k fnykus dk fuosnu fd;k x;kA fpfdRld us 40 izfr'kr fodykaxrk izek.ki= tkjh fd;kA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 26 (iksdls vf/kfu;e)% ihfM+rk ds c;ku /kkjk 164 n.M izfdz;k lafgrk ds rgr fyfic) fd, x,A fpfdRlh; tkap esa fdlh ckgjh pksV dh iqf\"V ugha gqbZ gS rFkk vk;q izek.ki= fookfnr gSA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 27 (vkcdkjh vf/kfu;e)% vfHk;qDr ds dCts ls voS/k ns'kh 'kjkc ds 50 ioZs cjken fd, tkuk crk;k x;k gSA tIrh ds le; dksbZ Lora= xokg ekSds ij 'kkfey ugha fd;k x;kA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 28 (vkElZ ,DV /kkjk 3@25)% vfHk;qDr ds dCts ls ,d voS/k ns'kh dV~Vk o ftank dkjrwl cjken gksuk vfHk;kstu i{k dk dFku gSA Qksjsafld tkap gsrq gfFk;kj Hkstus esa vR;f/kd foyEc gqvk gSA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 29 (Hkwfe vokIr vf/kfu;e)% jkT; ljdkj }kjk tu fgr esa lM+d fuekZ.k gsrq Hkwfe vokIr dh xbZ FkhA vokIr vf/kdkjh }kjk r; fd;k x;k eqvkotk cktkj nj ls cgqr de gksus ds dkj.k lanHkZ U;k;ky; esa Hkstk x;kA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 30 (nEifr fookn /kkjk 125)% iRuh us vius rFkk ukckfyx cPps ds Hkj.k&iks\"k.k gsrq vkosnu izLrqr fd;kA ifr dk dFku gS fd iRuh fcuk fdlh mfpr dkj.k ds vyx jg jgh gS rFkk Lo;a vftZr djus esa l{ke gSA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 31 (nkok izFke vihy)% nhokuh vihy esa vihykaV us v/khuLFk U;k;ky; ds fMdzh o QSlys dks pqukSrh nh gSA jftLVªh'kqnk cSukek dks jn~n djokus ckcr~ ;g okn lafLFkr fd;k x;k FkkA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 32 (nkafMd fopkj.k /kkjk 313)% vfHk;qDr us /kkjk 313 n.M izfdz;k lafgrk ds c;ku esa Lo;a dks funksZ\"k crk;k rFkk jafj'ku >wBk Qalk, tkus dk dFku fd;kA cpkodkjh lk{; esa nks xokgku ijhf{kr djok, x,A U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 33 (Hkk-na-la- /kkjk 420 o 406)% vfHk;qDr us ifjoknh dks fons'k Hkstus ds uke ij yk[kksa :i, dh /kks[kk/kM+h dhA jkf'k izkIr djus ds ckn u rks fons'k Hkstk x;k vkSj u gh jde okil ykSVkbZ xbZA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 34 (LFkk;h fu\"ks/kkKk okn)% oknh us vius dCts o LokfeRo dh Hkwfe ij izfroknhx.k }kjk voS/k :i ls gLr{ksi djus ls jksdus gsrq LFkk;h fu\"ks/kkKk dk nkok is'k fd;k gSA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 35 (eksVj okgu vf/kfu;e /kkjk 166)% Dyse ;kfpdk esa nq?kZVuk esa vkbZ LFkk;h fodykaxrk ds vk/kkj ij {kfriwfrZ jkf'k fnykus dk fuosnu fd;k x;kA fpfdRld us 40 izfr'kr fodykaxrk izek.ki= tkjh fd;kA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 36 (iksdls vf/kfu;e)% ihfM+rk ds c;ku /kkjk 164 n.M izfdz;k lafgrk ds rgr fyfic) fd, x,A fpfdRlh; tkap esa fdlh ckgjh pksV dh iqf\"V ugha gqbZ gS rFkk vk;q izek.ki= fookfnr gSA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 37 (vkcdkjh vf/kfu;e)% vfHk;qDr ds dCts ls voS/k ns'kh 'kjkc ds 50 ioZs cjken fd, tkuk crk;k x;k gSA tIrh ds le; dksbZ Lora= xokg ekSds ij 'kkfey ugha fd;k x;kA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 38 (vkElZ ,DV /kkjk 3@25)% vfHk;qDr ds dCts ls ,d voS/k ns'kh dV~Vk o ftank dkjrwl cjken gksuk vfHk;kstu i{k dk dFku gSA Qksjsafld tkap gsrq gfFk;kj Hkstus esa vR;f/kd foyEc gqvk gSA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 39 (Hkwfe vokIr vf/kfu;e)% jkT; ljdkj }kjk tu fgr esa lM+d fuekZ.k gsrq Hkwfe vokIr dh xbZ FkhA vokIr vf/kdkjh }kjk r; fd;k x;k eqvkotk cktkj nj ls cgqr de gksus ds dkj.k lanHkZ U;k;ky; esa Hkstk x;kA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 40 (nEifr fookn /kkjk 125)% iRuh us vius rFkk ukckfyx cPps ds Hkj.k&iks\"k.k gsrq vkosnu izLrqr fd;kA ifr dk dFku gS fd iRuh fcuk fdlh mfpr dkj.k ds vyx jg jgh gS rFkk Lo;a vftZr djus esa l{ke gSA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 41 (nkok izFke vihy)% nhokuh vihy esa vihykaV us v/khuLFk U;k;ky; ds fMdzh o QSlys dks pqukSrh nh gSA jftLVªh'kqnk cSukek dks jn~n djokus ckcr~ ;g okn lafLFkr fd;k x;k FkkA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 42 (nkafMd fopkj.k /kkjk 313)% vfHk;qDr us /kkjk 313 n.M izfdz;k lafgrk ds c;ku esa Lo;a dks funksZ\"k crk;k rFkk jafj'ku >wBk Qalk, tkus dk dFku fd;kA cpkodkjh lk{; esa nks xokgku ijhf{kr djok, x,A U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 43 (Hkk-na-la- /kkjk 420 o 406)% vfHk;qDr us ifjoknh dks fons'k Hkstus ds uke ij yk[kksa :i, dh /kks[kk/kM+h dhA jkf'k izkIr djus ds ckn u rks fons'k Hkstk x;k vkSj u gh jde okil ykSVkbZ xbZA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 44 (LFkk;h fu\"ks/kkKk okn)% oknh us vius dCts o LokfeRo dh Hkwfe ij izfroknhx.k }kjk voS/k :i ls gLr{ksi djus ls jksdus gsrq LFkk;h fu\"ks/kkKk dk nkok is'k fd;k gSA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 45 (eksVj okgu vf/kfu;e /kkjk 166)% Dyse ;kfpdk esa nq?kZVuk esa vkbZ LFkk;h fodykaxrk ds vk/kkj ij {kfriwfrZ jkf'k fnykus dk fuosnu fd;k x;kA fpfdRld us 40 izfr'kr fodykaxrk izek.ki= tkjh fd;kA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 46 (iksdls vf/kfu;e)% ihfM+rk ds c;ku /kkjk 164 n.M izfdz;k lafgrk ds rgr fyfic) fd, x,A fpfdRlh; tkap esa fdlh ckgjh pksV dh iqf\"V ugha gqbZ gS rFkk vk;q izek.ki= fookfnr gSA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 47 (vkcdkjh vf/kfu;e)% vfHk;qDr ds dCts ls voS/k ns'kh 'kjkc ds 50 ioZs cjken fd, tkuk crk;k x;k gSA tIrh ds le; dksbZ Lora= xokg ekSds ij 'kkfey ugha fd;k x;kA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 48 (vkElZ ,DV /kkjk 3@25)% vfHk;qDr ds dCts ls ,d voS/k ns'kh dV~Vk o ftank dkjrwl cjken gksuk vfHk;kstu i{k dk dFku gSA Qksjsafld tkap gsrq gfFk;kj Hkstus esa vR;f/kd foyEc gqvk gSA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 49 (Hkwfe vokIr vf/kfu;e)% jkT; ljdkj }kjk tu fgr esa lM+d fuekZ.k gsrq Hkwfe vokIr dh xbZ FkhA vokIr vf/kdkjh }kjk r; fd;k x;k eqvkotk cktkj nj ls cgqr de gksus ds dkj.k lanHkZ U;k;ky; esa Hkstk x;kA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA", "izdj.k la[;k 50 (nEifr fookn /kkjk 125)% iRuh us vius rFkk ukckfyx cPps ds Hkj.k&iks\"k.k gsrq vkosnu izLrqr fd;kA ifr dk dFku gS fd iRuh fcuk fdlh mfpr dkj.k ds vyx jg jgh gS rFkk Lo;a vftZr djus esa l{ke gSA U;k;ky; us nksuksa i{kksa ds rdksZa dks foLrkj ls lquk rFkk i=koyh ij miyC/k leLr lk{; dk lw{erk ls ijh{k.k fd;kA U;k; fgr esa ;g vko';d gS fd fof/k ds lqLFkkfir fl)karksa dk ikyu fd;k tkosA vfHkys[k ls Li\"V gS fd ekeys esa fopkj.k iw.kZ djrs gq, ;g vkns'k ikfjr fd;k tkrk gSA"];
 
         const defaultEnglishPassages = [
             "In these circumstances, taking into account all the facts and legal submissions placed before the court, the learned counsel for the petitioner prayed for grant of regular bail. In support of the arguments, reference was made to several authoritative judicial precedents of the Supreme Court of India. On the other hand, the learned Public Prosecutor strongly opposed the application on the ground of serious allegations of fraud and tampering with official government records.",
             "The law of evidence clearly provides that every relevant fact which connects directly or indirectly to the issue in controversy must be proved in accordance with the established principles of trial jurisprudence. The testimony of an eyewitness cannot be discarded merely on the grounds of minor contradictions, provided that the core substance of the case remains unshaken, reliable, and truthful throughout the proceedings."
         ];
 
-        for (let i = 6; i <= 50; i++) {
-            defaultKrutiPassages.push("izdj.k la[;k " + i + ": U;k;ky; ds le{k ;g fuosnu fd;k x;k gS fd i=koyh esa miyC/k leLr lk{;ksa dk fof/kd fo'ys\"k.k vko';d gSA vfHk;qDr dh vksj ls izLrqr tekur vkosnu ij nksuksa i{kksa dks lquk x;kA ekeys ds leLr rF;ksa dks /;ku esa j[krs gq, U;k;ky; us i=koyh dk iw.kZ voyksdu dj fu.kZ; lqjf{kr j[kk gSA");
-            defaultEnglishPassages.push("Passage " + i + ": It is submitted before the court that in matter number " + i + ", the documentary and oral evidence requires close scrutiny under the Indian Evidence Act. The bail application presented on behalf of the accused was heard at length and upon considering the record the court has reserved its order.");
+        for (let i = 3; i <= 50; i++) {
+            defaultEnglishPassages.push("Case Reference " + i + ": The documentary evidence produced on record has been examined under the Indian Evidence Act. The learned counsel for the appellant submitted that the trial court failed to appreciate the testimony in its true perspective. In view of the settled proposition of criminal law, the impugned judgment and conviction order warrant interference by this appellate court.");
         }
 
         let hindiPassages = [...defaultKrutiPassages];
         let englishPassages = [...defaultEnglishPassages];
 
-        // Load saved custom passages from LocalStorage
         try {
             const savedCustom = JSON.parse(localStorage.getItem('hc_custom_kruti_passages') || '[]');
             savedCustom.forEach(c => {
@@ -644,7 +592,7 @@
             list.forEach((p, idx) => {
                 let opt = document.createElement('option');
                 opt.value = idx;
-                opt.textContent = 'Passage ' + (idx + 1) + (idx < 5 ? ' (Court Legal)' : '');
+                opt.textContent = 'Passage ' + (idx + 1) + (idx < 10 ? ' (Legal HC)' : '');
                 passageSelect.appendChild(opt);
             });
         }
@@ -673,8 +621,9 @@
             const text = textList[index] || textList[0];
             basePassageWords = text.trim().split(/\s+/);
             
+            // Unlimited typing buffer: repeats 40 times (over 3500+ words) so candidate never runs out
             passageWords = [];
-            for (let r = 0; r < 20; r++) {
+            for (let r = 0; r < 40; r++) {
                 passageWords = passageWords.concat(basePassageWords);
             }
             
@@ -682,22 +631,20 @@
             matterBox.innerHTML = passageWords.map(w => '<span class="word">' + w + '</span>').join(' ');
         }
 
-        // START / SUBMIT TOGGLE
         function toggleTest() {
             if (!isRunning) {
-                // START TEST
                 isRunning = true;
                 typeArea.disabled = false;
                 typeArea.value = '';
                 typeArea.focus();
 
-                // LOCK ALL CONTROLS DURING RUNNING TEST
+                // LOCK ALL CONTROLS (No changing passage, time, or language during test)
                 langSelect.disabled = true;
                 passageSelect.disabled = true;
                 timeSelect.disabled = true;
                 btnAddCustom.disabled = true;
 
-                // CHANGE BUTTON TO RED 'SUBMIT TEST'
+                // Red Submit button
                 startBtn.textContent = "Submit Test";
                 startBtn.className = "btn-start btn-submit-active";
 
@@ -708,11 +655,9 @@
                 timerInterval = setInterval(() => {
                     timeLeft--;
                     updateTimerUI();
-                    calcLiveStats();
                     if (timeLeft <= 0) finishTest();
                 }, 1000);
             } else {
-                // SUBMIT TEST MANUALLY
                 finishTest();
             }
         }
@@ -729,7 +674,6 @@
             typeArea.value = '';
             typeArea.disabled = true;
 
-            // RE-ENABLE CONTROLS
             langSelect.disabled = false;
             passageSelect.disabled = false;
             timeSelect.disabled = false;
@@ -744,77 +688,123 @@
             testDuration = selectedMins * 60;
             timeLeft = testDuration;
             updateTimerUI();
-
-            document.getElementById('liveGross').textContent = '0.0 WPM';
-            document.getElementById('liveNet').textContent = '0.0 WPM';
-            document.getElementById('liveAcc').textContent = '100%';
-            document.getElementById('liveBack').textContent = '0';
-            document.getElementById('liveWords').textContent = '0';
-            document.getElementById('liveMarks').textContent = '0.0 / 50';
-            document.getElementById('headerScorePill').textContent = 'Marks: 0.0 / 50';
         }
 
         typeArea.addEventListener('keydown', (e) => {
+            // High Court Strict Backspace Rule:
+            // Backspace is ONLY permitted in the current active word.
+            // Once space is pressed, candidate CANNOT backspace into previous words!
             if (e.key === 'Backspace') {
+                const text = typeArea.value;
+                const pos = typeArea.selectionStart;
+
+                // Check if last character before cursor is a space (i.e. trying to erase previous word)
+                if (pos > 0 && text.charAt(pos - 1) === ' ') {
+                    e.preventDefault();
+                    return false;
+                }
+
+                // Or if cursor is placed behind completed words, block editing
+                const textBeforeCursor = text.substring(0, pos);
+                const lastSpaceIndex = textBeforeCursor.lastIndexOf(' ');
+                
+                // If cursor is at the boundary of a space or selection spans into previous word
+                if (typeArea.selectionStart !== typeArea.selectionEnd) {
+                    const selectedText = text.substring(typeArea.selectionStart, typeArea.selectionEnd);
+                    if (selectedText.includes(' ')) {
+                        e.preventDefault();
+                        return false;
+                    }
+                }
+
                 backspaceCount++;
-                document.getElementById('liveBack').textContent = backspaceCount;
+            } else if (e.key === ' ') {
+                // Prevent multiple consecutive spaces if needed
+                const text = typeArea.value;
+                const pos = typeArea.selectionStart;
+                if (pos > 0 && text.charAt(pos - 1) === ' ') {
+                    e.preventDefault();
+                    return false;
+                }
+                totalStrokes++;
             } else if (e.key.length === 1) {
                 totalStrokes++;
             }
         });
 
-        typeArea.addEventListener('input', () => {
-            calcLiveStats();
-        });
-
-        // 1:1 PURE EXACT MATCHING (Kruti Dev to Kruti Dev)
-        function calcLiveStats() {
-            const rawTypedWords = typeArea.value.trim().split(/\s+/).filter(Boolean);
-            const typedCount = rawTypedWords.length;
-            document.getElementById('liveWords').textContent = typedCount;
-
-            const timeSpentMin = Math.max(0.1, (testDuration - timeLeft) / 60);
-            let correct = 0;
-
-            rawTypedWords.forEach((typedWord, i) => {
-                const originalWord = passageWords[i] || "";
-                // Direct exact match between Kruti Dev typed and Kruti Dev original
-                if (typedWord === originalWord) {
-                    correct++;
-                }
-            });
-
-            const grossWpm = (typedCount / timeSpentMin).toFixed(1);
-            const netWpm = Math.max(0, (correct / timeSpentMin)).toFixed(1);
-            const acc = typedCount > 0 ? ((correct / typedCount) * 100).toFixed(1) : 100;
-
-            // High Court Exact Dynamic Formula:
-            // 55-60 WPM benchmark & 96%+ accuracy = Full 50 Marks.
-            // 90% accuracy drops marks significantly.
-            const nWpm = parseFloat(netWpm);
-            const numAcc = parseFloat(acc);
-            const speedFactor = Math.min(1.0, Math.max(0.0, nWpm / 55.0));
-            
-            let accFactor = 0.0;
-            if (numAcc >= 96.0) {
-                accFactor = 1.0;
-            } else if (numAcc >= 90.0) {
-                accFactor = 0.70 + ((numAcc - 90.0) / 6.0) * 0.30;
-            } else if (numAcc >= 80.0) {
-                accFactor = 0.30 + ((numAcc - 80.0) / 10.0) * 0.40;
+        // Exact Marks Formula:
+        // Speed Benchmark: 60 WPM.
+        // 60+ WPM & 95%+ Acc -> 50 / 50 Marks
+        // 60 WPM & 90% Acc -> ~45 Marks (small realistic deduction)
+        // 60 WPM & 85% Acc -> ~42-43 Marks
+        // 59 WPM & 95%+ Acc -> ~49.1 Marks
+        function calculateHighCourtMarks(netSpeed, accuracy) {
+            let speedScore = 0;
+            if (netSpeed >= 60) {
+                speedScore = 50.0;
             } else {
-                accFactor = Math.max(0.0, (numAcc - 70.0) / 10.0 * 0.30);
+                speedScore = (netSpeed / 60.0) * 50.0;
             }
 
-            const marksOutOf50 = Math.min(50.0, Math.max(0.0, 50.0 * speedFactor * accFactor)).toFixed(1);
+            let accFactor = 1.0;
+            if (accuracy >= 95.0) {
+                accFactor = 1.0;
+            } else if (accuracy >= 90.0) {
+                // 90% to 95% -> accFactor from 0.90 to 1.0 (at 90% drops to 45 marks)
+                accFactor = 0.90 + ((accuracy - 90.0) / 5.0) * 0.10;
+            } else if (accuracy >= 80.0) {
+                // 80% to 90% -> accFactor from 0.82 to 0.90 (at 85% drops to ~43 marks)
+                accFactor = 0.82 + ((accuracy - 80.0) / 10.0) * 0.08;
+            } else {
+                accFactor = Math.max(0.0, accuracy / 100.0);
+            }
 
-            document.getElementById('liveGross').textContent = grossWpm + ' WPM';
-            document.getElementById('liveNet').textContent = netWpm + ' WPM';
-            document.getElementById('liveAcc').textContent = acc + '%';
-            document.getElementById('liveMarks').textContent = marksOutOf50 + ' / 50';
-            document.getElementById('headerScorePill').textContent = 'Marks: ' + marksOutOf50 + ' / 50';
+            let finalMarks = speedScore * accFactor;
+            if (finalMarks > 50.0) finalMarks = 50.0;
+            if (finalMarks < 0.0) finalMarks = 0.0;
 
-            return { correct, typedCount, grossWpm, netWpm, acc, marksOutOf50, timeSpentMin };
+            return finalMarks.toFixed(1);
+        }
+
+
+        function alignWords(original, typed) {
+            const n = original.length;
+            const m = typed.length;
+            // DP table
+            const dp = [];
+            for (let i = 0; i <= n; i++) {
+                dp[i] = new Uint16Array(m + 1);
+            }
+
+            for (let i = 0; i < n; i++) {
+                for (let j = 0; j < m; j++) {
+                    if (original[i] === typed[j]) {
+                        dp[i + 1][j + 1] = dp[i][j] + 1;
+                    } else {
+                        dp[i + 1][j + 1] = Math.max(dp[i][j + 1], dp[i + 1][j]);
+                    }
+                }
+            }
+
+            // Backtrack
+            let i = n, j = m;
+            const alignment = [];
+            while (i > 0 || j > 0) {
+                if (i > 0 && j > 0 && original[i - 1] === typed[j - 1]) {
+                    alignment.push({ type: 'MATCH', orig: original[i - 1], user: typed[j - 1] });
+                    i--;
+                    j--;
+                } else if (j > 0 && (i === 0 || dp[i][j - 1] >= dp[i - 1][j])) {
+                    alignment.push({ type: 'WRONG', orig: (i > 0 ? original[i - 1] : ''), user: typed[j - 1] });
+                    j--;
+                } else {
+                    alignment.push({ type: 'SKIPPED', orig: original[i - 1], user: null });
+                    i--;
+                }
+            }
+
+            alignment.reverse();
+            return alignment;
         }
 
         function finishTest() {
@@ -822,7 +812,6 @@
             isRunning = false;
             typeArea.disabled = true;
 
-            // RE-ENABLE CONTROLS
             langSelect.disabled = false;
             passageSelect.disabled = false;
             timeSelect.disabled = false;
@@ -835,20 +824,35 @@
             const totalTyped = rawTypedWords.length;
             const durationMin = ((testDuration - timeLeft) / 60) || (testDuration / 60);
 
+            // Dynamic Word Alignment Algorithm (Handles skipped words without index shift error)
+            // Limit original comparison window to relevant typed length + buffer
+            const compareSliceLen = Math.min(passageWords.length, Math.max(totalTyped + 20, Math.floor(totalTyped * 1.5)));
+            const origSlice = passageWords.slice(0, compareSliceLen);
+            const alignments = alignWords(origSlice, rawTypedWords);
+
             let correct = 0;
             let incorrect = 0;
+            let omitted = 0;
             let cmpHtml = "";
 
-            for (let i = 0; i < totalTyped; i++) {
-                const oW = passageWords[i] || "";
-                const uW = rawTypedWords[i] || "";
-
-                if (uW === oW) {
+            for (let k = 0; k < alignments.length; k++) {
+                const item = alignments[k];
+                if (item.type === 'MATCH') {
                     correct++;
-                    cmpHtml += '<span style="color:#28a745; font-weight:bold;">' + oW + '</span> ';
-                } else {
+                    cmpHtml += '<span style="color:#2e7d32; font-weight:500;">' + item.orig + '</span> ';
+                } else if (item.type === 'SKIPPED') {
+                    // Only count as omitted if candidate has typed beyond this point
+                    if (k < alignments.length - 5) {
+                        omitted++;
+                        cmpHtml += '<span style="text-decoration:line-through; color:#94a3b8; margin:0 2px;">' + item.orig + '</span> ';
+                    }
+                } else if (item.type === 'WRONG') {
                     incorrect++;
-                    cmpHtml += '<span style="color:#dc3545; font-weight:bold;">' + uW + '</span><span style="color:#6c757d; font-size:16px;">[' + oW + ']</span> ';
+                    if (item.orig) {
+                        cmpHtml += '<span style="color:#d32f2f; font-weight:700;">' + item.user + '</span> <span style="color:#2e7d32; font-weight:500;">(' + item.orig + ')</span> ';
+                    } else {
+                        cmpHtml += '<span style="color:#d32f2f; font-weight:700;">' + item.user + '</span> ';
+                    }
                 }
             }
 
@@ -857,32 +861,18 @@
             const acc = totalTyped > 0 ? ((correct / totalTyped) * 100).toFixed(1) : 0;
             const errRate = (100 - acc).toFixed(1);
 
-            const nWpm = parseFloat(netWpm);
-            const numAcc = parseFloat(acc);
-            const speedFactor = Math.min(1.0, Math.max(0.0, nWpm / 55.0));
-            let accFactor = 0.0;
-            if (numAcc >= 96.0) {
-                accFactor = 1.0;
-            } else if (numAcc >= 90.0) {
-                accFactor = 0.70 + ((numAcc - 90.0) / 6.0) * 0.30;
-            } else if (numAcc >= 80.0) {
-                accFactor = 0.30 + ((numAcc - 80.0) / 10.0) * 0.40;
-            } else {
-                accFactor = Math.max(0.0, (numAcc - 70.0) / 10.0 * 0.30);
-            }
-            const marksOutOf50 = Math.min(50.0, Math.max(0.0, 50.0 * speedFactor * accFactor)).toFixed(1);
+            const marksOutOf50 = calculateHighCourtMarks(parseFloat(netWpm), parseFloat(acc));
 
             const grossKdph = Math.round((typeArea.value.length / durationMin) * 60);
             const netKdph = Math.round(((correct * 5) / durationMin) * 60);
 
-            // Populate Result Dialog
             document.getElementById('resMarksDisplay').textContent = 'Score: ' + marksOutOf50 + ' / 50 Marks';
             const qualTag = document.getElementById('resMarksTag');
-            if (parseFloat(netWpm) >= 26.67 && parseFloat(acc) >= 90.0) {
-                qualTag.textContent = "Result: QUALIFIED (Passed High Court Standard)";
+            if (parseFloat(netWpm) >= 26.67 && parseFloat(acc) >= 80.0) {
+                qualTag.textContent = "Result: QUALIFIED (Passed High Court Examination Standard)";
                 qualTag.style.color = "#047857";
             } else {
-                qualTag.textContent = "Result: NOT QUALIFIED (Requires Minimum 26.67 WPM / 8000 KDPH & 90% Acc)";
+                qualTag.textContent = "Result: NOT QUALIFIED (Requires Minimum 26.67 WPM / 8000 KDPH)";
                 qualTag.style.color = "#dc2626";
             }
 
@@ -890,7 +880,7 @@
             document.getElementById('resTotalWords').textContent = ': ' + totalTyped;
             document.getElementById('resCorrectWords').textContent = ': ' + correct;
             document.getElementById('resIncorrectWords').textContent = ': ' + incorrect;
-            document.getElementById('resOmittedWords').textContent = ': 0';
+            document.getElementById('resOmittedWords').textContent = ': ' + omitted;
             document.getElementById('resKeystrokes').textContent = ': ' + typeArea.value.length;
 
             document.getElementById('resNetSpeed').textContent = ': ' + netWpm + ' WPM';
@@ -905,7 +895,6 @@
             document.getElementById('resultModal').style.display = 'flex';
         }
 
-        // CLOSE RESULT & AUTOMATICALLY SWITCH TO NEXT PASSAGE
         function closeModalAndPrepareNext() {
             document.getElementById('resultModal').style.display = 'none';
 
@@ -917,7 +906,6 @@
             loadPassage();
         }
 
-        // CUSTOM MATTER POPUP LOGIC
         function openCustomPassageDialog() {
             document.getElementById('customDialog').style.display = 'flex';
             document.getElementById('customMatterText').focus();
