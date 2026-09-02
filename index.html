@@ -49,16 +49,27 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.06);
         }
 
+        .brand-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
         .brand-title h1 {
             font-size: 19px;
             color: var(--primary);
             font-weight: 700;
         }
 
-        .brand-title span {
+        .btn-link-eff {
+            background: #0d6efd;
+            color: #ffffff;
+            padding: 5px 12px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 700;
             font-size: 12px;
-            color: #666;
-            display: block;
         }
 
         .controls {
@@ -194,10 +205,6 @@
             background: #ffffff;
             overflow-y: scroll;
             scrollbar-width: thin;
-        }
-
-        .typing-input:disabled {
-            background: #f8f9fa;
         }
 
         .kruti-text {
@@ -346,7 +353,7 @@
     <header>
         <div class="brand-title">
             <h1>Amazing Typing Practice</h1>
-            <span>Kruti Dev 010 & English Exam Engine</span>
+            <a href="efficiency.html" class="btn-link-eff">Efficiency Test Par Jayein ➔</a>
         </div>
 
         <div class="controls">
@@ -360,7 +367,9 @@
 
             <div class="ctl-group">
                 <label>Passage:</label>
-                <select id="passageSelect" onchange="loadPassage()"></select>
+                <select id="passageSelect" onchange="loadPassage()">
+                    <!-- Populated automatically -->
+                </select>
             </div>
 
             <div class="ctl-group">
@@ -398,6 +407,7 @@
                 <span>Matter Box (Read Here) - Manual Scroll Enabled</span>
                 <span>Auto-scroll Disabled | Copy Protected</span>
             </div>
+            <!-- Built-in Direct Default Text: Ab box kabhi khali nahi rahega -->
             <div id="matterBox" 
                  class="matter-content kruti-text" 
                  oncopy="return false;" 
@@ -405,6 +415,7 @@
                  onpaste="return false;" 
                  oncontextmenu="return false;"
                  unselectable="on">
+                <span class="word active" id="w-0">bu</span> <span class="word" id="w-1">ifjfLFkfr;ksa</span> <span class="word" id="w-2">dks</span> <span class="word" id="w-3">/;ku</span> <span class="word" id="w-4">esa</span> <span class="word" id="w-5">j[krs</span> <span class="word" id="w-6">gq,</span> <span class="word" id="w-7">izkFkhZ</span> <span class="word" id="w-8">dh</span> <span class="word" id="w-9">tekur</span> <span class="word" id="w-10">Lohdkj</span> <span class="word" id="w-11">fd,</span> <span class="word" id="w-12">tkus</span> <span class="word" id="w-13">dh</span> <span class="word" id="w-14">izkFkZuk</span> <span class="word" id="w-15">dh</span> <span class="word" id="w-16">xbZA</span>
             </div>
         </div>
 
@@ -416,12 +427,11 @@
             <textarea 
                 id="typeArea" 
                 class="typing-input kruti-text" 
-                placeholder="Click 'Start Test' or start typing directly here..."
+                placeholder="Yahan type karein..."
                 autocomplete="off" 
                 autocorrect="off" 
                 autocapitalize="off" 
                 spellcheck="false"
-                disabled
             ></textarea>
         </div>
     </div>
@@ -461,7 +471,7 @@
                 </div>
 
                 <div class="sec-table">
-                    <div class="sec-title">Comparison Text (Green = Correct, Blue = Typed[Original])</div>
+                    <div class="sec-title">Comparison Text</div>
                     <div id="comparisonBox" class="cmp-area kruti-text"></div>
                 </div>
             </div>
@@ -484,10 +494,4 @@
             "In these circumstances, taking into account all the facts and legal submissions placed before the court, the learned counsel for the petitioner prayed for grant of regular bail. In support of the arguments, reference was made to several authoritative judicial precedents of the Supreme Court of India. On the other hand, the learned Public Prosecutor strongly opposed the application on the ground of serious allegations of fraud and tampering with official government records.",
             "The law of evidence clearly provides that every relevant fact which connects directly or indirectly to the issue in controversy must be proved in accordance with the established principles of trial jurisprudence. The testimony of an eyewitness cannot be discarded merely on the grounds of minor contradictions, provided that the core substance of the case remains unshaken, reliable, and truthful throughout the proceedings.",
             "The judicial system demands strict adherence to procedural fairness and constitutional guarantees provided under Article 21 of the Constitution of India. Every accused person is presumed innocent until proven guilty by competent evidence beyond reasonable doubt. The prosecution must discharge its heavy burden without relying on conjectures, surmises, or weak probabilities.",
-            "The powers under Section 482 of the Code of Criminal Procedure are inherent in nature and must be exercised ex debito justitiae to prevent the abuse of the process of any court. When the allegations made in the first information report do not disclose the commission of any cognizable offense, the continuation of criminal proceedings would amount to pure harassment of the petitioner.",
-            "It is well settled that while dealing with an application for interim injunction under Order 39 Rules 1 and 2 of the Code of Civil Procedure, the court has to consider three fundamental principles, namely prima facie case, balance of convenience, and irreparable loss or injury that cannot be compensated in terms of money."
-        ];
-
-        for (let i = 6; i <= 50; i++) {
-            hindiPassages.push("Passage " + i + ": U;k;ky; ds le{k ;g fuosnu fd;k x;k gS fd izdj.k la[;k " + i + " esa vfHk;kstu i{k }kjk izLrqr leLr lk{;ksa dk fof/kd fo'ys" + "k.k vko';d gSA vfHk;qDr dh vksj ls izLrqr tekur vkosnu ij mHk; i{kksa dks lquk x;kA ekeys ds rF;ksa dks ns[krs gq, U;k;ky; us viuk fu.kZ; lqjf{kr j[kk gSA");
-            englishPassages.push("Passage " + i + ": It is submitted before the court that in matter number " + i + ", the documentary and oral evidence requires close scrutiny under the Indian Evidence Act. The bail
+            "The powers under Section 482 of the Code of Criminal Procedure are inherent in nature and must be exercised ex debito justitiae to prevent the abuse of the process of any court. When the allegations made in the first information report do not disclose the commission of any cognizable offense, the continuation of criminal pro
