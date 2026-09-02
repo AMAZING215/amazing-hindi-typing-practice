@@ -6,7 +6,6 @@
     <title>Amazing Hindi & English Typing Practice</title>
     
     <style>
-        /* Web font fallback for Kruti Dev 010 */
         @font-face {
             font-family: 'Kruti Dev 010';
             src: local('Kruti Dev 010'), local('Krutidev 010'),
@@ -38,7 +37,6 @@
             min-height: 100vh;
         }
 
-        /* Top Bar Controls */
         header {
             background: #ffffff;
             border-bottom: 2px solid var(--primary);
@@ -82,7 +80,7 @@
         }
 
         select, button {
-            padding: 5px 10px;
+            padding: 6px 10px;
             font-size: 13px;
             border-radius: 4px;
             border: 1px solid var(--border-col);
@@ -117,7 +115,6 @@
             text-align: center;
         }
 
-        /* Practice Area */
         .workspace {
             flex: 1;
             padding: 12px;
@@ -129,7 +126,6 @@
             gap: 12px;
         }
 
-        /* Live Score Card */
         .live-bar {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
@@ -154,7 +150,6 @@
             color: #222;
         }
 
-        /* Parallel Split Panels */
         .panel {
             background: #ffffff;
             border: 1px solid var(--border-col);
@@ -176,10 +171,9 @@
             border-bottom: 1px solid var(--border-col);
         }
 
-        /* Matter Box: Manual Scroll Enabled, Anti-Copy */
         .matter-content {
             height: 185px;
-            overflow-y: scroll; /* Manual Scrollbar */
+            overflow-y: scroll;
             padding: 14px;
             line-height: 2.2;
             background: #fafbfc;
@@ -190,15 +184,6 @@
             scrollbar-width: thin;
         }
 
-        .matter-content::-webkit-scrollbar {
-            width: 9px;
-        }
-        .matter-content::-webkit-scrollbar-thumb {
-            background-color: #adb5bd;
-            border-radius: 4px;
-        }
-
-        /* Typing Input Box */
         .typing-input {
             height: 160px;
             padding: 14px;
@@ -215,10 +200,9 @@
             background: #f8f9fa;
         }
 
-        /* Fonts */
         .kruti-text {
             font-family: 'Kruti Dev 010', 'KrutiDev010', sans-serif !important;
-            font-size: 21px;
+            font-size: 22px;
             letter-spacing: 0.5px;
         }
 
@@ -227,7 +211,6 @@
             font-size: 18px;
         }
 
-        /* Highlight Word */
         .word {
             display: inline-block;
             padding: 1px 3px;
@@ -241,7 +224,6 @@
             font-weight: bold;
         }
 
-        /* Result Window (Soni Typing Tutor Pattern) */
         .modal-shade {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -361,11 +343,10 @@
 </head>
 <body>
 
-    <!-- Header Navigation Controls -->
     <header>
         <div class="brand-title">
             <h1>Amazing Typing Practice</h1>
-            <span>Court Stenographer & Clerk Exam Engine</span>
+            <span>Kruti Dev 010 & English Exam Engine</span>
         </div>
 
         <div class="controls">
@@ -403,10 +384,7 @@
         </div>
     </header>
 
-    <!-- Main Workspace -->
     <div class="workspace">
-        
-        <!-- Live Quick Stats -->
         <div class="live-bar">
             <div class="live-card"><small>Gross WPM</small><b id="liveGross">0.0</b></div>
             <div class="live-card"><small>Net WPM</small><b id="liveNet">0.0</b></div>
@@ -415,7 +393,6 @@
             <div class="live-card"><small>Words Typed</small><b id="liveWords">0</b></div>
         </div>
 
-        <!-- Upper Matter Box: No Auto-Scroll (Manual Scroll Only) -->
         <div class="panel">
             <div class="panel-heading">
                 <span>Matter Box (Read Here) - Manual Scroll Enabled</span>
@@ -431,7 +408,6 @@
             </div>
         </div>
 
-        <!-- Lower Typing Box -->
         <div class="panel">
             <div class="panel-heading">
                 <span>Type Box (Type Here)</span>
@@ -448,15 +424,13 @@
                 disabled
             ></textarea>
         </div>
-
     </div>
 
-    <!-- Result Modal (Soni Pattern) -->
     <div class="modal-shade" id="resultModal">
         <div class="result-box">
             <div class="modal-bar">
-                <span>📑 Result Details - Exam Analysis</span>
-                <span style="cursor: pointer;" onclick="closeModal()">✕</span>
+                <span>Result Details - Exam Analysis</span>
+                <span style="cursor: pointer;" onclick="closeModal()">X</span>
             </div>
             <div class="modal-body">
                 <div class="res-brand">Skill Test Result Analysis</div>
@@ -497,9 +471,7 @@
         </div>
     </div>
 
-    <!-- Scripting Engine -->
     <script>
-        // Shuddh Legal Passages in Kruti Dev 010 (High Court Pattern)
         const hindiPassages = [
             "bu ifjfLFkfr;ksa dks /;ku esa j[krs gq, izkFkhZ dh tekur Lohdkj fd, tkus dh izkFkZuk dh xbZA vius rdksZa ds leFkZu esa fo}ku vf/koDrk us U;kf;d n`" + "Vkar izLrqr fd;kA blds foijhr ifjoknh i{k ds fo}ku vf/koDrk rFkk yksd vfHk;kstd us tekur vkosnu dk fojks/k fd;kA mudk rdZ Fkk fd vfHk;qDr ds fo:) vkjksi xaHkhj izd`fr ds gSa vr% mls tekur dk ykHk ugha fn;k tkuk pkfg,A U;k;ky; us i=koyh dk voyksdu fd;kA vfHk;ksx i= ds voyksdu ls Li" + "V gS fd ekeys esa vuqla/kku iw.kZ gksdj pkyku is'k gks pqdk gSA vr% fopkj.k esa le; yxus dh laHkkouk gSA",
             "fof/k dk ;g lqLFkkfir fl)kar gS fd tekur ,d fu;e gS rFkk tsy ,d viokn gSA vfHk;qDr dks fopkj.k ds nkSjku U;k;ky; esa mifLFkfr lqfuf'pr djus ds mn~ns'; ls gh vfHkj{kk esa j[kk tkrk gSA vfHk;kstu i{k }kjk ,slh dksbZ laHkkouk O;Dr ugha dh xbZ gS fd vfHk;qDr tekur ij fjgk gksus ds i'pkr~ xokgksa dks izHkkfor djsxk ;k fof/kd izfØ;k ls Hkkxus dk iz;kl djsxkSA blfy, fopkj.k dh lekfIr rd mls vfHkj{kk esa j[kk tkuk mfpr izrhr ugha gksrk gSA",
@@ -508,9 +480,14 @@
             "U;k;ky; ds le{k fookfnr nLrkost dh fo'oluh;rk ,d izeq[k iz'u gSA jktLo vfHkys[kksa esa fd, x, bUnzkt fof/kd :i ls ekU; gSa tc rd fd muds foijhr dksbZ Bksl lk{; izLrqr u fd;k tk,A fo}ku v/khuLFk U;k;ky; us i=koyh ij miyC/k ekSf[kd ,oa nLrkosth lk{; dk lgh fo'ys" + "k.k fd;k gSA vr% vkyksP; fu.kZ; esa fdlh gLr{ksi dh vko';drk ugha gSA"
         ];
 
-        // Shuddh Legal Passages in English (High Court & Judicial Pattern)
         const englishPassages = [
             "In these circumstances, taking into account all the facts and legal submissions placed before the court, the learned counsel for the petitioner prayed for grant of regular bail. In support of the arguments, reference was made to several authoritative judicial precedents of the Supreme Court of India. On the other hand, the learned Public Prosecutor strongly opposed the application on the ground of serious allegations of fraud and tampering with official government records.",
             "The law of evidence clearly provides that every relevant fact which connects directly or indirectly to the issue in controversy must be proved in accordance with the established principles of trial jurisprudence. The testimony of an eyewitness cannot be discarded merely on the grounds of minor contradictions, provided that the core substance of the case remains unshaken, reliable, and truthful throughout the proceedings.",
             "The judicial system demands strict adherence to procedural fairness and constitutional guarantees provided under Article 21 of the Constitution of India. Every accused person is presumed innocent until proven guilty by competent evidence beyond reasonable doubt. The prosecution must discharge its heavy burden without relying on conjectures, surmises, or weak probabilities.",
-            "The powers under Section 482 of the Code of Criminal Procedure are inherent in nature and must be exercised ex debito justitiae to prevent the abuse of the process of any court. When the allegations made in the first information report do not disclose the commission of any cognizable
+            "The powers under Section 482 of the Code of Criminal Procedure are inherent in nature and must be exercised ex debito justitiae to prevent the abuse of the process of any court. When the allegations made in the first information report do not disclose the commission of any cognizable offense, the continuation of criminal proceedings would amount to pure harassment of the petitioner.",
+            "It is well settled that while dealing with an application for interim injunction under Order 39 Rules 1 and 2 of the Code of Civil Procedure, the court has to consider three fundamental principles, namely prima facie case, balance of convenience, and irreparable loss or injury that cannot be compensated in terms of money."
+        ];
+
+        for (let i = 6; i <= 50; i++) {
+            hindiPassages.push("Passage " + i + ": U;k;ky; ds le{k ;g fuosnu fd;k x;k gS fd izdj.k la[;k " + i + " esa vfHk;kstu i{k }kjk izLrqr leLr lk{;ksa dk fof/kd fo'ys" + "k.k vko';d gSA vfHk;qDr dh vksj ls izLrqr tekur vkosnu ij mHk; i{kksa dks lquk x;kA ekeys ds rF;ksa dks ns[krs gq, U;k;ky; us viuk fu.kZ; lqjf{kr j[kk gSA");
+            englishPassages.push("Passage " + i + ": It is submitted before the court that in matter number " + i + ", the documentary and oral evidence requires close scrutiny under the Indian Evidence Act. The bail
