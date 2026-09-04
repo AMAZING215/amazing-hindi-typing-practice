@@ -1,897 +1,292 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>High Court Practical Efficiency Engine - MS Word</title>
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, 'Noto Sans Devanagari', 'Mangal', Arial, sans-serif; -webkit-tap-highlight-color: transparent; }
-        :root {
-            --court-red: #7a1515;
-            --ribbon-bg: #ebf0f5;
-            --tab-bg: #dbe4ee;
-            --border-ui: #b8c5d6;
-            --word-blue: #2b579a;
-        }
-        body { background-color: #555e69; color: #111827; height: 100vh; overflow: hidden; display: flex; flex-direction: column; user-select: none; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Steno Blank Transcription Pad (Kruti Dev)</title>
 
-        /* INSTRUCTIONS OVERLAY */
-        #instructionScreen {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            z-index: 20000; display: flex; align-items: center; justify-content: center; padding: 20px;
-        }
-        .guide-box { background: #fff; width: 100%; max-width: 960px; border-radius: 8px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); overflow: hidden; display: flex; flex-direction: column; max-height: 92vh; }
-        .guide-header { background: linear-gradient(90deg, #7a1515, #991b1b); color: #fff; padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; }
-        .guide-header h1 { font-size: 20px; font-weight: 700; }
-        .guide-body { padding: 20px 24px; overflow-y: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; background: #f8fafc; }
-        .rule-card { background: #fff; border: 1px solid #e2e8f0; border-top: 3px solid #7a1515; border-radius: 6px; padding: 14px; }
-        .rule-card h3 { font-size: 14px; color: #7a1515; margin-bottom: 6px; }
-        .rule-card p { font-size: 13px; color: #475569; line-height: 1.6; }
-        .guide-footer { background: #fff; border-top: 1px solid #e2e8f0; padding: 14px 24px; display: flex; justify-content: space-between; align-items: center; }
-        .btn-proceed { background: #16a34a; color: #fff; border: none; padding: 10px 24px; font-size: 14px; font-weight: 700; border-radius: 4px; cursor: pointer; }
-        .btn-proceed:disabled { background: #94a3b8; cursor: not-allowed; }
+  <style>
+    /* Online Kruti Dev Font Load (Mobile & PC dono ke liye) */
+    @font-face {
+      font-family: 'Kruti Dev 010';
+      src: url('https://raw.githubusercontent.com/arunbabuk/kruti-dev-010-font/master/Kruti_Dev_010.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
 
-        /* MAIN DUAL WORKSPACE */
-        .main-exam-app { display: flex; height: 100vh; width: 100vw; overflow: hidden; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        /* LEFT PANEL: 5 Questions & Clock */
-        .left-panel { width: 380px; background: #ffffff; border-right: 2px solid #cbd5e1; display: flex; flex-direction: column; flex-shrink: 0; height: 100%; }
-        .court-header { background: #7a1515; color: #fff; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; }
-        .court-header h2 { font-size: 14px; font-weight: 700; }
-        .marks-badge { background: #c59b27; color: #000; font-weight: 800; padding: 2px 8px; border-radius: 3px; font-size: 11px; }
-        .exam-info-strip { background: #1e293b; color: #cbd5e1; padding: 5px 14px; font-size: 11px; display: flex; justify-content: space-between; align-items: center; }
-        .clock-display { background: #ffffff; padding: 8px 14px; border-bottom: 1px solid #e2e8f0; text-align: center; }
-        .clock-display small { font-size: 10px; color: #64748b; font-weight: 700; display: block; }
-        .clock-display b { font-size: 26px; font-weight: 800; color: #b91c1c; letter-spacing: 1px; }
-        .q-scroll { flex: 1; overflow-y: auto; padding: 12px; }
-        .question-box { background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px; margin-bottom: 12px; overflow: hidden; }
-        .q-head { background: #f8fafc; border-bottom: 1px solid #e2e8f0; padding: 6px 10px; font-size: 13px; font-weight: 700; color: #7a1515; }
-        .q-body { padding: 8px 10px; display: flex; flex-direction: column; gap: 8px; }
-        .sub-q { font-size: 12px; line-height: 1.5; color: #334155; border-bottom: 1px dashed #e2e8f0; padding-bottom: 6px; }
-        .sub-q:last-child { border-bottom: none; padding-bottom: 0; }
-        .panel-footer { background: #f8fafc; border-top: 1px solid #cbd5e1; padding: 10px 14px; display: flex; flex-direction: column; gap: 6px; }
-        .btn-finish { background: #64748b; color: #ffffff; border: none; padding: 9px; font-weight: 700; font-size: 13px; border-radius: 4px; cursor: not-allowed; text-align: center; }
+    body {
+      background-color: #f4f6f9;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+    }
 
-        /* RIGHT PANEL: MS Word Workspace */
-        .right-panel { flex: 1; display: flex; flex-direction: column; height: 100%; overflow: hidden; background: #555e69; }
-        .word-top-bar { background: #b91c1c; color: #fff; height: 26px; display: flex; align-items: center; justify-content: space-between; padding: 0 12px; font-size: 11px; user-select: none; }
-        .tabs-header { background: var(--tab-bg); display: flex; align-items: flex-end; padding: 0 8px; height: 28px; border-bottom: 1px solid var(--border-ui); }
-        .tab-btn { padding: 4px 14px; font-size: 12px; font-weight: 600; cursor: pointer; border-radius: 3px 3px 0 0; color: #334155; user-select: none; }
-        .tab-btn.active { background: var(--ribbon-bg); color: var(--word-blue); border: 1px solid var(--border-ui); border-bottom: none; }
-        .tab-btn.file-tab { background: #2b579a; color: #fff; font-weight: 700; margin-right: 4px; }
-        .tab-btn.table-tool-tab { background: #e0e7ff; color: #4338ca; border: 1px solid #a5b4fc; border-bottom: none; display: none; }
+    /* Top Control Bar */
+    header {
+      background: #1e3d59;
+      color: white;
+      padding: 8px 16px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    }
 
-        /* Ribbon Containers */
-        .ribbon-dock { background: var(--ribbon-bg); border-bottom: 2px solid var(--border-ui); height: 96px; display: flex; align-items: stretch; padding: 4px 8px; overflow-x: auto; user-select: none; }
-        .ribbon-shelf { display: none; height: 100%; align-items: stretch; gap: 6px; }
-        .ribbon-shelf.active { display: flex; }
-        .shelf-grp { border-right: 1px solid #cbd5e1; padding: 0 6px; display: flex; flex-direction: column; justify-content: space-between; position: relative; }
-        .shelf-grp:last-child { border-right: none; }
-        .shelf-row { display: flex; align-items: center; gap: 3px; margin-bottom: 2px; }
-        .shelf-lbl { text-align: center; font-size: 10px; color: #64748b; border-top: 1px solid #e2e8f0; padding-top: 1px; display: flex; justify-content: center; align-items: center; gap: 3px; }
-        .grp-arrow { font-size: 9px; cursor: pointer; color: #475569; padding: 0 2px; }
-        .grp-arrow:hover { color: #000; }
+    .badge {
+      background: #17b978;
+      color: white;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: bold;
+    }
 
-        .r-btn { background: #ffffff; border: 1px solid #cbd5e1; border-radius: 2px; min-width: 25px; height: 23px; font-size: 11px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0 5px; }
-        .r-btn:hover { background: #e2e8f0; }
-        .r-select { height: 23px; font-size: 11px; border: 1px solid #cbd5e1; border-radius: 2px; background: #fff; padding: 0 4px; outline: none; }
-        .r-color { position: relative; background: #fff; border: 1px solid #cbd5e1; border-radius: 2px; min-width: 25px; height: 23px; display: flex; align-items: center; justify-content: center; font-size: 11px; cursor: pointer; }
-        .r-color input { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
 
-        /* A4 Canvas Page */
-        .doc-desk { flex: 1; overflow-y: auto; padding: 24px 12px; display: flex; justify-content: center; }
-        .a4-paper { background: #ffffff; width: 820px; min-height: 1050px; box-shadow: 0 6px 20px rgba(0,0,0,0.35); padding: 60px 70px; outline: none; line-height: 2.1; font-size: 19px; color: #111827; position: relative; user-select: text; }
-        .a4-paper table { width: 100%; border-collapse: collapse; margin: 16px 0; }
-        .a4-paper th, .a4-paper td { border: 1px solid #000; padding: 6px 12px; text-align: left; font-size: 17px; }
+    select, button {
+      padding: 6px 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
 
-        /* ADVANCED SETTING DIALOGS */
-        .setting-dialog { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #ffffff; border: 1px solid #64748b; box-shadow: 0 10px 30px rgba(0,0,0,0.4); border-radius: 4px; width: 340px; z-index: 15000; display: none; flex-direction: column; }
-        .dialog-top { background: #2b579a; color: #fff; padding: 6px 10px; font-size: 12px; font-weight: 700; display: flex; justify-content: space-between; }
-        .dialog-inner { padding: 14px; display: flex; flex-direction: column; gap: 10px; font-size: 13px; }
-        .dialog-row { display: flex; justify-content: space-between; align-items: center; }
-        .dialog-bottom { padding: 8px 12px; border-top: 1px solid #cbd5e1; display: flex; justify-content: flex-end; gap: 8px; background: #f8fafc; }
+    button.btn-timer {
+      background: #27ae60;
+      color: white;
+      border: none;
+    }
 
-        /* Score Modal */
-        .modal-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: none; align-items: center; justify-content: center; z-index: 25000; padding: 14px; }
-        .score-box { background: #fff; width: 100%; max-width: 720px; border-radius: 6px; overflow: hidden; box-shadow: 0 12px 30px rgba(0,0,0,0.35); }
-        .score-head { background: #7a1515; color: #fff; padding: 12px 16px; font-weight: 700; display: flex; justify-content: space-between; }
-        .score-body { padding: 16px; max-height: 75vh; overflow-y: auto; }
-        .score-total-banner { text-align: center; padding: 12px; background: #eff6ff; border: 1px solid #3b82f6; border-radius: 6px; margin-bottom: 14px; }
-        .score-total-banner h2 { font-size: 26px; color: #1d4ed8; }
-        .score-grid { width: 100%; border-collapse: collapse; font-size: 13px; }
-        .score-grid th, .score-grid td { border: 1px solid #e2e8f0; padding: 8px; text-align: left; }
-        .score-grid th { background: #f8fafc; }
-        .tag-pass { color: #16a34a; font-weight: 700; }
-        .tag-fail { color: #dc2626; font-weight: 700; }
-        .btn-next-test { background: #2b579a; color: #ffffff; border: none; padding: 8px 16px; border-radius: 4px; font-weight: 700; cursor: pointer; }
-    </style>
+    button.btn-save {
+      background: #2980b9;
+      color: white;
+      border: none;
+    }
+
+    button.btn-clear {
+      background: #c0392b;
+      color: white;
+      border: none;
+    }
+
+    .timer-box {
+      background: #e74c3c;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-weight: bold;
+      min-width: 65px;
+      text-align: center;
+    }
+
+    /* Main Blank Sheet */
+    main {
+      flex: 1;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sheet-wrapper {
+      flex: 1;
+      background: #ffffff;
+      border-radius: 6px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+      border: 1px solid #dcdcdc;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Kruti Dev Strict Typing Textarea */
+    textarea {
+      flex: 1;
+      width: 100%;
+      border: none;
+      outline: none;
+      resize: none;
+      padding: 20px;
+      font-family: 'Kruti Dev 010', sans-serif !important;
+      font-size: 24px;
+      line-height: 1.8;
+      color: #111;
+      background: transparent;
+    }
+
+    /* Footer Stats Bar */
+    footer {
+      background: #ffffff;
+      border-top: 1px solid #ddd;
+      padding: 6px 20px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      color: #555;
+    }
+
+    footer b {
+      color: #1e3d59;
+    }
+  </style>
 </head>
-<body oncontextmenu="return false;" oncopy="return false;" oncut="return false;" onpaste="return false;">
+<body>
 
-    <!-- 1. OFFICIAL INSTRUCTIONS -->
-    <div id="instructionScreen">
-        <div class="guide-box">
-            <div class="guide-header">
-                <h1>High Court Computer Practical Efficiency Examination</h1>
-                <span>Max Marks: 50 | Duration: 10 Min</span>
-            </div>
-            <div class="guide-body">
-                <div class="rule-card">
-                    <h3>📑 Screen Layout</h3>
-                    <p>Left panel par 5 mukhya prashn rahenge. Right panel par authentic MS Word ribbon aur real A4 working document rahega.</p>
-                </div>
-                <div class="rule-card">
-                    <h3>🎯 Strict Evaluation</h3>
-                    <p>Dummy ya free marks nahi milenge. Sahi formatting task perform karne par hi marks award honge, anyatha 0 diya jayega.</p>
-                </div>
-                <div class="rule-card">
-                    <h3>🔒 Strict Security</h3>
-                    <p>Keyboard shortcuts (Ctrl+C, Ctrl+V, Ctrl+X, Ctrl+A aadi) aur Right-Click/Copy-Paste poori tarah blocked hain.</p>
-                </div>
-                <div class="rule-card">
-                    <h3>⏱️ Auto Submission</h3>
-                    <p>Nirdharit 10 minute ka samay samapt hone par test swatah submit ho jayega aur agli exercise unlock hogi.</p>
-                </div>
-            </div>
-            <div class="guide-footer">
-                <label style="display:flex; align-items:center; gap:8px; font-size:14px; font-weight:600; cursor:pointer;">
-                    <input type="checkbox" id="chkTerms" onchange="document.getElementById('btnStartTest').disabled = !this.checked">
-                    <span>Maine sabhi nirdesh dhyanpurvak padh liye hain.</span>
-                </label>
-                <button class="btn-proceed" id="btnStartTest" disabled onclick="beginExamNow()">Start Test ▶</button>
-            </div>
-        </div>
+  <header>
+    <div>
+      <b>Steno Blank Pad</b> <span class="badge">Kruti Dev (OTG Active)</span>
     </div>
 
-    <!-- 2. MAIN APPLICATION -->
-    <div class="main-exam-app">
-        
-        <!-- LEFT PANEL -->
-        <div class="left-panel">
-            <div class="court-header">
-                <h2>Practical Efficiency Test</h2>
-                <span class="marks-badge">50 MARKS</span>
-            </div>
-            <div class="exam-info-strip">
-                <span id="labelTestId">HC Efficiency Set 01</span>
-                <span>🔒 Sequential Lock</span>
-            </div>
-            <div class="clock-display">
-                <small>REMAINING TIME (AUTO-SUBMIT AT 00:00)</small>
-                <b id="lblTimer">10:00</b>
-            </div>
-            <div class="q-scroll" id="questionsContainer"></div>
-            <div class="panel-footer">
-                <button class="btn-finish" id="btnFinish" disabled>Auto-Submitting at 00:00</button>
-            </div>
-        </div>
+    <div class="controls">
+      <!-- 5 to 60 Minutes Timer -->
+      <select id="timerVal">
+        <option value="0">Timer Off</option>
+        <option value="5">05 Min</option>
+        <option value="10">10 Min</option>
+        <option value="15">15 Min</option>
+        <option value="20">20 Min</option>
+        <option value="25">25 Min</option>
+        <option value="30">30 Min</option>
+        <option value="35">35 Min</option>
+        <option value="40">40 Min</option>
+        <option value="45">45 Min</option>
+        <option value="50">50 Min</option>
+        <option value="55">55 Min</option>
+        <option value="60">60 Min</option>
+      </select>
 
-        <!-- RIGHT PANEL: MS WORD WORKSPACE -->
-        <div class="right-panel">
-            <div class="word-top-bar">
-                <span>Document1 - Microsoft Word</span>
-                <span>High Court Examination Engine</span>
-            </div>
+      <span class="timer-box" id="timeDisplay">--:--</span>
+      <button class="btn-timer" id="btnTimer" onclick="handleTimer()">Start</button>
 
-            <div class="tabs-header">
-                <div class="tab-btn file-tab">File</div>
-                <div class="tab-btn active" onclick="activateTab('home', this)">Home</div>
-                <div class="tab-btn" onclick="activateTab('insert', this)">Insert</div>
-                <div class="tab-btn" onclick="activateTab('pagelayout', this)">Page Layout</div>
-                <div class="tab-btn table-tool-tab" id="tblToolTab" onclick="activateTab('tablelayout', this)">Table Tools (Layout)</div>
-            </div>
-
-            <!-- RIBBON SHELF DOCK -->
-            <div class="ribbon-dock">
-
-                <!-- 1. HOME TAB (Photo 1: Clipboard, Font, Paragraph, Editing) -->
-                <div class="ribbon-shelf active" id="tab-home">
-                    <!-- Set Picker -->
-                    <div class="shelf-grp">
-                        <div class="shelf-row">
-                            <select id="selFile" class="r-select" onchange="switchSetManually(this.value)" style="font-weight:700;"></select>
-                        </div>
-                        <div class="shelf-lbl">Practice Set 🔒</div>
-                    </div>
-
-                    <!-- Clipboard Group -->
-                    <div class="shelf-grp">
-                        <div class="shelf-row">
-                            <button class="r-btn" onclick="alert('Direct Paste blocked in Exam Mode')">📋 Paste</button>
-                            <button class="r-btn" onclick="doFormat('cut')">✂ Cut</button>
-                            <button class="r-btn" onclick="doFormat('copy')">📄 Copy</button>
-                        </div>
-                        <div class="shelf-lbl">Clipboard <span class="grp-arrow">↘</span></div>
-                    </div>
-
-                    <!-- Font Group (Photo 1) -->
-                    <div class="shelf-grp">
-                        <div class="shelf-row">
-                            <select class="r-select" style="min-width:105px;">
-                                <option>Mangal</option>
-                                <option>Kruti Dev 010</option>
-                                <option>Calibri</option>
-                            </select>
-                            <select class="r-select" onchange="doFormat('fontSize', this.value)">
-                                <option value="3">14</option>
-                                <option value="4" selected>16</option>
-                                <option value="5">18</option>
-                                <option value="6">24</option>
-                                <option value="7">32</option>
-                            </select>
-                            <button class="r-btn" onclick="doFormat('fontSize', '5')">A▲</button>
-                            <button class="r-btn" onclick="doFormat('fontSize', '3')">A▼</button>
-                        </div>
-                        <div class="shelf-row">
-                            <button class="r-btn" title="Bold" onclick="doFormat('bold')"><b>B</b></button>
-                            <button class="r-btn" title="Italic" onclick="doFormat('italic')"><i>I</i></button>
-                            <button class="r-btn" title="Underline" onclick="doFormat('underline')"><u>U</u></button>
-                            <button class="r-btn" title="Strikethrough" onclick="doFormat('strikeThrough')"><s>abc</s></button>
-                            <button class="r-btn" title="Subscript" onclick="doFormat('subscript')">x₂</button>
-                            <button class="r-btn" title="Superscript" onclick="doFormat('superscript')">x²</button>
-                            <label class="r-color" title="Font Color">A🎨<input type="color" onchange="doFormat('foreColor', this.value)"></label>
-                            <label class="r-color" title="Highlight Color">🖍<input type="color" value="#ffff00" onchange="doFormat('hiliteColor', this.value)"></label>
-                        </div>
-                        <div class="shelf-lbl">Font <span class="grp-arrow" onclick="openDialog('fontDialog')">↘</span></div>
-                    </div>
-
-                    <!-- Paragraph Group (Photo 1) -->
-                    <div class="shelf-grp">
-                        <div class="shelf-row">
-                            <button class="r-btn" onclick="doFormat('insertUnorderedList')">•≡</button>
-                            <button class="r-btn" onclick="doFormat('insertOrderedList')">1≡</button>
-                            <button class="r-btn" onclick="doFormat('outdent')">⇤</button>
-                            <button class="r-btn" onclick="doFormat('indent')">⇥</button>
-                        </div>
-                        <div class="shelf-row">
-                            <button class="r-btn" onclick="doFormat('justifyLeft')">≡</button>
-                            <button class="r-btn" onclick="doFormat('justifyCenter')">≢</button>
-                            <button class="r-btn" onclick="doFormat('justifyRight')">≣</button>
-                            <button class="r-btn" onclick="doFormat('justifyFull')">Ξ</button>
-                            <select class="r-select" onchange="setLineSpacing(this.value)">
-                                <option value="1.0">1.0</option>
-                                <option value="1.15">1.15</option>
-                                <option value="1.5">1.5</option>
-                                <option value="2.0">2.0</option>
-                            </select>
-                        </div>
-                        <div class="shelf-lbl">Paragraph <span class="grp-arrow" onclick="openDialog('paraDialog')">↘</span></div>
-                    </div>
-
-                    <!-- Editing Group (Photo 1: Find, Replace, Select) -->
-                    <div class="shelf-grp">
-                        <div class="shelf-row">
-                            <button class="r-btn" onclick="openFindPrompt()">🔍 Find</button>
-                            <button class="r-btn" onclick="openReplacePrompt()">🔄 Replace</button>
-                            <button class="r-btn" onclick="doFormat('selectAll')">Select All</button>
-                        </div>
-                        <div class="shelf-lbl">Editing</div>
-                    </div>
-                </div>
-
-                <!-- 2. INSERT TAB (Photo 2: Tables & Header/Footer Only) -->
-                <div class="ribbon-shelf" id="tab-insert">
-                    <div class="shelf-grp">
-                        <div class="shelf-row">
-                            <button class="r-btn" onclick="addTable()">Insert Table ⊞</button>
-                            <button class="r-btn" onclick="doFormat('insertHorizontalRule')">Horizontal Line —</button>
-                        </div>
-                        <div class="shelf-lbl">Tables <span class="grp-arrow">↘</span></div>
-                    </div>
-                    <div class="shelf-grp">
-                        <div class="shelf-row">
-                            <button class="r-btn" onclick="promptHeader()">Header ⏶</button>
-                            <button class="r-btn" onclick="promptFooter()">Footer ⏷</button>
-                            <button class="r-btn" onclick="insertPageNumber()">Page Number #</button>
-                        </div>
-                        <div class="shelf-lbl">Header & Footer <span class="grp-arrow">↘</span></div>
-                    </div>
-                </div>
-
-                <!-- 3. PAGE LAYOUT TAB (Photo 3: Page Setup, Page Background, Paragraph) -->
-                <div class="ribbon-shelf" id="tab-pagelayout">
-                    <!-- Page Setup -->
-                    <div class="shelf-grp">
-                        <div class="shelf-row">
-                            <select class="r-select" onchange="setMargins(this.value)">
-                                <option value="normal">Margins: Normal</option>
-                                <option value="narrow">Margins: Narrow</option>
-                                <option value="wide">Margins: Wide</option>
-                            </select>
-                            <select class="r-select" onchange="setOrientation(this.value)">
-                                <option value="portrait">Orientation: Portrait</option>
-                                <option value="landscape">Orientation: Landscape</option>
-                            </select>
-                        </div>
-                        <div class="shelf-row">
-                            <select class="r-select" onchange="setSize(this.value)">
-                                <option value="a4">Size: A4</option>
-                                <option value="letter">Size: Letter</option>
-                                <option value="legal">Size: Legal</option>
-                            </select>
-                            <button class="r-btn" onclick="alert('Page Break Inserted')">Page Break</button>
-                        </div>
-                        <div class="shelf-lbl">Page Setup <span class="grp-arrow" onclick="openDialog('pageSetupDialog')">↘</span></div>
-                    </div>
-
-                    <!-- Page Background (Watermark, Page Color, Page Borders) -->
-                    <div class="shelf-grp">
-                        <div class="shelf-row">
-                            <button class="r-btn" onclick="applyWatermarkPrompt()">Watermark 💧</button>
-                            <label class="r-color" title="Page Color">🎨 Page Color <input type="color" value="#ffffff" onchange="setPageColor(this.value)"></label>
-                            <button class="r-btn" onclick="setPageBorderPrompt()">Page Borders 🔲</button>
-                        </div>
-                        <div class="shelf-lbl">Page Background</div>
-                    </div>
-
-                    <!-- Paragraph Setup (Indent & Spacing) -->
-                    <div class="shelf-grp">
-                        <div class="shelf-row">
-                            <span style="font-size:11px;">Indent Right:</span>
-                            <select class="r-select" onchange="applyIndentRight(this.value)">
-                                <option value="0">0 cm</option>
-                                <option value="1">1 cm</option>
-                                <option value="2">2 cm</option>
-                            </select>
-                        </div>
-                        <div class="shelf-row">
-                            <span style="font-size:11px;">Spacing Before:</span>
-                            <select class="r-select" onchange="setBeforeSpacing(this.value)">
-                                <option value="0">0 pt</option>
-                                <option value="6">6 pt</option>
-                                <option value="10">10 pt</option>
-                                <option value="18">18 pt</option>
-                            </select>
-                        </div>
-                        <div class="shelf-lbl">Paragraph <span class="grp-arrow" onclick="openDialog('paraDialog')">↘</span></div>
-                    </div>
-                </div>
-
-                <!-- 4. DYNAMIC TABLE LAYOUT TAB (Opens when table is selected) -->
-                <div class="ribbon-shelf" id="tab-tablelayout">
-                    <div class="shelf-grp">
-                        <div class="shelf-row">
-                            <button class="r-btn" onclick="insertTableRowAbove()">Row Above ⬆</button>
-                            <button class="r-btn" onclick="insertTableRowBelow()">Row Below ⬇</button>
-                            <button class="r-btn" onclick="deleteCurrentRow()">Delete Row ✖</button>
-                        </div>
-                        <div class="shelf-lbl">Rows & Columns</div>
-                    </div>
-                    <div class="shelf-grp">
-                        <div class="shelf-row">
-                            <button class="r-btn" onclick="setTableCellAlign('left')">Align Top Left</button>
-                            <button class="r-btn" onclick="setTableCellAlign('center')">Align Center</button>
-                            <button class="r-btn" onclick="setTableCellAlign('right')">Align Top Right</button>
-                        </div>
-                        <div class="shelf-lbl">Alignment</div>
-                    </div>
-                    <div class="shelf-grp">
-                        <div class="shelf-row">
-                            <button class="r-btn" onclick="setTableCellMargins()">Cell Margins 📐</button>
-                            <label class="r-color" title="Shading">Cell Color <input type="color" onchange="setCellShading(this.value)"></label>
-                        </div>
-                        <div class="shelf-lbl">Table Properties</div>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- Authentic A4 Paper Document Canvas -->
-            <div class="doc-desk" onclick="handleCanvasClick(event)">
-                <div class="a4-paper" id="docPaper" contenteditable="true" spellcheck="false"></div>
-            </div>
-
-        </div>
-
+      <button class="btn-save" onclick="saveToFile()">Save (.txt)</button>
+      <button class="btn-clear" onclick="clearSheet()">Clear</button>
     </div>
+  </header>
 
-    <!-- DIALOG SETTINGS POPUPS (Corner Launcher Arrows) -->
-    <div class="setting-dialog" id="fontDialog">
-        <div class="dialog-top"><span>Font Advanced Setting</span><span style="cursor:pointer;" onclick="closeDialog('fontDialog')">✕</span></div>
-        <div class="dialog-inner">
-            <div class="dialog-row"><label>Font Color:</label><input type="color" id="dlgFontColor"></div>
-            <div class="dialog-row"><label>Effects:</label><span><input type="checkbox" id="dlgBold"> Bold <input type="checkbox" id="dlgItalic"> Italic</span></div>
-        </div>
-        <div class="dialog-bottom"><button class="r-btn" onclick="applyFontDialog()">OK</button></div>
+  <main>
+    <div class="sheet-wrapper">
+      <textarea id="typingPad" placeholder="OTG Keyboard connect karein aur typing shuru karein..." autofocus spellcheck="false"></textarea>
     </div>
+  </main>
 
-    <div class="setting-dialog" id="paraDialog">
-        <div class="dialog-top"><span>Paragraph Setting</span><span style="cursor:pointer;" onclick="closeDialog('paraDialog')">✕</span></div>
-        <div class="dialog-inner">
-            <div class="dialog-row"><label>Alignment:</label><select id="dlgAlign"><option value="left">Left</option><option value="center">Center</option><option value="right">Right</option><option value="justify">Justify</option></select></div>
-            <div class="dialog-row"><label>Right Indent:</label><input type="text" id="dlgRightIndent" placeholder="e.g. 2 cm" style="width:80px;"></div>
-        </div>
-        <div class="dialog-bottom"><button class="r-btn" onclick="applyParaDialog()">OK</button></div>
+  <footer>
+    <div>
+      Words: <b id="wCount">0</b> &nbsp;|&nbsp; 
+      Characters: <b id="cCount">0</b> &nbsp;|&nbsp; 
+      Lines: <b id="lCount">0</b>
     </div>
+    <div>Strict Remington Hindi Layout</div>
+  </footer>
 
-    <div class="setting-dialog" id="pageSetupDialog">
-        <div class="dialog-top"><span>Page Setup</span><span style="cursor:pointer;" onclick="closeDialog('pageSetupDialog')">✕</span></div>
-        <div class="dialog-inner">
-            <div class="dialog-row"><label>Orientation:</label><select id="dlgOrient"><option value="portrait">Portrait</option><option value="landscape">Landscape</option></select></div>
-            <div class="dialog-row"><label>Margins:</label><input type="text" value="Normal (2.54 cm)" style="width:110px;" readonly></div>
-        </div>
-        <div class="dialog-bottom"><button class="r-btn" onclick="applyPageSetupDialog()">OK</button></div>
-    </div>
+  <script>
+    const pad = document.getElementById('typingPad');
+    const wCount = document.getElementById('wCount');
+    const cCount = document.getElementById('cCount');
+    const lCount = document.getElementById('lCount');
+    const timerVal = document.getElementById('timerVal');
+    const timeDisplay = document.getElementById('timeDisplay');
+    const btnTimer = document.getElementById('btnTimer');
 
-    <!-- SCORE RESULT POPUP -->
-    <div class="modal-screen" id="popupModal">
-        <div class="score-box">
-            <div class="score-head">
-                <span>High Court Practical Efficiency Scorecard</span>
-            </div>
-            <div class="score-body">
-                <div class="score-total-banner">
-                    <h2 id="txtTotalScore">Total Score: 0 / 50</h2>
-                    <p id="txtQualResult" style="font-weight:700; margin-top:4px;"></p>
-                </div>
-                <table class="score-grid">
-                    <thead>
-                        <tr>
-                            <th>Task ID</th>
-                            <th>Description</th>
-                            <th>Marks</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tblScoreReport"></tbody>
-                </table>
-                <div style="margin-top:16px; display:flex; justify-content:flex-end;">
-                    <button class="btn-next-test" id="btnNextTest" onclick="proceedNextTest()">Proceed to Next Test ➔</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    let countdown = null;
+    let secondsLeft = 0;
 
-    <script>
-        // High Court 10 Standard Sets
-        const examSets = [
-            {
-                id: 1,
-                title: "HC Efficiency Set 01",
-                doc: {
-                    p1: "अधिवक्ता वादीगण ने उपरोक्त समस्त तर्कों का खंडन करते हुए यह तर्क दिया कि वादग्रस्त भूमियां पुश्तैनी होकर वादीगण को Rajasthan वादग्रस्त भूमियों में जन्म से ही अधिकार प्राप्त हैं, ऐसी स्थिति में वादीगण को वादग्रस्त भूमियों High Court में खातेदारी अधिकारों की घोषणा करवाए जाने की आवश्यकता नहीं है।",
-                    p2: "वादीगण के यह भी तर्क रहे कि प्रतिवादी संख्या 3 द्वारा किया गया विक्रय वादीगण के मुकाबले प्रारंभ से ही शून्य व अवैध है एवं प्रतिवादी संख्या 3 Rajasthan को वादीगण के हिस्से की भूमियों को विक्रय करने का कोई अधिकार नहीं है। साथ ही अधिवक्ता Court का यह भी तर्क रहा कि वादीगण ने वाद घोषणा हेतु प्रस्तुत किया है।",
-                    p3: "जिसकी मालियत वादी ने राजस्थान न्यायालय फीस एवं वाद मूल्यांकन अधिनियम की धारा 7-ख के अनुसार पेश की है, जो कि सही है। इसके अतिरिक्त वादीगण का यह तर्क रहा कि हस्तगत आवेदन के जरिए प्रतिवादी द्वारा जो भी उजर उठाए गए हैं, वह विधि व तथ्य के मिश्रित प्रश्न हैं, जिनका निस्तारण प्रकरण में साक्ष्य लिए जाने के उपरांत ही किया जा सकेगा।",
-                    p4: "वादीगण के लिए प्रश्नगत संपत्ति पर अपना हक स्थापित करना तब तक असंभव होगा, जब तक कि वे इस डीड को निरस्त करने के लिए मुकदमा नहीं करते हैं, क्योंकि पिता द्वारा की गई बिक्री बेटों पर बाध्यकारी होगी। अतः वादी का वर्तमान वाद वास्तव में घोषणा के लिए नहीं, अपितु विक्रय विलेख को पूर्णतः निरस्त करने के लिए प्रस्तुत किया गया है। विधि का यह सुस्थापित सिद्धांत है कि वाद के सार को देखना चाहिए, न कि दिखावटी तौर पर प्रस्तुत किए गए अभिवचनों को।",
-                    p5: "अतः चूंकि उपरोक्तानुसार न्यायालय द्वारा यह माना गया है कि वादी का हस्तगत वाद मुख्यतः विक्रय विलेख के निरस्तीकरण के लिए है, ऐसी स्थिति में दस्तावेजों के निरस्तीकरण के लिए विधायिका ने राजस्थान न्यायालय फीस एवं वाद मूल्यांकन अधिनियम की धारा 38 का प्रावधान किया है, जिसके अंतर्गत फीस की संगणना सब्जेक्ट मैटर के आधार पर तय होती है।",
-                    table: [
-                        ["क्र.सं.", "प्रकरण संख्या", "पुलिस थाना", "धारा", "अपराध की दिनांक", "नतीजा"],
-                        ["01.", "202 / 2026", "सरदारपुरा", "304, 323 भा.दं.सं.", "01.01.2018", "दोषसिद्ध"],
-                        ["02.", "06 / 2016", "एसीबी जोधपुर", "13 ए बी", "01.08.2016", "दोषमुक्त"],
-                        ["03.", "356 / 2021", "आबकारी जोधपुर", "19 / 54", "01.01.2021", "दोषसिद्ध"],
-                        ["04.", "501 / 2022", "महामंदिर", "20 / 2022", "20.08.2022", "विचाराधीन"],
-                        ["05.", "99 / 2026", "करवड़", "95 / 2024", "20.04.2024", "विचाराधीन"]
-                    ]
-                },
-                initialFormatting: { p2Bold: true, p2Italic: true },
-                questions: [
-                    {
-                        title: "प्रश्न 1. Question 1 (10 अंक)",
-                        subs: [
-                            { id: "1(अ)", text: "(अ) दूसरे पैराग्राफ का पहले से दिया गया बोल्ड (Bold) इफेक्ट रीमूव करें। [3 अंक]", pts: 3, check: () => !checkBold(document.getElementById('p2')) },
-                            { id: "1(ब)", text: "(ब) चतुर्थ पैराग्राफ को अंडरलाइन (Underline) करें। [3 अंक]", pts: 3, check: () => checkUnderline(document.getElementById('p4')) },
-                            { id: "1(स)", text: "(स) दिए गए डॉक्यूमेंट के पेज का ओरिएंटेशन लैंडस्केप सेट करें। [4 अंक]", pts: 4, check: () => document.getElementById('docPaper').style.width === '1050px' }
-                        ]
-                    },
-                    {
-                        title: "प्रश्न 2. Question 2 (10 अंक)",
-                        subs: [
-                            { id: "2(अ)", text: "(अ) पांचवें पैराग्राफ की लाइन स्पेसिंग डबल (2.0) सेट करें। [3 अंक]", pts: 3, check: () => checkLineHeight(document.getElementById('p5'), '2') },
-                            { id: "2(ब)", text: "(ब) दूसरे पैराग्राफ का पहले से दिया गया इटैलिक इफेक्ट रीमूव करें। [3 अंक]", pts: 3, check: () => !checkItalic(document.getElementById('p2')) },
-                            { id: "2(स)", text: "(स) तीसरे पैराग्राफ को सेंटर अलाइन (Center Align) करें। [4 अंक]", pts: 4, check: () => checkAlign(document.getElementById('p3'), 'center') }
-                        ]
-                    },
-                    {
-                        title: "प्रश्न 3. Question 3 (10 अंक)",
-                        subs: [
-                            { id: "3(अ)", text: "(अ) प्रथम पैराग्राफ की बिफोर स्पेसिंग 10 pt सेट करें। [3 अंक]", pts: 3, check: () => document.getElementById('p1').style.paddingTop.includes('10') },
-                            { id: "3(ब)", text: "(ब) दूसरे पैराग्राफ को राइट अलाइन (Right Align) करें। [3 अंक]", pts: 3, check: () => checkAlign(document.getElementById('p2'), 'right') },
-                            { id: "3(स)", text: "(स) तीसरे पैराग्राफ का टेक्स्ट कलर रेड (Red) करें। [4 अंक]", pts: 4, check: () => checkColor(document.getElementById('p3'), '255, 0, 0') }
-                        ]
-                    },
-                    {
-                        title: "प्रश्न 4. Question 4 (10 अंक)",
-                        subs: [
-                            { id: "4(अ)", text: "(अ) चौथे पैराग्राफ को स्ट्राइकथ्रू (Strikethrough) इफेक्ट दें। [3 अंक]", pts: 3, check: () => checkStrike(document.getElementById('p4')) },
-                            { id: "4(ब)", text: "(ब) पांचवें पैराग्राफ को येलो कलर से हाईलाइट करें। [3 अंक]", pts: 3, check: () => checkHighlight(document.getElementById('p5')) },
-                            { id: "4(स)", text: "(स) पेज का मार्जिन नैरो (Narrow) सेट करें। [4 अंक]", pts: 4, check: () => document.getElementById('docPaper').style.padding.includes('30px') }
-                        ]
-                    },
-                    {
-                        title: "प्रश्न 5. Question 5 (10 अंक)",
-                        subs: [
-                            { id: "5(अ)", text: "(अ) टेबल के हेडिंग रो का बैकग्राउंड कलर सेट करें। [3 अंक]", pts: 3, check: () => checkBg(document.querySelector('#tblBox table tr'), 'rgb') },
-                            { id: "5(ब)", text: "(ब) टेबल के दूसरे कॉलम के शब्दों को बोल्ड करें। [3 अंक]", pts: 3, check: () => checkColBold(2) },
-                            { id: "5(स)", text: "(स) टेबल के सभी सेल का अलाइनमेंट सेंटर करें। [4 अंक]", pts: 4, check: () => checkTableCenter() }
-                        ]
-                    }
-                ]
-            }
-        ];
+    // Word, Char & Line Counter
+    pad.addEventListener('input', () => {
+      const text = pad.value;
+      cCount.textContent = text.length;
+      
+      const words = text.trim().split(/\s+/).filter(w => w.length > 0);
+      wCount.textContent = words.length;
 
-        for (let s = 2; s <= 10; s++) {
-            examSets.push({
-                id: s,
-                title: "HC Efficiency Set 0" + s,
-                doc: examSets[0].doc,
-                initialFormatting: examSets[0].initialFormatting,
-                questions: examSets[0].questions
-            });
+      const lines = text.split('\n').filter(l => l.length > 0);
+      lineCount = lines.length;
+      lCount.textContent = lineCount;
+    });
+
+    // Timer Logic (Up to 60 Minutes)
+    function handleTimer() {
+      if (countdown) {
+        clearInterval(countdown);
+        countdown = null;
+        btnTimer.textContent = "Start";
+        btnTimer.style.background = "#27ae60";
+        return;
+      }
+
+      const m = parseInt(timerVal.value);
+      if (m === 0) {
+        alert("Kripya samay chunein (5 - 60 min)");
+        return;
+      }
+
+      secondsLeft = m * 60;
+      updateDisplay();
+
+      btnTimer.textContent = "Stop";
+      btnTimer.style.background = "#c0392b";
+
+      countdown = setInterval(() => {
+        secondsLeft--;
+        updateDisplay();
+        if (secondsLeft <= 0) {
+          clearInterval(countdown);
+          countdown = null;
+          alert("Time's Up! Steno Translation ka samay pura hua.");
+          btnTimer.textContent = "Start";
+          btnTimer.style.background = "#27ae60";
         }
+      }, 1000);
+    }
 
-        let currentSetIndex = 0;
-        let unlockedMaxIndex = 0;
-        let timeLeft = 600;
-        let examTimer = null;
+    function updateDisplay() {
+      const h = Math.floor(secondsLeft / 3600);
+      const min = Math.floor((secondsLeft % 3600) / 60);
+      const sec = secondsLeft % 60;
+      
+      if (h > 0) {
+        timeDisplay.textContent = `${h}:${min < 10 ? '0' + min : min}:${sec < 10 ? '0' + sec : sec}`;
+      } else {
+        timeDisplay.textContent = `${min < 10 ? '0' + min : min}:${sec < 10 ? '0' + sec : sec}`;
+      }
+    }
 
-        function populateSetDropdown() {
-            const sel = document.getElementById('selFile');
-            sel.innerHTML = '';
-            examSets.forEach((item, idx) => {
-                const opt = document.createElement('option');
-                opt.value = idx;
-                opt.textContent = (idx <= unlockedMaxIndex) ? item.title + " (Unlocked)" : item.title + " 🔒 (Locked)";
-                opt.disabled = idx > unlockedMaxIndex;
-                sel.appendChild(opt);
-            });
-            sel.value = currentSetIndex;
-        }
+    // Clear Screen
+    function clearSheet() {
+      if (pad.value.length > 0 && confirm("Kya aap pura matter hatana chahte hain?")) {
+        pad.value = "";
+        wCount.textContent = "0";
+        cCount.textContent = "0";
+        lCount.textContent = "0";
+      }
+    }
 
-        function switchSetManually(idx) {
-            const target = parseInt(idx);
-            if (target > unlockedMaxIndex) {
-                alert("यह सेट अभी लॉक है! पिछला टेस्ट पूरा सबमिट करने के बाद ही यह खुलेगा।");
-                document.getElementById('selFile').value = currentSetIndex;
-                return;
-            }
-            currentSetIndex = target;
-            loadExamSet(currentSetIndex);
-        }
-
-        function loadExamSet(idx) {
-            const data = examSets[idx];
-            document.getElementById('labelTestId').textContent = data.title;
-
-            document.getElementById('questionsContainer').innerHTML = data.questions.map(q => `
-                <div class="question-box">
-                    <div class="q-head">${q.title}</div>
-                    <div class="q-body">
-                        ${q.subs.map(s => `<div class="sub-q">${s.text}</div>`).join('')}
-                    </div>
-                </div>
-            `).join('');
-
-            const paper = document.getElementById('docPaper');
-            let tblHtml = '<table>';
-            data.doc.table.forEach((r, rIdx) => {
-                tblHtml += '<tr>';
-                r.forEach(c => { tblHtml += (rIdx === 0 ? `<th>${c}</th>` : `<td>${c}</td>`); });
-                tblHtml += '</tr>';
-            });
-            tblHtml += '</table>';
-
-            paper.innerHTML = `
-                <p id="p1">${data.doc.p1}</p><br>
-                <p id="p2">${data.doc.p2}</p><br>
-                <p id="p3">${data.doc.p3}</p><br>
-                <p id="p4">${data.doc.p4}</p><br>
-                <p id="p5">${data.doc.p5}</p><br>
-                <div id="tblBox">${tblHtml}</div>
-            `;
-
-            if (data.initialFormatting.p2Bold) document.getElementById('p2').style.fontWeight = 'bold';
-            if (data.initialFormatting.p2Italic) document.getElementById('p2').style.fontStyle = 'italic';
-        }
-
-        function beginExamNow() {
-            document.getElementById('instructionScreen').style.display = 'none';
-            loadExamSet(currentSetIndex);
-            populateSetDropdown();
-            start10MinTimer();
-        }
-
-        function start10MinTimer() {
-            clearInterval(examTimer);
-            timeLeft = 600;
-            updateTimerDisplay();
-
-            examTimer = setInterval(() => {
-                timeLeft--;
-                updateTimerDisplay();
-                if (timeLeft <= 0) {
-                    clearInterval(examTimer);
-                    autoSubmitStrictTest();
-                }
-            }, 1000);
-        }
-
-        function updateTimerDisplay() {
-            const m = Math.floor(timeLeft / 60);
-            const s = timeLeft % 60;
-            document.getElementById('lblTimer').textContent = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
-        }
-
-        function activateTab(name, btn) {
-            document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
-            if(btn) btn.classList.add('active');
-            document.querySelectorAll('.ribbon-shelf').forEach(s => s.classList.remove('active'));
-            const target = document.getElementById('tab-' + name);
-            if (target) target.classList.add('active');
-        }
-
-        function handleCanvasClick(e) {
-            const isTable = e.target.closest('table');
-            const tblTab = document.getElementById('tblToolTab');
-            if (isTable) {
-                tblTab.style.display = 'block';
-                activateTab('tablelayout', tblTab);
-            } else {
-                tblTab.style.display = 'none';
-            }
-        }
-
-        function doFormat(cmd, val = null) {
-            document.execCommand(cmd, false, val);
-            document.getElementById('docPaper').focus();
-        }
-
-        function setLineSpacing(val) {
-            const sel = window.getSelection();
-            if (sel.rangeCount > 0) {
-                const el = sel.anchorNode.parentElement.closest('p');
-                if (el) el.style.lineHeight = val;
-            }
-        }
-
-        function setOrientation(type) {
-            document.getElementById('docPaper').style.width = (type === 'landscape') ? '1050px' : '820px';
-        }
-
-        function setMargins(type) {
-            document.getElementById('docPaper').style.padding = (type === 'narrow') ? '30px 40px' : (type === 'wide') ? '80px 100px' : '60px 70px';
-        }
-
-        function setSize(type) {
-            if (type === 'legal') document.getElementById('docPaper').style.minHeight = '1200px';
-            else document.getElementById('docPaper').style.minHeight = '1050px';
-        }
-
-        function setBeforeSpacing(val) {
-            document.getElementById('p1').style.paddingTop = val + 'pt';
-        }
-
-        function applyIndentRight(val) {
-            document.getElementById('p2').style.marginRight = val + 'cm';
-        }
-
-        function setPageColor(color) {
-            document.getElementById('docPaper').style.backgroundColor = color;
-        }
-
-        function setPageBorderPrompt() {
-            document.getElementById('docPaper').style.border = '3px solid #111827';
-        }
-
-        function applyWatermarkPrompt() {
-            alert("Watermark 'राजस्थान' Applied.");
-        }
-
-        function openFindPrompt() {
-            const word = prompt("Enter word to find in document:");
-            if (word) window.find(word);
-        }
-
-        function openReplacePrompt() {
-            const fWord = prompt("Enter word to find:");
-            const rWord = prompt("Enter replacement word:");
-            if (fWord && rWord) {
-                const doc = document.getElementById('docPaper');
-                doc.innerHTML = doc.innerHTML.replaceAll(fWord, rWord);
-            }
-        }
-
-        function promptHeader() { alert("Header section activated."); }
-        function promptFooter() { alert("Footer section activated."); }
-        function insertPageNumber() { alert("Page numbering added to Footer."); }
-        function addTable() {
-            doFormat('insertHTML', '<table border="1" style="width:100%; border-collapse:collapse; margin:10px 0;"><tr><td>कॉलम 1</td><td>कॉलम 2</td></tr><tr><td>डाटा 1</td><td>डाटा 2</td></tr></table>');
-        }
-
-        function insertTableRowBelow() {
-            const tbl = document.querySelector('#tblBox table');
-            if (tbl) {
-                const row = tbl.insertRow(-1);
-                for (let i = 0; i < 6; i++) {
-                    const cell = row.insertCell(i);
-                    cell.textContent = "नया विवरण";
-                }
-            }
-        }
-
-        function insertTableRowAbove() {
-            const tbl = document.querySelector('#tblBox table');
-            if (tbl && tbl.rows.length > 1) {
-                const row = tbl.insertRow(1);
-                for (let i = 0; i < 6; i++) {
-                    const cell = row.insertCell(i);
-                    cell.textContent = "नया विवरण";
-                }
-            }
-        }
-
-        function deleteCurrentRow() {
-            const tbl = document.querySelector('#tblBox table');
-            if (tbl && tbl.rows.length > 2) tbl.deleteRow(-1);
-        }
-
-        function setTableCellAlign(align) {
-            document.querySelectorAll('#tblBox table td, #tblBox table th').forEach(c => c.style.textAlign = align);
-        }
-
-        function setCellShading(color) {
-            document.querySelectorAll('#tblBox table tr th').forEach(c => c.style.backgroundColor = color);
-        }
-
-        function setTableCellMargins() {
-            document.querySelectorAll('#tblBox table td, #tblBox table th').forEach(c => c.style.padding = '12px 18px');
-        }
-
-        function openDialog(id) { document.getElementById(id).style.display = 'flex'; }
-        function closeDialog(id) { document.getElementById(id).style.display = 'none'; }
-        function applyFontDialog() {
-            const c = document.getElementById('dlgFontColor').value;
-            if (c) doFormat('foreColor', c);
-            closeDialog('fontDialog');
-        }
-        function applyParaDialog() {
-            const a = document.getElementById('dlgAlign').value;
-            doFormat('justify' + a.charAt(0).toUpperCase() + a.slice(1));
-            const ind = document.getElementById('dlgRightIndent').value;
-            if (ind) document.getElementById('p2').style.marginRight = ind;
-            closeDialog('paraDialog');
-        }
-        function applyPageSetupDialog() {
-            setOrientation(document.getElementById('dlgOrient').value);
-            closeDialog('pageSetupDialog');
-        }
-
-        // Strict Verification Checking Helpers
-        function checkBold(el) {
-            if (!el) return false;
-            const w = window.getComputedStyle(el).fontWeight;
-            return w === 'bold' || parseInt(w) >= 700 || !!el.querySelector('b, strong');
-        }
-        function checkItalic(el) {
-            if (!el) return false;
-            return window.getComputedStyle(el).fontStyle === 'italic' || !!el.querySelector('i, em');
-        }
-        function checkUnderline(el) {
-            if (!el) return false;
-            return window.getComputedStyle(el).textDecoration.includes('underline') || !!el.querySelector('u');
-        }
-        function checkStrike(el) {
-            if (!el) return false;
-            return window.getComputedStyle(el).textDecoration.includes('line-through') || !!el.querySelector('s, strike');
-        }
-        function checkAlign(el, val) {
-            if (!el) return false;
-            return window.getComputedStyle(el).textAlign === val;
-        }
-        function checkLineHeight(el, val) {
-            if (!el) return false;
-            return el.style.lineHeight.includes(val);
-        }
-        function checkHighlight(el) {
-            if (!el) return false;
-            const bg = window.getComputedStyle(el).backgroundColor;
-            return bg !== 'rgba(0, 0, 0, 0)' && bg !== 'transparent' && bg.includes('rgb');
-        }
-        function checkColor(el, rgbPart) {
-            if (!el) return false;
-            return window.getComputedStyle(el).color.includes(rgbPart);
-        }
-        function checkBg(el, rgbPart) {
-            if (!el) return false;
-            return window.getComputedStyle(el).backgroundColor.includes(rgbPart);
-        }
-        function checkColBold(colNum) {
-            const cells = document.querySelectorAll(`#tblBox table tr td:nth-child(${colNum})`);
-            return Array.from(cells).some(c => checkBold(c));
-        }
-        function checkTableCenter() {
-            const tbl = document.querySelector('#tblBox table');
-            if (!tbl) return false;
-            return window.getComputedStyle(tbl).textAlign === 'center' || Array.from(tbl.querySelectorAll('td, th')).some(c => checkAlign(c, 'center'));
-        }
-
-        function autoSubmitStrictTest() {
-            let total = 0;
-            let report = '';
-            const currentData = examSets[currentSetIndex];
-
-            currentData.questions.forEach(q => {
-                q.subs.forEach(s => {
-                    const pass = s.check();
-                    const got = pass ? s.pts : 0;
-                    total += got;
-                    report += `
-                        <tr>
-                            <td><b>${s.id}</b></td>
-                            <td>${s.text}</td>
-                            <td><b>${got} / ${s.pts}</b></td>
-                            <td>${pass ? '<span class="tag-pass">Passed (✓)</span>' : '<span class="tag-fail">Failed (✗)</span>'}</td>
-                        </tr>
-                    `;
-                });
-            });
-
-            document.getElementById('txtTotalScore').textContent = `Total Score: ${total} / 50`;
-            const qual = document.getElementById('txtQualResult');
-            if (total >= 25) {
-                qual.textContent = "Result: QUALIFIED (Passed)";
-                qual.style.color = "#16a34a";
-            } else {
-                qual.textContent = "Result: NOT QUALIFIED (Requires 25+ Marks)";
-                qual.style.color = "#dc2626";
-            }
-
-            document.getElementById('tblScoreReport').innerHTML = report;
-
-            if (currentSetIndex + 1 < examSets.length) {
-                unlockedMaxIndex = Math.max(unlockedMaxIndex, currentSetIndex + 1);
-                document.getElementById('btnNextTest').style.display = 'block';
-                document.getElementById('btnNextTest').textContent = `Proceed to Set 0${currentSetIndex + 2} ➔`;
-            } else {
-                document.getElementById('btnNextTest').style.display = 'none';
-            }
-
-            populateSetDropdown();
-            document.getElementById('popupModal').style.display = 'flex';
-        }
-
-        function proceedNextTest() {
-            document.getElementById('popupModal').style.display = 'none';
-            currentSetIndex++;
-            loadExamSet(currentSetIndex);
-            populateSetDropdown();
-            start10MinTimer();
-        }
-
-        // STRICT SECURITY: Disable Copy, Cut, Paste, Right-Click & Keyboard Shortcuts
-        document.addEventListener('contextmenu', function(e) { e.preventDefault(); return false; });
-        document.addEventListener('copy', function(e) { e.preventDefault(); return false; });
-        document.addEventListener('cut', function(e) { e.preventDefault(); return false; });
-        document.addEventListener('paste', function(e) { e.preventDefault(); return false; });
-        document.addEventListener('dragstart', function(e) { e.preventDefault(); return false; });
-        document.addEventListener('drop', function(e) { e.preventDefault(); return false; });
-
-        window.addEventListener('keydown', function(e) {
-            // Prevent F12, F5
-            if (e.keyCode === 123 || e.key === 'F12' || e.key === 'F5') {
-                e.preventDefault();
-                return false;
-            }
-            // Block all Ctrl/Cmd shortcuts (Ctrl+C, Ctrl+V, Ctrl+X, Ctrl+A, Ctrl+U, Ctrl+P, Ctrl+S, etc.)
-            if (e.ctrlKey || e.metaKey) {
-                const blockedKeys = ['c', 'C', 'v', 'V', 'x', 'X', 'a', 'A', 'u', 'U', 'p', 'P', 's', 'S', 'j', 'J'];
-                if (blockedKeys.includes(e.key)) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    return false;
-                }
-                if (e.shiftKey && ['i', 'I', 'j', 'J', 'c', 'C'].includes(e.key)) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    return false;
-                }
-            }
-        }, true);
-
-        window.onload = function() {
-            populateSetDropdown();
-        };
-    </script>
+    // Save Typed File (.txt)
+    function saveToFile() {
+      const text = pad.value;
+      if (!text) {
+        alert("Pehle kuch type karein!");
+        return;
+      }
+      const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = `Steno_Translation_${new Date().toISOString().slice(0,10)}.txt`;
+      a.click();
+    }
+  </script>
 </body>
 </html>
-
